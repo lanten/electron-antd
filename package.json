@@ -4,21 +4,48 @@
   "description": "sccpDesktop",
   "main": "./app/main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "pack": "build --dir",
+    "dist": "build"
+  },
+  "build": {
+    "productName": "ElectronAntd",
+    "appId": "com.example.ElectronAntd",
+    "files": [
+      "node_modules/",
+      "index.html",
+      "main.js",
+      "package.json"
+    ],
+    "directories": {
+      "buildResources": "resources",
+      "output": "release"
+    },
+    "win": {
+      "target": [
+        "nsis"
+      ]
+    }
   },
   "repository": {
     "type": "git",
-    "url": "lanten"
+    "url": "https://github.com/lanten/electron-template-antd.git"
   },
+  "keywords": [
+    "electron",
+    "start"
+  ],
   "author": "lanten",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "antd": "^2.10.4",
-    "electron": "^1.6.10",
+    "electron-compile": "^6.4.1",
     "react": "^15.5.4",
     "react-dom": "^15.5.4"
   },
   "devDependencies": {
+    "electron": "^1.6.10",
+    "electron-compilers": "^5.9.0",
     "electron-prebuilt-compile": "^1.6.11"
   }
 }

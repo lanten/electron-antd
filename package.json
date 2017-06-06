@@ -1,10 +1,10 @@
 {
-  "name": "sccpdesktop",
+  "name": "electron-template-antd",
   "version": "1.0.0",
   "description": "sccpDesktop",
   "main": "./app/main.js",
   "scripts": {
-    "start": "cross-env NODE_ENV=production electron ."
+    "start": "electron ."
   },
   "repository": {
     "type": "git",
@@ -14,14 +14,11 @@
   "license": "ISC",
   "dependencies": {
     "antd": "^2.10.4",
-    "cross-env": "^5.0.0",
     "electron": "^1.6.10",
     "react": "^15.5.4",
-    "react-dom": "^15.5.4",
-    "babel-preset-es2016-node5": "^1.1.2",
-    "babel-preset-react": "^6.11.1"
+    "react-dom": "^15.5.4"
   },
   "devDependencies": {
-    "babel-cli": "^6.10.1"
+    "electron-prebuilt-compile": "^1.6.11"
   }
 }

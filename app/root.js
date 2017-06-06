@@ -6,11 +6,11 @@ class Main extends React.Component {
   render() {
     return (
       <div className="shopping-list">
-        <h1>Shopping List for {this.props.name}</h1>
+        <h1>React is work</h1>
         <ul>
-          <li>Instagram</li>
-          <li>WhatsApp</li>
-          <li>Oculus</li>
+          <li>Node {process.versions.node}</li>
+          <li>Chrome {process.versions.chrome}</li>
+          <li>Electron {process.versions.electron}</li>
         </ul>
       </div>
     );

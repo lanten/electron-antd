@@ -2,9 +2,9 @@
 
 const { app, BrowserWindow, Menu } = require('electron');
 const path = require('path');
-const menuTemplate = require('./menus/mainMenu');
-const registerShortcuts = require('./localShortcuts');
-const registerIpcListeners = require('./ipcMainListeners');
+// const menuTemplate = require('./menus/mainMenu');
+// const registerShortcuts = require('./localShortcuts');
+// const registerIpcListeners = require('./ipcMainListeners');
 const devtron = require('devtron');
 require('electron-debug')();
 
@@ -46,8 +46,8 @@ app.on('ready', async () => {
   win.loadURL('file://' + path.join(__dirname, '../renderer/index.html'));
 
   // initialize menus
-  const menu = Menu.buildFromTemplate(menuTemplate(win));
-  Menu.setApplicationMenu(menu);
+  // const menu = Menu.buildFromTemplate(menuTemplate(win));
+  // Menu.setApplicationMenu(menu);
 
   // toggle devtools only if development
   if (process.env.NODE_ENV === 'development') {
@@ -59,8 +59,8 @@ app.on('ready', async () => {
   global.mainWindow = win;
 
   // Register listeners and shortcuts
-  registerIpcListeners();
-  registerShortcuts(win);
+  // registerIpcListeners();
+  // registerShortcuts(win);
 
   // Wait for window to be ready before showing to avoid white loading screen
   win.once('ready-to-show', () => {

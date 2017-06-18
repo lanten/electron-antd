@@ -1,0 +1,46 @@
+// Less project settings, you can edit it and set custom settings.
+{
+	// The mappings of source directory and output directory
+	"mappings": [
+		{
+			"src": "./less/*.less",
+			"dest": "./css"
+		}
+	],
+
+	// Add the ignore rules that Koala will not search them.
+	// e.g. ["*.json", "*.txt", "test", "path/libs"]
+	"ignores": ["*.css"],
+
+	// Compile options of LESS.
+	"options": {
+
+		// Output style. Can be normal (default), compress.
+		"outputStyle": "normal",
+
+		// Outputs filename and line numbers, which will output the debug info within comments.
+		"lineComments": false,
+
+		// Outputs filename and line numbers, which will output the information within a fake media query which is compatible with the SASS format.
+		"debugInfo": false,
+
+		"strictMath": false,
+
+		"strictUnits": false,
+
+        // Create sourcemap files next to the generated CSS files
+		"sourceMap": false,
+
+        // auto add vendor prefixes to rules
+        "autoprefix": true,
+        "autoprefixConfig" : "> 1%, last 2 versions, Firefox ESR, Opera 12.1"
+	},
+
+	// Other compile options.
+	// e.g, ["--strict-imports", ... ,"--rootpath=URL"].
+	// Run the command 'lessc -h' to see more options.
+	"customOptions": [],
+
+	// An array of filesystem paths or importers which should be searched for LESS templates imported with the @import directive.
+	"includePaths": []
+}

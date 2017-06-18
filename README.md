@@ -1,4 +1,3 @@
-# electron-react-antd-boilerplate
 ## Quick start
 ```bash
 npm start

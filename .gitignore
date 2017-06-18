@@ -1,5 +1,5 @@
 node_modules
 dist
+build
 .DS_Store
-yarn-error.log
-npm-debug.log
+*.log

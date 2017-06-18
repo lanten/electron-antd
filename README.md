@@ -1,34 +1,7 @@
-# electron-react-redux-boilerplate
-
-A minimal boilerplate to get started with [Electron](http://electron.atom.io/), [React](https://facebook.github.io/react/) and [Redux](http://redux.js.org/).
-
-Including:
-
-* [React Router](https://reacttraining.com/react-router/)
-* [Redux Thunk](https://github.com/gaearon/redux-thunk/)
-* [Redux Actions](https://github.com/acdlite/redux-actions/)
-* [Redux Local Storage](https://github.com/elgerlambert/redux-localstorage/)
-* [Electron Packager](https://github.com/electron-userland/electron-packager)
-* [Electron DevTools Installer](https://github.com/MarshallOfSound/electron-devtools-installer)
-* [Mocha](https://mochajs.org/)
-* [Browsersync](https://browsersync.io/)
-
+# electron-react-antd-boilerplate
 ## Quick start
-
-Clone the repository
 ```bash
-git clone --depth=1 git@github.com:jschr/electron-react-redux-boilerplate.git
-```
-
-Install dependencies
-```bash
-cd electron-react-redux-boilerplate
-npm install
-```
-
-Development
-```bash
-npm run develop
+npm start
 ```
 
 ## DevTools
@@ -62,8 +35,3 @@ npm run pack:linux
 ```
 npm run test
 ```
-
-## Maintainers
-
-- [@jschr](https://github.com/jschr)
-- [@pronebird](https://github.com/pronebird)

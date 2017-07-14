@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button } from 'antd';
-import { $ } from './fn';
+import { $ } from '../components/fn';
 
 
 export default class LoggedIn extends Component {
@@ -19,9 +19,8 @@ export default class LoggedIn extends Component {
       <div>
         <h2>Logged in as {this.props.location.state.username}</h2>
         <Button onClick={() => {
-          console.log(this.props.router)
           this.props.router.goBack();
-        }}>Test</Button>
+        }}>返回</Button>
       </div>
     );
   }

@@ -25,7 +25,7 @@
 		"debugInfo": false,
 
 		// Create sourcemap files next to the generated CSS files
-		"sourceMap": false,
+		"sourceMap": true,
 
 		// Use Unix-style newlines in written files.
 		"unixNewlines": false,

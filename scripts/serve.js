@@ -2,6 +2,7 @@ import { spawn } from 'child_process';
 import electron from 'electron';
 import browserSync from 'browser-sync';
 import browserSyncConnectUtils from 'browser-sync/lib/connect-utils';
+import nodesass from 'node-sass';
 
 const bsync = browserSync.create();
 
@@ -30,7 +31,7 @@ bsync.init({
   }
 }, (err, bs) => {
   if (err) return console.error(err);
-
+  const sass = spawn(nodesass, ['app/style/sass -o app/style/css --watch']);
   const child = spawn(electron, ['.'], {
     env: {
       ...{
@@ -45,6 +46,7 @@ bsync.init({
   child.on('close', () => {
     process.exit();
   });
+
 
   bsync
     .watch('build/**/*')

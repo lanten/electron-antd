@@ -31,7 +31,7 @@ bsync.init({
   }
 }, (err, bs) => {
   if (err) return console.error(err);
-  const sass = spawn(nodesass, ['app/style/sass -o app/style/css --watch']);
+
   const child = spawn(electron, ['.'], {
     env: {
       ...{

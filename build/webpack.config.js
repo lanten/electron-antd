@@ -13,7 +13,14 @@ const { NODE_ENV } = process.env
 const projectPath = process.cwd()
 const appPath = path.join(__dirname, `../src`)
 
-const styleLoader = `${NODE_ENV === 'development' ? 'css-hot-loader!style-loader' : MiniCssExtractPlugin.loader}!css-loader`
+const styleLoader = [{ loader: 'css-loader' }]
+if (NODE_ENV === 'development') {
+  styleLoader.unshift({ loader: 'css-hot-loader' }, { loader: 'style-loader' })
+} else {
+  styleLoader.unshift({ loader: MiniCssExtractPlugin.loader }, { loader: 'style-loader' })
+}
+
+console.log(styleLoader)
 
 console.log(NODE_ENV, appPath)
 
@@ -44,11 +51,23 @@ const webpackConfig = {
       },
       {
         test: /\.(less)$/,
-        loader: `${styleLoader}!less-loader?javascriptEnabled=true`,
+        use: [
+          ...styleLoader,
+          {
+            loader: 'less-loader',
+            options: {
+              javascriptEnabled: true,
+              modifyVars: {
+                // 更改主题色
+                'primary-color': '#74839b',
+              },
+            }
+          }
+        ]
       },
       {
         test: /\.css$/,
-        loader: styleLoader,
+        use: styleLoader,
       },
       {
         test: /\.(png|jpe?g|gif|svg|swf|woff2?|eot|ttf|otf)(\?.*)?$/,

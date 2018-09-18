@@ -1,10 +1,10 @@
-> The `browser-sync` version archive to [branch v1.0](/tree/v1.0)
+> The `browser-sync` version archive to [branch v1.0](https://github.com/lanten/electron-antd/tree/v1.0)
 
 ## Quick start
 ```bash
 npm start
 ```
-or`
+or
 ```
 npm run dev
 ```

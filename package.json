@@ -9,7 +9,7 @@
     "pack": "babel-node build/build.js",
     "pack:mac": "cross-env BUILD_TARGET=mas babel-node build/build.js",
     "pack:win": "cross-env BUILD_TARGET=win32 babel-node build/build.js",
-    "pack:linux": "cross-env BUILD_TARGET=linux babel-node build/build.js",
+    "pack:linux": "cross-env BUILD_TARGET=linux babel-node build/build.js"
   },
   "repository": {
     "type": "git",

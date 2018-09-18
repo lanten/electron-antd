@@ -46,6 +46,9 @@ function startRenderer() {
       webpackCompiler,
       {
         contentBase: source,
+        historyApiFallback: {
+          index: 'index.html',
+        },
         quiet: true, // 隐藏日志
         before(app, ctx) {
           app.use(hotMiddleware)

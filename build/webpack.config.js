@@ -20,8 +20,6 @@ if (NODE_ENV === 'development') {
   styleLoader.unshift({ loader: MiniCssExtractPlugin.loader }, { loader: 'style-loader' })
 }
 
-console.log(styleLoader)
-
 console.log(NODE_ENV, appPath)
 
 const webpackConfig = {

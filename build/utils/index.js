@@ -1,0 +1,1 @@
+exports.clearDir = require('./clearDir')

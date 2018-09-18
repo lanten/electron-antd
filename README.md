@@ -1,7 +1,22 @@
+> The `browser-sync` version archive to [branch v1.0](/tree/v1.0)
+
 ## Quick start
 ```bash
 npm start
 ```
+or`
+```
+npm run dev
+```
+
+## Overview
+- webpack 4
+- electron
+- electron-package
+- react 16
+- reach-router
+- ant-design
+- less
 
 ## DevTools
 
@@ -13,9 +28,9 @@ Toggle DevTools:
 
 ## Packaging
 
-Modify [electron-builder.yml](./electron-builder.yml) to edit package info.
+Modify [package-config](./build/package-config.js) to edit package info.
 
-For a full list of options see: https://github.com/electron-userland/electron-builder/wiki/Options.
+For a full list of options see: https://github.com/electron-userland/electron-packager/blob/master/docs/api.md.
 
 Create a package for OSX, Windows and Linux
 ```
@@ -27,10 +42,4 @@ Or target a specific platform
 npm run pack:mac
 npm run pack:win
 npm run pack:linux
-```
-
-## Tests
-
-```
-npm run test
 ```

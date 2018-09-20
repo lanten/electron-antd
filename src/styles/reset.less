@@ -1,0 +1,46 @@
+@import './var.less';
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: @color_background;
+  color: @color_default;
+  font-family: -apple-system, BlinkMacSystemFont, Helvetica Neue, PingFang SC, Microsoft YaHei, Source Han Sans SC, Noto Sans CJK SC, sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+}
+
+h1,
+h2,
+h3,
+h4,
+p {
+  margin: 0;
+}
+
+ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: @color_main;
+  transition: color 0.2s;
+  &:hover {
+    color: darken(@color_main, 10);
+  }
+  &:focus {
+    color: darken(@color_main, 10);
+  }
+}
+
+span,
+a,
+i {
+  display: inline-block;
+}

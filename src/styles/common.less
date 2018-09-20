@@ -1,0 +1,12 @@
+#app {
+  padding: 16px;
+}
+
+.loopFontSize (@count)when(@count > 9) {
+  .fs-@{count} {
+    font-size: @count*1px  !important;
+  }
+  .loopFontSize((@count - 2));
+}
+
+.loopFontSize(48);

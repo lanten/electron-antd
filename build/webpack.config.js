@@ -17,7 +17,7 @@ const styleLoader = [{ loader: 'css-loader' }]
 if (NODE_ENV === 'development') {
   styleLoader.unshift({ loader: 'css-hot-loader' }, { loader: 'style-loader' })
 } else {
-  styleLoader.unshift({ loader: MiniCssExtractPlugin.loader }, { loader: 'style-loader' })
+  styleLoader.unshift({ loader: MiniCssExtractPlugin.loader })
 }
 
 console.log(NODE_ENV, appPath)

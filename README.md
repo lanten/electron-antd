@@ -14,7 +14,7 @@ npm run dev
 - electron
 - electron-package
 - react 16
-- reach-router
+- react-router 4
 - ant-design
 - less
 

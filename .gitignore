@@ -1,4 +1,4 @@
 node_modules/
-dis/
+dist/
 prod/
 yarn-error.log

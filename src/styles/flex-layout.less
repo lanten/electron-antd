@@ -1,0 +1,33 @@
+.flex {
+  display: flex;
+  &.row {
+    flex-direction: row;
+  }
+  &.column {
+    flex-direction: column;
+  }
+  &.center {
+    justify-content: center;
+    align-items: center;
+  }
+  &.center-h {
+    justify-content: center;
+  }
+  &.center-v {
+    align-items: center;
+  }
+  &.between {
+    justify-content: space-between;
+  }
+  .flex-none {
+    flex: none;
+  }
+}
+.loopFlex (@count)when(@count > 0) {
+  .flex-@{count} {
+    flex: @count
+  }
+  .loopFlex((@count - 1));
+}
+
+.loopFlex(12);

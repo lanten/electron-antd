@@ -28,7 +28,7 @@ Toggle DevTools:
 
 ## Packaging
 
-Modify [package-config](./build/package-config.js) to edit package info.
+Modify [package.config.js](./config/package.config.js) to edit package info.
 
 For a full list of options see: https://github.com/electron-userland/electron-packager/blob/master/docs/api.md.
 

@@ -24,7 +24,7 @@ console.log(NODE_ENV, appPath)
 
 const webpackConfig = {
   mode: NODE_ENV,
-  target: 'web',
+  target: 'electron-renderer',
   entry: {
     app: `${appPath}/index.js`,
   },

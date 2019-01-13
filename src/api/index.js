@@ -1,3 +1,5 @@
 
 
-module.exports = {}
+module.exports = {
+  ...require('./api.electron')
+}

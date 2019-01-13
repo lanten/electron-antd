@@ -11,8 +11,6 @@ export default class App extends React.Component {
   render() {
     return (
       <div id="app">
-        <p className="fs-24">App is ok</p>
-        <hr />
         <Router routes={routes} />
       </div>
     )

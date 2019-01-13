@@ -8,8 +8,8 @@ module.exports = {
   arch: 'x64',
   asar: true,
   dir: path.join(__dirname, '../'),
-  // icon: path.join(__dirname, '../build/icons/icon'),
-  ignore: /(^\/(src|test|\.[a-z]+|README|yarn|static|dist\/web))|\.gitkeep/,
+  icon: path.join(__dirname, '../assets/app-icon/icon/icon'),
+  ignore: /(^\/(src|test|build|\.[a-z]+|README|yarn|static))|\.gitkeep|app.config.json/,
   out: path.join(__dirname, '../prod'),
   overwrite: true,
   platform: process.env.BUILD_TARGET || 'all'

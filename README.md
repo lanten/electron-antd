@@ -1,4 +1,3 @@
-> The `browser-sync` version archive to [branch v1.0](https://github.com/lanten/electron-antd/tree/v1.0)
 
 ## Quick start
 ```bash
@@ -43,3 +42,5 @@ npm run pack:mac
 npm run pack:win
 npm run pack:linux
 ```
+
+> The `browser-sync` version archive to [branch v1.0](https://github.com/lanten/electron-antd/tree/v1.0)

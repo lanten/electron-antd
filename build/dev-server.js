@@ -98,7 +98,6 @@ const watcher = chokidar.watch(path.join(__dirname, '../electron'), {
 
 watcher.on('all', (path) => {
   if (electronProcess && electronProcess.kill) {
-    if (process.platform === 'win32') electronLog('window 下可能无法及时清理 Electron 进程，请开发者手动清理', 'DevServer', 'yellow')
     manualRestart = true
     process.kill(electronProcess.pid)
     electronProcess = null

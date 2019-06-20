@@ -13,7 +13,7 @@ npm run dev
 - electron
 - electron-package
 - react 16
-- react-router 4
+- react-router 5
 - ant-design
 - less
 

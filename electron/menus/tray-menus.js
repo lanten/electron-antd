@@ -1,10 +1,6 @@
-
 const { createWindow } = require('../window')
 
-
-
 const trayMenus = [
-
   { label: 'home', click: () => createWindow('home') },
 
   { type: 'separator' },
@@ -17,8 +13,5 @@ const trayMenus = [
   { label: 'about', click: () => createWindow('about') },
   { label: 'quit', role: 'quit' }
 ]
-
-
-
 
 module.exports = trayMenus

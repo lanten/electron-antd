@@ -6,6 +6,7 @@ const { createWindow } = require('./window')
 const { NODE_ENV } = process.env
 
 global.$api = require('./api')
+global.$service= require('./service')
 
 if (NODE_ENV === 'development') {
   // react-developer-tools

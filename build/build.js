@@ -12,7 +12,7 @@ const { clearDir } = require('./utils')
 clearDir(path.join(__dirname, '../dist'), false, true)
 
 buildCommon(webpackConfig).then(() => {
-  console.log('编译完成!')
+  console.log('=> webpack 编译完成! 正在打包...')
   bundleApp()
 }).catch(err => {
   console.error(err)
@@ -25,7 +25,7 @@ function bundleApp() {
     if (err) {
       console.error(err)
     } else {
-      console.log('打包完成!')
+      console.log('=> 打包完成!')
     }
   })
 }

@@ -5,8 +5,7 @@ const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 const htmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin")
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-
+const TerserPlugin = require('terser-webpack-plugin')
 
 const { NODE_ENV } = process.env
 
@@ -79,6 +78,7 @@ const webpackConfig = {
   },
 
   optimization: {
+    minimizer: [new TerserPlugin()],
     splitChunks: {
       name: "common",
     }
@@ -110,20 +110,10 @@ if (NODE_ENV === 'development') {
   )
 } else if (NODE_ENV === 'production') {
   // 生产环境配置
+  webpackConfig.devtool = false
   webpackConfig.plugins.push(
-    new UglifyJsPlugin({
-      uglifyOptions: {
-        compress: {
-          pure_funcs: ['console.log'], // 删除console.log, 保留 info ，warn，error 等
-        },
-      }
-    }),
-    new OptimizeCSSAssetsPlugin({
-      // cssProcessorOptions: { discardComments: { removeAll: true } },
-      // canPrint: true
-    })
+    new OptimizeCSSAssetsPlugin()
   )
-
 }
 
 module.exports = webpackConfig

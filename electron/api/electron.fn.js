@@ -1,4 +1,3 @@
-
 const { app } = require('electron')
 const { createWindow, getWindowUrl } = require('../window')
 

@@ -6,7 +6,7 @@ const Home = () => {
   return (
     <div>
       <Nav/>
-      <div class="exampleheight">
+      <div className="exampleheight">
         <p>This isn't!</p>
       </div>
     </div>

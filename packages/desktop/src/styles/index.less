@@ -7,11 +7,64 @@
     margin:0px;
     padding:0px;
 }
+.boxing {
+    box-sizing: border-box;
+}
+.sticky-header-paddings {
+    padding: 20px;
+    .boxing();
+}
+
 .sticky-header {
     position:sticky;
     top: 0;
+    width: 100%;
     background: white;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
+.sticky-header .left {
+    .sticky-header-paddings();
+}
+.sticky-header .mid {
+    .sticky-header-paddings();
+    flex: 1;
+}
+.sticky-header .right {
+    .sticky-header-paddings();
+    padding-right: 40px;
+    padding-left: 0;
+    min-width: 50px;
+}
+
+.sticky-header .right .navbtns Button {
+    background: none;
+	color: inherit;
+	border: none;
+	padding: 0;
+	font: inherit;
+	cursor: pointer;
+    outline: inherit;
+    width: 24px;
+    height: 24px;
+}
+
+.sticky-header .mid Input {
+    background: #F4F4F4;
+    border-radius: 35px;
+    border:none;
+    .boxing();
+    padding: 20px;    
+}
+
+.ant-input-affix-wrapper .ant-input:not(:first-child) {
+    padding-left: 40px;
+}
+.ant-input-affix-wrapper .ant-input-prefix {
+    left: 15px;
+}
+
 
 .exampleheight {
     height: 2000px;

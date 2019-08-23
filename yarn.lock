@@ -3587,8 +3587,8 @@ graphql-yoga@^1.18.0:
     subscriptions-transport-ws "^0.9.8"
 
 graphql@*, "graphql@^0.11.0 || ^0.12.0 || ^0.13.0 || ^14.0.0", graphql@^14.3.0:
-  version "14.5.1"
-  resolved "https://registry.yarnpkg.com/graphql/-/graphql-14.5.1.tgz#ee8c6f887e7231b5ecc266ae0841e78a9f7ddb88"
+  version "14.5.2"
+  resolved "https://registry.yarnpkg.com/graphql/-/graphql-14.5.2.tgz#70e729167beb0472d9ddb9fcf933bb3a0ce64fc5"
   dependencies:
     iterall "^1.2.2"
 

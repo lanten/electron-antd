@@ -1,0 +1,17 @@
+{
+    "name": "openx",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "start": "node ./server/index.js"
+    },
+    "author": "",
+    "license": "ISC",
+    "dependencies": {
+      "graphql-yoga": "^1.18.0",
+      "prisma-client-lib": "^1.34.0"
+    }
+  }
+  

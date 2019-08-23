@@ -3,19 +3,14 @@ import { BrowserRouter } from 'react-router-dom';
 import Router from './shared/router';
 import './styles/index.less'
 
-export default class App extends React.Component {
-  constructor(props) {
-    super(props)
-  }
+const App = () => {
+  return (
+    <div id="app">
+      <BrowserRouter>
+        <Router />
+      </BrowserRouter>
+    </div>
+  )
+}
 
-  render() {
-    return (
-      <div id="app">
-        <BrowserRouter>
-          <Router />
-        </BrowserRouter>
-      </div>
-    )
-  }
-
-} // class App end
+export default App;

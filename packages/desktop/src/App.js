@@ -1,6 +1,6 @@
 import React from 'react'
-import { Router } from './components'
-import routes from './pages/routes'
+import { BrowserRouter } from 'react-router-dom';
+import Router from './shared/router';
 import './styles/index.less'
 
 export default class App extends React.Component {
@@ -11,7 +11,9 @@ export default class App extends React.Component {
   render() {
     return (
       <div id="app">
-        <Router routes={routes} />
+        <BrowserRouter>
+          <Router />
+        </BrowserRouter>
       </div>
     )
   }

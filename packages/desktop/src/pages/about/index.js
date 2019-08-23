@@ -1,15 +1,3 @@
-import React from 'react'
+import About from './about';
 
-import { Router, AsyncImport } from '../../components'
-
-export default {
-  path: '/about',
-  component: () => <Router routes={[
-    {
-      exact: true,
-      path: '/about/',
-      params: { key: 'about' },
-      component: AsyncImport(() => import('./about')),
-    },
-  ]} />,
-}
+export default About;

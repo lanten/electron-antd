@@ -1,5 +1,8 @@
 import React from 'react'
 import { Button } from 'antd'
+import { Layout } from 'antd';
+const { Header, Footer, Sider, Content } = Layout;
+
 
 export default class Home extends React.Component {
   constructor(props) {
@@ -9,9 +12,14 @@ export default class Home extends React.Component {
   render() {
     return (
       <div className="flex column">
-        <h2>App is OK</h2>
+        <div class="sticky-header">
+          <h2>App is OK</h2>
+        </div>
+        <div class="content">
+          <p>content here</p>
+        </div>
       </div>
-    )
+      )
   }
 
 }

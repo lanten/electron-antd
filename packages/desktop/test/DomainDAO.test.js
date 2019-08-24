@@ -76,12 +76,12 @@ contract('DomainDAO', (accounts) => {
 
   describe('Creating Bids', function () {
 		const bidID = 123;
-		const smartContractFile = 'AdvertisementDAO.sol';
+		const info = Web3.utils.toHex('JSON Stringified Object');
 
     it('Should not be able to create a bid if not invested in domain', async () => {     
 			domain = await DomainDAO.new(domainRegistryAddress, domainHash, {from: accounts[0], value: 1});
       try {
-        await domain.createBid(bidID, smartContractFile, {from: accounts[1]});
+        await domain.createBid(bidID, info, {from: accounts[1]});
         assert.isTrue(false);
       } catch (err) {
         expect(err.message).to.include("User must be invested in domain");
@@ -90,10 +90,10 @@ contract('DomainDAO', (accounts) => {
   
     it('Should be able to create a bid if invested in domain', async () => {
 			domain = await DomainDAO.new(domainRegistryAddress, domainHash, {from: accounts[0], value: 1});
-			await domain.createBid(bidID, smartContractFile, {from: accounts[0]});
+			await domain.createBid(bidID, info, {from: accounts[0]});
 			const bid = await domain.getBid(bidID);
 			expect(bid[0]).to.be.bignumber.that.equals(new BN(123));
-			expect(bid[1]).to.be.equal("AdvertisementDAO.sol");
+			expect(expect(web3.utils.hexToAscii(bid[1]).replace(/\0/g, '')).to.be.equal('JSON Stringified Object'));
 			expect(bid[2]).to.be.bignumber.that.equals(new BN(0));
 			expect(bid[3]).to.be.bignumber.that.equals(new BN(0));
 			assert(bid[4]);
@@ -101,7 +101,7 @@ contract('DomainDAO', (accounts) => {
 
     it('Bid should contain snapshot equity and investor info', async () => {
 			domain = await DomainDAO.new(domainRegistryAddress, domainHash, {from: accounts[0], value: 1});
-			await domain.createBid(bidID, smartContractFile, {from: accounts[0]});
+			await domain.createBid(bidID, info, {from: accounts[0]});
 			const investorArraySnapShot = await domain.getInvestorArraySnapshot(bidID);
 			assert.equal(investorArraySnapShot.length, 1, "Investor array wrong length");
 			const investorsSnapShotAcct1 = await domain.getInvestorsSnapshot(bidID, accounts[0]);
@@ -120,10 +120,10 @@ contract('DomainDAO', (accounts) => {
   describe('Voting on Bids', function () {
     it('Should not be able to vote on bids if not an investor', async () => {  
 			const bidID = 123;
-			const smartContractFile = 'AdvertisementDAO.sol';
+			const info = Web3.utils.toHex('JSON Stringified Object');
 			domain = await DomainDAO.new(domainRegistryAddress, domainHash, {from: accounts[0], value: 1});
 			await domain.invest({from: accounts[1], value: 1});   
-			await domain.createBid(bidID, smartContractFile, {from: accounts[0]});
+			await domain.createBid(bidID, info, {from: accounts[0]});
       try {
         await domain.vote(bidID, true, { from: accounts[2] });
         assert.isTrue(false);
@@ -134,10 +134,10 @@ contract('DomainDAO', (accounts) => {
 
     it('Should not be able to vote on bids if invested AFTER bid was created', async () => { 
 			const bidID = 123;
-			const smartContractFile = 'AdvertisementDAO.sol';
+			const info = Web3.utils.toHex('JSON Stringified Object');
 			domain = await DomainDAO.new(domainRegistryAddress, domainHash, {from: accounts[0], value: 1});
 			await domain.invest({from: accounts[1], value: 1});
-			await domain.createBid(bidID, smartContractFile, {from: accounts[0]});
+			await domain.createBid(bidID, info, {from: accounts[0]});
 			await domain.invest({from: accounts[2], value: 1});
         try {
           await domain.vote(bidID, true, { from: accounts[2] });
@@ -149,20 +149,20 @@ contract('DomainDAO', (accounts) => {
   
     it('Should be able to vote on bids if invested BEFORE bid was created', async () => {
 			const bidID = 123;
-			const smartContractFile = 'AdvertisementDAO.sol';
+			const info = Web3.utils.toHex('JSON Stringified Object');
 			domain = await DomainDAO.new(domainRegistryAddress, domainHash, {from: accounts[0], value: 1});
 			await domain.invest({from: accounts[1], value: 1});
-			await domain.createBid(bidID, smartContractFile, {from: accounts[0]});  
+			await domain.createBid(bidID, info, {from: accounts[0]});  
 			await domain.invest({from: accounts[2], value: 1});
       await domain.vote(bidID, true, { from: accounts[1] });
     });
 
     it('Should not be able to vote twice', async () => {
 			const bidID = 123;
-			const smartContractFile = 'AdvertisementDAO.sol';
+			const info = Web3.utils.toHex('JSON Stringified Object');
 			domain = await DomainDAO.new(domainRegistryAddress, domainHash, {from: accounts[0], value: 1});
 			await domain.invest({from: accounts[1], value: 1}); 
-			await domain.createBid(bidID, smartContractFile, {from: accounts[0]}); 
+			await domain.createBid(bidID, info, {from: accounts[0]}); 
 			await domain.invest({from: accounts[2], value: 1});
 			await domain.vote(bidID, true, { from: accounts[1] });
 			try {
@@ -175,11 +175,11 @@ contract('DomainDAO', (accounts) => {
 
     it('Should be able to approve a bid if votesFor is above 50% and emit an event and add to approvedBids', async () => {
 			const bidID = 123;
-			const smartContractFile = 'AdvertisementDAO.sol';
+			const info = Web3.utils.toHex('JSON Stringified Object');
 			domain = await DomainDAO.new(domainRegistryAddress, domainHash, {from: accounts[0], value: 1});
 			await domain.invest({from: accounts[1], value: 1});
 			await domain.invest({from: accounts[2], value: 1});
-			await domain.createBid(bidID, smartContractFile, {from: accounts[0]});  
+			await domain.createBid(bidID, info, {from: accounts[0]});  
 			await domain.vote(bidID, true, { from: accounts[0] });
 			let receipt = await domain.vote(bidID, true, { from: accounts[1] });
 
@@ -191,16 +191,16 @@ contract('DomainDAO', (accounts) => {
 			const eventArgs = event[0].args;
 			expect(eventArgs.domainAddress.length).to.be.equal(42);
 			expect(eventArgs.bidID).to.be.bignumber.that.equals(new BN(123));
-			expect(eventArgs.smartContractFile).to.be.equal('AdvertisementDAO.sol');
+			expect(web3.utils.hexToAscii(eventArgs.info).replace(/\0/g, '')).to.be.equal('JSON Stringified Object');
     });
 
     it('Should be able to reject a bid if votesAgainst is above 50% and emit an event', async () => {
 			const bidID = 123;
-			const smartContractFile = 'AdvertisementDAO.sol';
+			const info = Web3.utils.toHex('JSON Stringified Object');
 			domain = await DomainDAO.new(domainRegistryAddress, domainHash, {from: accounts[0], value: 1});
 			await domain.invest({from: accounts[1], value: 1});
 			await domain.invest({from: accounts[2], value: 1});
-			await domain.createBid(bidID, smartContractFile, {from: accounts[0]});  
+			await domain.createBid(bidID, info, {from: accounts[0]});  
 			await domain.vote(bidID, false, { from: accounts[0] });
 			let receipt = await domain.vote(bidID, false, { from: accounts[1] });
 
@@ -212,17 +212,17 @@ contract('DomainDAO', (accounts) => {
 			const eventArgs = event[0].args;
 			expect(eventArgs.domainAddress.length).to.be.equal(42);
 			expect(eventArgs.bidID).to.be.bignumber.that.equals(new BN(123));
-			expect(eventArgs.smartContractFile).to.be.equal('AdvertisementDAO.sol');
+			expect(web3.utils.hexToAscii(eventArgs.info).replace(/\0/g, '')).to.be.equal('JSON Stringified Object');
 		});
 		
 		it('Should have weighted voting', async () => {
 			const bidID = 123;
-			const smartContractFile = 'AdvertisementDAO.sol';
+			const info = Web3.utils.toHex('JSON Stringified Object');
 			domain = await DomainDAO.new(domainRegistryAddress, domainHash, {from: accounts[0], value: 1});
 			await domain.invest({from: accounts[1], value: 1});
 			await domain.invest({from: accounts[2], value: 1});
 			await domain.invest({from: accounts[3], value: 5});
-			await domain.createBid(bidID, smartContractFile, {from: accounts[0]});  
+			await domain.createBid(bidID, info, {from: accounts[0]});  
 			let receipt = await domain.vote(bidID, false, { from: accounts[3] });
 			const logs = receipt.logs && receipt.logs.length ? receipt.logs : [];
       const event = logs.filter(log => log.event === 'BidApproved');
@@ -233,10 +233,10 @@ contract('DomainDAO', (accounts) => {
   describe('Closed Bids', function () {
     it('Should delete all snapshot equity and investor info related to a bid', async () => {     
 			const bidID = 123;
-			const smartContractFile = 'AdvertisementDAO.sol';
+			const info = Web3.utils.toHex('JSON Stringified Object');
 			domain = await DomainDAO.new(domainRegistryAddress, domainHash, {from: accounts[0], value: 1});
 			await domain.invest({from: accounts[1], value: 1});   
-			await domain.createBid(bidID, smartContractFile, {from: accounts[0]});
+			await domain.createBid(bidID, info, {from: accounts[0]});
 
 			const investorArraySnapShot = await domain.getInvestorArraySnapshot(bidID);
 			const investorsSnapShot = await domain.getInvestorsSnapshot(bidID, accounts[0]);
@@ -258,15 +258,15 @@ contract('DomainDAO', (accounts) => {
   
     it('Should delete bid from openBids', async () => {
 			const bidID = 123;
-			const smartContractFile = 'AdvertisementDAO.sol';
+			const info = Web3.utils.toHex('JSON Stringified Object');
 			domain = await DomainDAO.new(domainRegistryAddress, domainHash, {from: accounts[0], value: 1});
 			await domain.invest({from: accounts[1], value: 1});   
-			await domain.createBid(bidID, smartContractFile, {from: accounts[0]});
+			await domain.createBid(bidID, info, {from: accounts[0]});
 			await domain.vote(bidID, true, { from: accounts[0] });
 			await domain.vote(bidID, true, { from: accounts[1] });
 			const bid = await domain.getBid(bidID);
 			expect(bid[0]).to.be.bignumber.that.equals(new BN(0));
-			expect(bid[1]).to.be.equal("");
+			expect(web3.utils.hexToAscii(bid[1]).replace(/\0/g, '')).to.be.equal('');
 			expect(bid[2]).to.be.bignumber.that.equals(new BN(0));
 			expect(bid[3]).to.be.bignumber.that.equals(new BN(0));
 			expect(bid[4]).to.be.bignumber.that.equals(new BN(0));
@@ -275,14 +275,14 @@ contract('DomainDAO', (accounts) => {
 
     it('Should not be able to create a bid with the same ID as a bid that has been closed', async () => {
 			const bidID = 123;
-			const smartContractFile = 'AdvertisementDAO.sol';
+			const info = Web3.utils.toHex('JSON Stringified Object');
 			domain = await DomainDAO.new(domainRegistryAddress, domainHash, {from: accounts[0], value: 1});
 			await domain.invest({from: accounts[1], value: 1});   
-			await domain.createBid(bidID, smartContractFile, {from: accounts[0]});
+			await domain.createBid(bidID, info, {from: accounts[0]});
 			await domain.vote(bidID, true, { from: accounts[0] });
 			await domain.vote(bidID, true, { from: accounts[1] });
 			try {
-				await domain.createBid(bidID, smartContractFile, {from: accounts[0]});
+				await domain.createBid(bidID, info, {from: accounts[0]});
 			} catch (err) {
 				expect(err.message).to.include("Bid with this ID exists and has been closed");
 			}

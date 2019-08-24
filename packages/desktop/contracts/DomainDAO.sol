@@ -1,6 +1,9 @@
 pragma solidity ^0.5.11;
 
+// import "https://github.com/OpenZeppelin/openzeppelin-contracts/contracts/math/SafeMath.sol";
 import "openzeppelin-solidity/contracts/math/SafeMath.sol";
+// import "./SafeMath.sol";
+import "./DomainRegistry.sol";
 
 /**
  * @title DomainDAO - Equity based voting system managed by domain investors
@@ -25,13 +28,16 @@ contract DomainDAO {
   mapping(uint => bool) closedBids;
   uint[] public approvedBids;
   
-  event BidApproved(address domainAddress, uint bidID, string smartContractFile, uint timestamp);
-  event BidRejected(address domainAddress, uint bidID, string smartContractFile, uint timestamp);
+  event BidApproved(address domainAddress, uint bidID, bytes32 info, uint timestamp);
+  event BidRejected(address domainAddress, uint bidID, bytes32 info, uint timestamp);
 
-  constructor() public payable {
+  constructor(address domainRegistryAddress, bytes32 domainHash) public payable {
+    DomainRegistry domainRegistry = DomainRegistry(domainRegistryAddress);
+    require(!domainRegistry.domainExists(domainHash), 'DomainDAO already exists at this URL');
     require(msg.value > 0, 'Must invest some ETH to deploy a domain DAO');
     totalShares = 0;
     invest();
+    domainRegistry.addDomain(domainHash, address(this));
   }
   
   modifier isInvestor() {
@@ -63,17 +69,17 @@ contract DomainDAO {
   }
   
   struct Bid {
-    uint bidID;               // MAKE bytes32, will be used for graphQL query on domain space for bid info
-    string smartContractFile; // Temporarily using filename for the scope of this PoC, will make more robust later
+    uint bidID;   // MAKE bytes32, will be used for graphQL query on domain space for bid info
+    bytes32 info; // Temporarily using JSON to contain info about smart contracts to deploy, will make more robust solution later
     uint votesFor;
     uint votesAgainst;
     uint halfOfShares;
     bool exists;
   }
   
-  function getBid(uint bidID) public view returns (uint, string memory, uint, uint, uint, bool) {
+  function getBid(uint bidID) public view returns (uint, bytes32, uint, uint, uint, bool) {
     Bid memory bid = openBids[bidID];
-    return(bid.bidID, bid.smartContractFile, bid.votesFor, bid.votesAgainst, bid.halfOfShares, bid.exists);
+    return(bid.bidID, bid.info, bid.votesFor, bid.votesAgainst, bid.halfOfShares, bid.exists);
   }
 
   /**
@@ -105,9 +111,9 @@ contract DomainDAO {
   /**
    * @dev Returns the amount of shares an investor owns, as well as the total shares in the domain. Used as numerator and denominator
    * @param bidID unique identifier for a bid, used to query info in 3box
-   * @param smartContractFile temporary solution for deploying smart contracts dynamically once a bid is approved
+   * @param info JSON stringified object with bid info
    */
-  function createBid(uint bidID, string memory smartContractFile) public payable isInvestor() bidIsUnique(bidID) {
+  function createBid(uint bidID, bytes32 info) public payable isInvestor() bidIsUnique(bidID) {
     for(uint i = 0; i < investorArray.length; i += 1) {
       investorsSnapshot[bidID][investorArray[i]] = true;
       investorSharesSnapshot[bidID][investorArray[i]] = investorSharesArray[i];
@@ -116,7 +122,7 @@ contract DomainDAO {
     uint halfOfShares = totalShares.div(2);
     Bid memory bid = Bid(
       bidID,
-      smartContractFile,
+      info,
       0,
       0,
       halfOfShares,
@@ -131,7 +137,7 @@ contract DomainDAO {
    */
   function closeBid(uint bidID, bool approved) private returns(bool) {
     Bid memory bid = openBids[bidID];
-    string memory smartContractFile = bid.smartContractFile;
+    bytes32 info = bid.info;
     
     for(uint i = 0; i < investorArraySnapshot[bidID].length; i += 1) {
       delete investorsSnapshot[bidID][investorArraySnapshot[bidID][i]];      // Deletes investor snapshot value at member
@@ -144,9 +150,9 @@ contract DomainDAO {
     closedBids[bidID] = true;
     if(approved) {
       approvedBids.push(bidID);
-      emit BidApproved(address(this), bidID, smartContractFile, block.timestamp);
+      emit BidApproved(address(this), bidID, info, block.timestamp);
     } else {
-      emit BidRejected(address(this), bidID, smartContractFile, block.timestamp);
+      emit BidRejected(address(this), bidID, info, block.timestamp);
     }
     return(true);
   }

@@ -14,14 +14,15 @@ contract DomainDAO {
   using SafeMath for uint;
   mapping(address => bool) public investors;
   mapping(address => uint) internal investorIndex;
-  address[] public investorArray;
+  address payable[] public investorArray;
   mapping(address => uint) public investorShares; // Equity is counted as shares, (1 wei = 1 share, taken from msg.value in invest())
   uint[] public investorSharesArray;
   uint public totalShares;
   
   mapping(uint => mapping(address => bool)) investorsSnapshot;      // Investors in domainDAO when bid is initiated, by bidID
   mapping(uint => mapping(address => uint)) investorSharesSnapshot; // Shares that each investor has when bid is initiated, by bidID
-  mapping(uint => address[]) investorArraySnapshot;                 // Array of investor addresses when bid is initiated, by bidID
+  mapping(uint => address payable[]) investorArraySnapshot;                 // Array of investor addresses when bid is initiated, by bidID
+  mapping(uint => uint[]) investorSharesArraySnapshot;                 // Array of investor addresses when bid is initiated, by bidID
   mapping(uint => mapping(address => bool)) bidVoters;              // Investors that have voted for a bid
   
   mapping(uint => Bid) openBids;
@@ -41,12 +42,15 @@ contract DomainDAO {
   }
   
   modifier isInvestor() {
-    require(investors[msg.sender] == true, 'User must be invested in domain');
+    require(investors[msg.sender] == true || investors[tx.origin] == true, 'User must be invested in domain');
     _;
   }
   
   modifier isInvestorInBid(uint bidID) {
-    require(investorsSnapshot[bidID][msg.sender] == true, 'User must be invested when bid was created');
+    require(
+      investorsSnapshot[bidID][msg.sender] == true || investorsSnapshot[bidID][tx.origin] == true,
+      'User must be invested when bid was created'
+    );
     _;
   }
 
@@ -111,13 +115,14 @@ contract DomainDAO {
   /**
    * @dev Returns the amount of shares an investor owns, as well as the total shares in the domain. Used as numerator and denominator
    * @param bidID unique identifier for a bid, used to query info in 3box
-   * @param info JSON stringified object with bid info
+   * @param info JSON information about a bid
    */
-  function createBid(uint bidID, bytes32 info) public payable isInvestor() bidIsUnique(bidID) {
+  function createBid(uint bidID, bytes32 info) public isInvestor() bidIsUnique(bidID) {
     for(uint i = 0; i < investorArray.length; i += 1) {
       investorsSnapshot[bidID][investorArray[i]] = true;
       investorSharesSnapshot[bidID][investorArray[i]] = investorSharesArray[i];
       investorArraySnapshot[bidID] = investorArray;
+      investorSharesArraySnapshot[bidID] = investorSharesArray;
     }
     uint halfOfShares = totalShares.div(2);
     Bid memory bid = Bid(
@@ -147,6 +152,7 @@ contract DomainDAO {
     
     delete openBids[bidID];
     delete investorArraySnapshot[bidID];
+    delete investorSharesArraySnapshot[bidID];
     closedBids[bidID] = true;
     if(approved) {
       approvedBids.push(bidID);
@@ -156,38 +162,49 @@ contract DomainDAO {
     }
     return(true);
   }
+  
   /**
    * @dev Approves a bid, deletes all data relevant to that bid, and adds bid to approvedBids
    * @param bidID unique identifier for a bid, used to query info in 3box
    * @param approved bool value indicating whether the user approved the bid
    */
-  function vote(uint bidID, bool approved)
-  public bidExists(bidID) isInvestorInBid(bidID) hasNotVoted(bidID) returns(bool)
+  function vote(uint bidID, bool approved, bool externalCall)
+  public bidExists(bidID) isInvestorInBid(bidID) hasNotVoted(bidID) returns(uint)
   {
     Bid storage bid = openBids[bidID];
+    address voter; // Since some calls are coming froom smart contracts, we must use tx.origin instead
+    if(externalCall) {
+        voter = tx.origin;
+    } else {
+        voter = msg.sender;
+    }
     if(approved) {
-      bid.votesFor += investorSharesSnapshot[bidID][msg.sender];
-      bidVoters[bidID][msg.sender] = true;
+      bid.votesFor += investorSharesSnapshot[bidID][voter];
+      bidVoters[bidID][voter] = true;
       if(bid.votesFor > bid.halfOfShares) {
         closeBid(bidID, true);
-        return(true);
-        // return(closeBid(bidID, true));
+        return(1); // Approved
       } else {
-        return(false);
+        return(3); // Not approved
       }
     } else {
-      bid.votesAgainst += investorSharesSnapshot[bidID][msg.sender];
-      bidVoters[bidID][msg.sender] = true;
+      bid.votesAgainst += investorSharesSnapshot[bidID][voter];
+      bidVoters[bidID][voter] = true;
       if(bid.votesAgainst > bid.halfOfShares) {
-        return(closeBid(bidID, false));
+        closeBid(bidID, false);
+        return(2); // Rejected
       } else {
-        return(false);
+        return(3); // Not rejected
       }
     }
   }
   
-  function getInvestorArraySnapshot(uint bidID) public view returns (address[] memory) {
+  function getInvestorArraySnapshot(uint bidID) public view returns (address payable[] memory) {
     return(investorArraySnapshot[bidID]);
+  }
+  
+  function getInvestorSharesArraySnapshot(uint bidID) public view returns (uint[] memory) {
+    return(investorSharesArraySnapshot[bidID]);
   }
   
   function getInvestorsSnapshot(uint bidID, address investor) public view returns (bool) {
@@ -196,5 +213,9 @@ contract DomainDAO {
   
   function getInvestorSharesSnapshot(uint bidID, address investor) public view returns (uint) {
     return(investorSharesSnapshot[bidID][investor]);
+  }
+  
+  function isInvestorCheck(address investor) public view returns (bool) {
+    return(investors[investor]);
   }
 }

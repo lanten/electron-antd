@@ -56,7 +56,8 @@ function createWindow(key, options = {}) {
     show: false,
     hasShadow: true,
     webPreferences: {
-      nodeIntegration: true
+      nodeIntegration: true,
+      webviewTag: true
     },
     // frame: false, // 无边框窗口
     // skipTaskbar: false, // 是否在任务栏中隐藏窗口

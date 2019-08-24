@@ -1,18 +1,33 @@
-import React from 'react'
-import { Avatar } from 'antd';
-import { Button } from 'antd';
-import { Input, Tooltip, Icon } from 'antd';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import 'antd/dist/antd.css';
+import { Input, Tooltip, Icon, Avatar, Button } from 'antd';
+import { setSearchText } from '../../../redux/actions/actionCreators/search';
 
 const Nav = () => {
-  const url = 'https://avatars1.githubusercontent.com/u/19377315?s=400&v=4';
+  const [url, setUrl] = useState("")
+  const logoLink = 'https://avatars1.githubusercontent.com/u/19377315?s=400&v=4';
+  const dispatch = useDispatch();
+
+  // have the url ready if the browser needs it :)
+  const handleChange = (e) => {
+    if (e.key === 'Enter') {
+        dispatch(setSearchText(url))
+        return;
+    }
+    setUrl(e.target.value)
+  }
+
   return (
     <div className="sticky-header flex">
         <div className="left">
-            <Avatar size={64} src={`${url}`} />
+            <Avatar size={64} src={`${logoLink}`} />
         </div>
         <div className="mid">
         <Input
+        value={url}
+        onChange={(e) => handleChange(e)}
+        onKeyDown={(e) => handleChange(e)}
         placeholder="Search or type a URL"
         prefix={
             <svg xmlns="http://www.w3.org/2000/svg" width="13.299" height="11.496" viewBox="0 0 23.299 21.496">

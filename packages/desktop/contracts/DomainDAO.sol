@@ -1,6 +1,7 @@
 pragma solidity ^0.5.11;
 
 import "openzeppelin-solidity/contracts/math/SafeMath.sol";
+import "./DomainRegistry.sol";
 
 /**
  * @title DomainDAO - Equity based voting system managed by domain investors
@@ -28,10 +29,13 @@ contract DomainDAO {
   event BidApproved(address domainAddress, uint bidID, string smartContractFile, uint timestamp);
   event BidRejected(address domainAddress, uint bidID, string smartContractFile, uint timestamp);
 
-  constructor() public payable {
+  constructor(address domainRegistryAddress, bytes32 domainHash) public payable {
+    DomainRegistry domainRegistry = DomainRegistry(domainRegistryAddress);
+    require(!domainRegistry.domainExists(domainHash), 'DomainDAO already exists at this URL');
     require(msg.value > 0, 'Must invest some ETH to deploy a domain DAO');
     totalShares = 0;
     invest();
+    domainRegistry.addDomain(domainHash, address(this));
   }
   
   modifier isInvestor() {

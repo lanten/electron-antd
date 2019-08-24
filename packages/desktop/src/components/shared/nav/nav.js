@@ -20,11 +20,15 @@ const Nav = () => {
         return;
     }
     setUrl(e.target.value)
-    const hash = hashDomainUrl(url);
-    const provider = getWalletProvider();
-    const wallet = generateWallet(provider);
-    deployContract(wallet, provider, hash, url, 'ad');
+   
   }
+
+    const submit = () => {
+        const hash = hashDomainUrl(url);
+        const provider = getWalletProvider();
+        const wallet = generateWallet(provider);
+        deployContract(wallet, provider, hash, url, 'ad');
+    }
 
   return (
     <div className="sticky-header flex">
@@ -50,6 +54,7 @@ const Nav = () => {
         }
         />
         </div>
+        <Button onClick={() => submit()}></Button>
         <div className="right">
             <div className="navbtns">
             <Button>

@@ -26,9 +26,13 @@
     "openzeppelin-solidity": "^2.3.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-redux": "^7.1.0",
     "react-router-dom": "^5.0.1",
     "terser-webpack-plugin": "^1.3.0",
-    "web3": "^1.2.1"
+    "web3": "^1.2.1",
+    "redux": "^4.0.4",
+    "redux-thunk": "^2.3.0",
+    "terser-webpack-plugin": "^1.3.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.4.4",

@@ -1,0 +1,1355 @@
+{
+  "contractName": "DomainRegistry",
+  "abi": [
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "",
+          "type": "bytes32"
+        }
+      ],
+      "name": "deployedDomains",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": false,
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "domainHash",
+          "type": "bytes32"
+        },
+        {
+          "internalType": "address",
+          "name": "domainAddress",
+          "type": "address"
+        }
+      ],
+      "name": "addDomain",
+      "outputs": [],
+      "payable": false,
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "domainHash",
+          "type": "bytes32"
+        }
+      ],
+      "name": "domainExists",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "constant": true,
+      "inputs": [
+        {
+          "internalType": "bytes32",
+          "name": "domainHash",
+          "type": "bytes32"
+        }
+      ],
+      "name": "getDomainAddress",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "payable": false,
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "metadata": "{\"compiler\":{\"version\":\"0.5.11+commit.c082d0b4\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"domainHash\",\"type\":\"bytes32\"}],\"name\":\"domainExists\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"\",\"type\":\"bytes32\"}],\"name\":\"deployedDomains\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"},{\"constant\":false,\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"domainHash\",\"type\":\"bytes32\"},{\"internalType\":\"address\",\"name\":\"domainAddress\",\"type\":\"address\"}],\"name\":\"addDomain\",\"outputs\":[],\"payable\":false,\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"constant\":true,\"inputs\":[{\"internalType\":\"bytes32\",\"name\":\"domainHash\",\"type\":\"bytes32\"}],\"name\":\"getDomainAddress\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"payable\":false,\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{},\"title\":\"DomainRegistry - Used as a universal registry to store deployed domainDAOs. \"},\"userdoc\":{\"methods\":{}}},\"settings\":{\"compilationTarget\":{\"/Users/christopherfenos/Documents/code/bob/bob/packages/desktop/contracts/DomainRegistry.sol\":\"DomainRegistry\"},\"evmVersion\":\"byzantium\",\"libraries\":{},\"optimizer\":{\"enabled\":false,\"runs\":200},\"remappings\":[]},\"sources\":{\"/Users/christopherfenos/Documents/code/bob/bob/packages/desktop/contracts/DomainRegistry.sol\":{\"keccak256\":\"0x73500de71e8b7ca0242498d1d9787115754dd3fb60c4b7d8cff0333d122b8c58\",\"urls\":[\"bzz-raw://09bde7de8bb47f5b92203a672f15bc1b974317416a0639e9d1165ebf6b4b464b\",\"dweb:/ipfs/QmYnxKQ5Rys1STwk2uZeeaxcjwoXAR8UmJHzTGE26WLo4G\"]}},\"version\":1}",
+  "bytecode": "0x608060405234801561001057600080fd5b50610342806100206000396000f3fe608060405234801561001057600080fd5b5060043610610069576000357c0100000000000000000000000000000000000000000000000000000000900480630c0da44a1461006e5780634f627fc0146100b457806392cad5b014610122578063bc51c0ad14610170575b600080fd5b61009a6004803603602081101561008457600080fd5b81019080803590602001909291905050506101de565b604051808215151515815260200191505060405180910390f35b6100e0600480360360208110156100ca57600080fd5b8101908080359060200190929190505050610249565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b61016e6004803603604081101561013857600080fd5b8101908080359060200190929190803573ffffffffffffffffffffffffffffffffffffffff16906020019092919050505061027c565b005b61019c6004803603602081101561018657600080fd5b81019080803590602001909291905050506102d1565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b60008073ffffffffffffffffffffffffffffffffffffffff1660008084815260200190815260200160002060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1614159050919050565b60006020528060005260406000206000915054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b8060008084815260200190815260200160002060006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055505050565b600080600083815260200190815260200160002060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905091905056fea265627a7a72315820a378b183233b9ea0b8d8324f5cdde4454338f2b9d8f29147b9f2da3f8ed782bc64736f6c634300050b0032",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b5060043610610069576000357c0100000000000000000000000000000000000000000000000000000000900480630c0da44a1461006e5780634f627fc0146100b457806392cad5b014610122578063bc51c0ad14610170575b600080fd5b61009a6004803603602081101561008457600080fd5b81019080803590602001909291905050506101de565b604051808215151515815260200191505060405180910390f35b6100e0600480360360208110156100ca57600080fd5b8101908080359060200190929190505050610249565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b61016e6004803603604081101561013857600080fd5b8101908080359060200190929190803573ffffffffffffffffffffffffffffffffffffffff16906020019092919050505061027c565b005b61019c6004803603602081101561018657600080fd5b81019080803590602001909291905050506102d1565b604051808273ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff16815260200191505060405180910390f35b60008073ffffffffffffffffffffffffffffffffffffffff1660008084815260200190815260200160002060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff1673ffffffffffffffffffffffffffffffffffffffff1614159050919050565b60006020528060005260406000206000915054906101000a900473ffffffffffffffffffffffffffffffffffffffff1681565b8060008084815260200190815260200160002060006101000a81548173ffffffffffffffffffffffffffffffffffffffff021916908373ffffffffffffffffffffffffffffffffffffffff1602179055505050565b600080600083815260200190815260200160002060009054906101000a900473ffffffffffffffffffffffffffffffffffffffff16905091905056fea265627a7a72315820a378b183233b9ea0b8d8324f5cdde4454338f2b9d8f29147b9f2da3f8ed782bc64736f6c634300050b0032",
+  "sourceMap": "124:477:3:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;124:477:3;;;;;;;",
+  "deployedSourceMap": "124:477:3:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;124:477:3;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;338:132;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;338:132:3;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;152:50;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;152:50:3;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;207:125;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;207:125:3;;;;;;;;;;;;;;;;;;;;;;;;;;;;:::i;:::-;;476:123;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;476:123:3;;;;;;;;;;;;;;;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;338:132;400:4;460:3;421:43;;:15;:27;437:10;421:27;;;;;;;;;;;;;;;;;;;;;:43;;;;414:51;;338:132;;;:::o;152:50::-;;;;;;;;;;;;;;;;;;;;;;:::o;207:125::-;314:13;284:15;:27;300:10;284:27;;;;;;;;;;;;:43;;;;;;;;;;;;;;;;;;207:125;;:::o;476:123::-;542:7;566:15;:27;582:10;566:27;;;;;;;;;;;;;;;;;;;;;559:35;;476:123;;;:::o",
+  "source": "pragma solidity ^0.5.11;\n\n/**\n * @title DomainRegistry - Used as a universal registry to store deployed domainDAOs.\n *\n */\n\ncontract DomainRegistry {\n  mapping(bytes32 => address) public deployedDomains;\n\n  function addDomain(bytes32 domainHash, address domainAddress) public {\n      deployedDomains[domainHash] = domainAddress;\n  }\n  \n  function domainExists(bytes32 domainHash) public view returns(bool) {\n      return(deployedDomains[domainHash] != address(0x0));\n  }\n  \n  function getDomainAddress(bytes32 domainHash) public view returns(address) {\n      return(deployedDomains[domainHash]);\n  }\n}",
+  "sourcePath": "/Users/christopherfenos/Documents/code/bob/bob/packages/desktop/contracts/DomainRegistry.sol",
+  "ast": {
+    "absolutePath": "/Users/christopherfenos/Documents/code/bob/bob/packages/desktop/contracts/DomainRegistry.sol",
+    "exportedSymbols": {
+      "DomainRegistry": [
+        1173
+      ]
+    },
+    "id": 1174,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 1124,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".11"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:24:3"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": "@title DomainRegistry - Used as a universal registry to store deployed domainDAOs.\n ",
+        "fullyImplemented": true,
+        "id": 1173,
+        "linearizedBaseContracts": [
+          1173
+        ],
+        "name": "DomainRegistry",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": false,
+            "id": 1128,
+            "name": "deployedDomains",
+            "nodeType": "VariableDeclaration",
+            "scope": 1173,
+            "src": "152:50:3",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_bytes32_$_t_address_$",
+              "typeString": "mapping(bytes32 => address)"
+            },
+            "typeName": {
+              "id": 1127,
+              "keyType": {
+                "id": 1125,
+                "name": "bytes32",
+                "nodeType": "ElementaryTypeName",
+                "src": "160:7:3",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bytes32",
+                  "typeString": "bytes32"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "152:27:3",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_bytes32_$_t_address_$",
+                "typeString": "mapping(bytes32 => address)"
+              },
+              "valueType": {
+                "id": 1126,
+                "name": "address",
+                "nodeType": "ElementaryTypeName",
+                "src": "171:7:3",
+                "stateMutability": "nonpayable",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                }
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 1141,
+              "nodeType": "Block",
+              "src": "276:56:3",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 1139,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "baseExpression": {
+                        "argumentTypes": null,
+                        "id": 1135,
+                        "name": "deployedDomains",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 1128,
+                        "src": "284:15:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_mapping$_t_bytes32_$_t_address_$",
+                          "typeString": "mapping(bytes32 => address)"
+                        }
+                      },
+                      "id": 1137,
+                      "indexExpression": {
+                        "argumentTypes": null,
+                        "id": 1136,
+                        "name": "domainHash",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 1130,
+                        "src": "300:10:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        }
+                      },
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "nodeType": "IndexAccess",
+                      "src": "284:27:3",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 1138,
+                      "name": "domainAddress",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 1132,
+                      "src": "314:13:3",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "src": "284:43:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "id": 1140,
+                  "nodeType": "ExpressionStatement",
+                  "src": "284:43:3"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 1142,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "addDomain",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 1133,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1130,
+                  "name": "domainHash",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1142,
+                  "src": "226:18:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 1129,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "226:7:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 1132,
+                  "name": "domainAddress",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1142,
+                  "src": "246:21:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 1131,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "246:7:3",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "225:43:3"
+            },
+            "returnParameters": {
+              "id": 1134,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "276:0:3"
+            },
+            "scope": 1173,
+            "src": "207:125:3",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 1158,
+              "nodeType": "Block",
+              "src": "406:64:3",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "components": [
+                      {
+                        "argumentTypes": null,
+                        "commonType": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        },
+                        "id": 1155,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "leftExpression": {
+                          "argumentTypes": null,
+                          "baseExpression": {
+                            "argumentTypes": null,
+                            "id": 1149,
+                            "name": "deployedDomains",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 1128,
+                            "src": "421:15:3",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_mapping$_t_bytes32_$_t_address_$",
+                              "typeString": "mapping(bytes32 => address)"
+                            }
+                          },
+                          "id": 1151,
+                          "indexExpression": {
+                            "argumentTypes": null,
+                            "id": 1150,
+                            "name": "domainHash",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 1144,
+                            "src": "437:10:3",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_bytes32",
+                              "typeString": "bytes32"
+                            }
+                          },
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "nodeType": "IndexAccess",
+                          "src": "421:27:3",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        },
+                        "nodeType": "BinaryOperation",
+                        "operator": "!=",
+                        "rightExpression": {
+                          "argumentTypes": null,
+                          "arguments": [
+                            {
+                              "argumentTypes": null,
+                              "hexValue": "307830",
+                              "id": 1153,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": true,
+                              "kind": "number",
+                              "lValueRequested": false,
+                              "nodeType": "Literal",
+                              "src": "460:3:3",
+                              "subdenomination": null,
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_rational_0_by_1",
+                                "typeString": "int_const 0"
+                              },
+                              "value": "0x0"
+                            }
+                          ],
+                          "expression": {
+                            "argumentTypes": [
+                              {
+                                "typeIdentifier": "t_rational_0_by_1",
+                                "typeString": "int_const 0"
+                              }
+                            ],
+                            "id": 1152,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": true,
+                            "lValueRequested": false,
+                            "nodeType": "ElementaryTypeNameExpression",
+                            "src": "452:7:3",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_type$_t_address_$",
+                              "typeString": "type(address)"
+                            },
+                            "typeName": "address"
+                          },
+                          "id": 1154,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": true,
+                          "kind": "typeConversion",
+                          "lValueRequested": false,
+                          "names": [],
+                          "nodeType": "FunctionCall",
+                          "src": "452:12:3",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address_payable",
+                            "typeString": "address payable"
+                          }
+                        },
+                        "src": "421:43:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      }
+                    ],
+                    "id": 1156,
+                    "isConstant": false,
+                    "isInlineArray": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "TupleExpression",
+                    "src": "420:45:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "functionReturnParameters": 1148,
+                  "id": 1157,
+                  "nodeType": "Return",
+                  "src": "414:51:3"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 1159,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "domainExists",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 1145,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1144,
+                  "name": "domainHash",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1159,
+                  "src": "360:18:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 1143,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "360:7:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "359:20:3"
+            },
+            "returnParameters": {
+              "id": 1148,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1147,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1159,
+                  "src": "400:4:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 1146,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "400:4:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "399:6:3"
+            },
+            "scope": 1173,
+            "src": "338:132:3",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 1171,
+              "nodeType": "Block",
+              "src": "551:48:3",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "components": [
+                      {
+                        "argumentTypes": null,
+                        "baseExpression": {
+                          "argumentTypes": null,
+                          "id": 1166,
+                          "name": "deployedDomains",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 1128,
+                          "src": "566:15:3",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_mapping$_t_bytes32_$_t_address_$",
+                            "typeString": "mapping(bytes32 => address)"
+                          }
+                        },
+                        "id": 1168,
+                        "indexExpression": {
+                          "argumentTypes": null,
+                          "id": 1167,
+                          "name": "domainHash",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 1161,
+                          "src": "582:10:3",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_bytes32",
+                            "typeString": "bytes32"
+                          }
+                        },
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "nodeType": "IndexAccess",
+                        "src": "566:27:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      }
+                    ],
+                    "id": 1169,
+                    "isConstant": false,
+                    "isInlineArray": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "TupleExpression",
+                    "src": "565:29:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "functionReturnParameters": 1165,
+                  "id": 1170,
+                  "nodeType": "Return",
+                  "src": "559:35:3"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 1172,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getDomainAddress",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 1162,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1161,
+                  "name": "domainHash",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1172,
+                  "src": "502:18:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 1160,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "502:7:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "501:20:3"
+            },
+            "returnParameters": {
+              "id": 1165,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1164,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1172,
+                  "src": "542:7:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 1163,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "542:7:3",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "541:9:3"
+            },
+            "scope": 1173,
+            "src": "476:123:3",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 1174,
+        "src": "124:477:3"
+      }
+    ],
+    "src": "0:601:3"
+  },
+  "legacyAST": {
+    "absolutePath": "/Users/christopherfenos/Documents/code/bob/bob/packages/desktop/contracts/DomainRegistry.sol",
+    "exportedSymbols": {
+      "DomainRegistry": [
+        1173
+      ]
+    },
+    "id": 1174,
+    "nodeType": "SourceUnit",
+    "nodes": [
+      {
+        "id": 1124,
+        "literals": [
+          "solidity",
+          "^",
+          "0.5",
+          ".11"
+        ],
+        "nodeType": "PragmaDirective",
+        "src": "0:24:3"
+      },
+      {
+        "baseContracts": [],
+        "contractDependencies": [],
+        "contractKind": "contract",
+        "documentation": "@title DomainRegistry - Used as a universal registry to store deployed domainDAOs.\n ",
+        "fullyImplemented": true,
+        "id": 1173,
+        "linearizedBaseContracts": [
+          1173
+        ],
+        "name": "DomainRegistry",
+        "nodeType": "ContractDefinition",
+        "nodes": [
+          {
+            "constant": false,
+            "id": 1128,
+            "name": "deployedDomains",
+            "nodeType": "VariableDeclaration",
+            "scope": 1173,
+            "src": "152:50:3",
+            "stateVariable": true,
+            "storageLocation": "default",
+            "typeDescriptions": {
+              "typeIdentifier": "t_mapping$_t_bytes32_$_t_address_$",
+              "typeString": "mapping(bytes32 => address)"
+            },
+            "typeName": {
+              "id": 1127,
+              "keyType": {
+                "id": 1125,
+                "name": "bytes32",
+                "nodeType": "ElementaryTypeName",
+                "src": "160:7:3",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_bytes32",
+                  "typeString": "bytes32"
+                }
+              },
+              "nodeType": "Mapping",
+              "src": "152:27:3",
+              "typeDescriptions": {
+                "typeIdentifier": "t_mapping$_t_bytes32_$_t_address_$",
+                "typeString": "mapping(bytes32 => address)"
+              },
+              "valueType": {
+                "id": 1126,
+                "name": "address",
+                "nodeType": "ElementaryTypeName",
+                "src": "171:7:3",
+                "stateMutability": "nonpayable",
+                "typeDescriptions": {
+                  "typeIdentifier": "t_address",
+                  "typeString": "address"
+                }
+              }
+            },
+            "value": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 1141,
+              "nodeType": "Block",
+              "src": "276:56:3",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "id": 1139,
+                    "isConstant": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "leftHandSide": {
+                      "argumentTypes": null,
+                      "baseExpression": {
+                        "argumentTypes": null,
+                        "id": 1135,
+                        "name": "deployedDomains",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 1128,
+                        "src": "284:15:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_mapping$_t_bytes32_$_t_address_$",
+                          "typeString": "mapping(bytes32 => address)"
+                        }
+                      },
+                      "id": 1137,
+                      "indexExpression": {
+                        "argumentTypes": null,
+                        "id": 1136,
+                        "name": "domainHash",
+                        "nodeType": "Identifier",
+                        "overloadedDeclarations": [],
+                        "referencedDeclaration": 1130,
+                        "src": "300:10:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bytes32",
+                          "typeString": "bytes32"
+                        }
+                      },
+                      "isConstant": false,
+                      "isLValue": true,
+                      "isPure": false,
+                      "lValueRequested": true,
+                      "nodeType": "IndexAccess",
+                      "src": "284:27:3",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "nodeType": "Assignment",
+                    "operator": "=",
+                    "rightHandSide": {
+                      "argumentTypes": null,
+                      "id": 1138,
+                      "name": "domainAddress",
+                      "nodeType": "Identifier",
+                      "overloadedDeclarations": [],
+                      "referencedDeclaration": 1132,
+                      "src": "314:13:3",
+                      "typeDescriptions": {
+                        "typeIdentifier": "t_address",
+                        "typeString": "address"
+                      }
+                    },
+                    "src": "284:43:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "id": 1140,
+                  "nodeType": "ExpressionStatement",
+                  "src": "284:43:3"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 1142,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "addDomain",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 1133,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1130,
+                  "name": "domainHash",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1142,
+                  "src": "226:18:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 1129,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "226:7:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                },
+                {
+                  "constant": false,
+                  "id": 1132,
+                  "name": "domainAddress",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1142,
+                  "src": "246:21:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 1131,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "246:7:3",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "225:43:3"
+            },
+            "returnParameters": {
+              "id": 1134,
+              "nodeType": "ParameterList",
+              "parameters": [],
+              "src": "276:0:3"
+            },
+            "scope": 1173,
+            "src": "207:125:3",
+            "stateMutability": "nonpayable",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 1158,
+              "nodeType": "Block",
+              "src": "406:64:3",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "components": [
+                      {
+                        "argumentTypes": null,
+                        "commonType": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        },
+                        "id": 1155,
+                        "isConstant": false,
+                        "isLValue": false,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "leftExpression": {
+                          "argumentTypes": null,
+                          "baseExpression": {
+                            "argumentTypes": null,
+                            "id": 1149,
+                            "name": "deployedDomains",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 1128,
+                            "src": "421:15:3",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_mapping$_t_bytes32_$_t_address_$",
+                              "typeString": "mapping(bytes32 => address)"
+                            }
+                          },
+                          "id": 1151,
+                          "indexExpression": {
+                            "argumentTypes": null,
+                            "id": 1150,
+                            "name": "domainHash",
+                            "nodeType": "Identifier",
+                            "overloadedDeclarations": [],
+                            "referencedDeclaration": 1144,
+                            "src": "437:10:3",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_bytes32",
+                              "typeString": "bytes32"
+                            }
+                          },
+                          "isConstant": false,
+                          "isLValue": true,
+                          "isPure": false,
+                          "lValueRequested": false,
+                          "nodeType": "IndexAccess",
+                          "src": "421:27:3",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address",
+                            "typeString": "address"
+                          }
+                        },
+                        "nodeType": "BinaryOperation",
+                        "operator": "!=",
+                        "rightExpression": {
+                          "argumentTypes": null,
+                          "arguments": [
+                            {
+                              "argumentTypes": null,
+                              "hexValue": "307830",
+                              "id": 1153,
+                              "isConstant": false,
+                              "isLValue": false,
+                              "isPure": true,
+                              "kind": "number",
+                              "lValueRequested": false,
+                              "nodeType": "Literal",
+                              "src": "460:3:3",
+                              "subdenomination": null,
+                              "typeDescriptions": {
+                                "typeIdentifier": "t_rational_0_by_1",
+                                "typeString": "int_const 0"
+                              },
+                              "value": "0x0"
+                            }
+                          ],
+                          "expression": {
+                            "argumentTypes": [
+                              {
+                                "typeIdentifier": "t_rational_0_by_1",
+                                "typeString": "int_const 0"
+                              }
+                            ],
+                            "id": 1152,
+                            "isConstant": false,
+                            "isLValue": false,
+                            "isPure": true,
+                            "lValueRequested": false,
+                            "nodeType": "ElementaryTypeNameExpression",
+                            "src": "452:7:3",
+                            "typeDescriptions": {
+                              "typeIdentifier": "t_type$_t_address_$",
+                              "typeString": "type(address)"
+                            },
+                            "typeName": "address"
+                          },
+                          "id": 1154,
+                          "isConstant": false,
+                          "isLValue": false,
+                          "isPure": true,
+                          "kind": "typeConversion",
+                          "lValueRequested": false,
+                          "names": [],
+                          "nodeType": "FunctionCall",
+                          "src": "452:12:3",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_address_payable",
+                            "typeString": "address payable"
+                          }
+                        },
+                        "src": "421:43:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_bool",
+                          "typeString": "bool"
+                        }
+                      }
+                    ],
+                    "id": 1156,
+                    "isConstant": false,
+                    "isInlineArray": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "TupleExpression",
+                    "src": "420:45:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "functionReturnParameters": 1148,
+                  "id": 1157,
+                  "nodeType": "Return",
+                  "src": "414:51:3"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 1159,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "domainExists",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 1145,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1144,
+                  "name": "domainHash",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1159,
+                  "src": "360:18:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 1143,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "360:7:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "359:20:3"
+            },
+            "returnParameters": {
+              "id": 1148,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1147,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1159,
+                  "src": "400:4:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bool",
+                    "typeString": "bool"
+                  },
+                  "typeName": {
+                    "id": 1146,
+                    "name": "bool",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "400:4:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bool",
+                      "typeString": "bool"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "399:6:3"
+            },
+            "scope": 1173,
+            "src": "338:132:3",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "public"
+          },
+          {
+            "body": {
+              "id": 1171,
+              "nodeType": "Block",
+              "src": "551:48:3",
+              "statements": [
+                {
+                  "expression": {
+                    "argumentTypes": null,
+                    "components": [
+                      {
+                        "argumentTypes": null,
+                        "baseExpression": {
+                          "argumentTypes": null,
+                          "id": 1166,
+                          "name": "deployedDomains",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 1128,
+                          "src": "566:15:3",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_mapping$_t_bytes32_$_t_address_$",
+                            "typeString": "mapping(bytes32 => address)"
+                          }
+                        },
+                        "id": 1168,
+                        "indexExpression": {
+                          "argumentTypes": null,
+                          "id": 1167,
+                          "name": "domainHash",
+                          "nodeType": "Identifier",
+                          "overloadedDeclarations": [],
+                          "referencedDeclaration": 1161,
+                          "src": "582:10:3",
+                          "typeDescriptions": {
+                            "typeIdentifier": "t_bytes32",
+                            "typeString": "bytes32"
+                          }
+                        },
+                        "isConstant": false,
+                        "isLValue": true,
+                        "isPure": false,
+                        "lValueRequested": false,
+                        "nodeType": "IndexAccess",
+                        "src": "566:27:3",
+                        "typeDescriptions": {
+                          "typeIdentifier": "t_address",
+                          "typeString": "address"
+                        }
+                      }
+                    ],
+                    "id": 1169,
+                    "isConstant": false,
+                    "isInlineArray": false,
+                    "isLValue": false,
+                    "isPure": false,
+                    "lValueRequested": false,
+                    "nodeType": "TupleExpression",
+                    "src": "565:29:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "functionReturnParameters": 1165,
+                  "id": 1170,
+                  "nodeType": "Return",
+                  "src": "559:35:3"
+                }
+              ]
+            },
+            "documentation": null,
+            "id": 1172,
+            "implemented": true,
+            "kind": "function",
+            "modifiers": [],
+            "name": "getDomainAddress",
+            "nodeType": "FunctionDefinition",
+            "parameters": {
+              "id": 1162,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1161,
+                  "name": "domainHash",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1172,
+                  "src": "502:18:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_bytes32",
+                    "typeString": "bytes32"
+                  },
+                  "typeName": {
+                    "id": 1160,
+                    "name": "bytes32",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "502:7:3",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_bytes32",
+                      "typeString": "bytes32"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "501:20:3"
+            },
+            "returnParameters": {
+              "id": 1165,
+              "nodeType": "ParameterList",
+              "parameters": [
+                {
+                  "constant": false,
+                  "id": 1164,
+                  "name": "",
+                  "nodeType": "VariableDeclaration",
+                  "scope": 1172,
+                  "src": "542:7:3",
+                  "stateVariable": false,
+                  "storageLocation": "default",
+                  "typeDescriptions": {
+                    "typeIdentifier": "t_address",
+                    "typeString": "address"
+                  },
+                  "typeName": {
+                    "id": 1163,
+                    "name": "address",
+                    "nodeType": "ElementaryTypeName",
+                    "src": "542:7:3",
+                    "stateMutability": "nonpayable",
+                    "typeDescriptions": {
+                      "typeIdentifier": "t_address",
+                      "typeString": "address"
+                    }
+                  },
+                  "value": null,
+                  "visibility": "internal"
+                }
+              ],
+              "src": "541:9:3"
+            },
+            "scope": 1173,
+            "src": "476:123:3",
+            "stateMutability": "view",
+            "superFunction": null,
+            "visibility": "public"
+          }
+        ],
+        "scope": 1174,
+        "src": "124:477:3"
+      }
+    ],
+    "src": "0:601:3"
+  },
+  "compiler": {
+    "name": "solc",
+    "version": "0.5.11+commit.c082d0b4.Emscripten.clang"
+  },
+  "networks": {},
+  "schemaVersion": "3.0.13",
+  "updatedAt": "2019-08-24T15:36:30.600Z",
+  "devdoc": {
+    "methods": {},
+    "title": "DomainRegistry - Used as a universal registry to store deployed domainDAOs. "
+  },
+  "userdoc": {
+    "methods": {}
+  }
+}

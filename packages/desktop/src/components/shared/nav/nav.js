@@ -6,7 +6,7 @@ import { setSearchText } from '../../../redux/actions/actionCreators/search';
 import { hashDomainUrl } from '../../../shared/helpers/domain';
 import { getWalletProvider } from '../../../shared/helpers/provider';
 import { generateWallet } from '../../../shared/helpers/user';
-import { deployContract } from '../../../shared/helpers/deployment';
+import { deployDomainRegistry, deployDomainDAO, deployAdvertisingDAO } from '../../../shared/helpers/deployment';
 
 const Nav = () => {
   const [url, setUrl] = useState("")
@@ -23,11 +23,13 @@ const Nav = () => {
    
   }
 
-    const submit = () => {
+    const submit = async() => {
         const hash = hashDomainUrl(url);
         const provider = getWalletProvider();
         const wallet = generateWallet(provider);
-        deployContract(wallet, provider, hash, url, 'ad');
+        const domainRegistryAddress = await deployDomainRegistry(wallet);
+        const domainDAOAddress = await deployDomainDAO(wallet, url, domainRegistryAddress);
+        const advertisingDAOAddress = await deployAdvertisingDAO(wallet, domainDAOAddress);
     }
 
   return (

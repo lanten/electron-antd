@@ -125,7 +125,7 @@ contract('DomainDAO', (accounts) => {
 			await domain.invest({from: accounts[1], value: 1});   
 			await domain.createBid(bidID, info, {from: accounts[0]});
       try {
-        await domain.vote(bidID, true, { from: accounts[2] });
+        await domain.vote(bidID, true, false, { from: accounts[2] });
         assert.isTrue(false);
       } catch (err) {
 				expect(err.message).to.include("User must be invested when bid was created")
@@ -140,7 +140,7 @@ contract('DomainDAO', (accounts) => {
 			await domain.createBid(bidID, info, {from: accounts[0]});
 			await domain.invest({from: accounts[2], value: 1});
         try {
-          await domain.vote(bidID, true, { from: accounts[2] });
+          await domain.vote(bidID, true, false, { from: accounts[2] });
           assert.isTrue(false);
         } catch (err) {
           expect(err.message).to.include("User must be invested when bid was created")
@@ -154,7 +154,7 @@ contract('DomainDAO', (accounts) => {
 			await domain.invest({from: accounts[1], value: 1});
 			await domain.createBid(bidID, info, {from: accounts[0]});  
 			await domain.invest({from: accounts[2], value: 1});
-      await domain.vote(bidID, true, { from: accounts[1] });
+      await domain.vote(bidID, true, false, { from: accounts[1] });
     });
 
     it('Should not be able to vote twice', async () => {
@@ -164,9 +164,9 @@ contract('DomainDAO', (accounts) => {
 			await domain.invest({from: accounts[1], value: 1}); 
 			await domain.createBid(bidID, info, {from: accounts[0]}); 
 			await domain.invest({from: accounts[2], value: 1});
-			await domain.vote(bidID, true, { from: accounts[1] });
+			await domain.vote(bidID, true, false, { from: accounts[1] });
 			try {
-        await domain.vote(bidID, true, { from: accounts[1] });
+        await domain.vote(bidID, true, false, { from: accounts[1] });
         assert.isTrue(false);
       } catch (err) {
 				expect(err.message).to.include('User has already voted on this bid');
@@ -180,8 +180,8 @@ contract('DomainDAO', (accounts) => {
 			await domain.invest({from: accounts[1], value: 1});
 			await domain.invest({from: accounts[2], value: 1});
 			await domain.createBid(bidID, info, {from: accounts[0]});  
-			await domain.vote(bidID, true, { from: accounts[0] });
-			let receipt = await domain.vote(bidID, true, { from: accounts[1] });
+			await domain.vote(bidID, true, false, { from: accounts[0] });
+			let receipt = await domain.vote(bidID, true, false, { from: accounts[1] });
 
 			const logs = receipt.logs && receipt.logs.length ? receipt.logs : [];
       const event = logs.filter(log => log.event === 'BidApproved');
@@ -201,8 +201,8 @@ contract('DomainDAO', (accounts) => {
 			await domain.invest({from: accounts[1], value: 1});
 			await domain.invest({from: accounts[2], value: 1});
 			await domain.createBid(bidID, info, {from: accounts[0]});  
-			await domain.vote(bidID, false, { from: accounts[0] });
-			let receipt = await domain.vote(bidID, false, { from: accounts[1] });
+			await domain.vote(bidID, false, false, { from: accounts[0] });
+			let receipt = await domain.vote(bidID, false, false, { from: accounts[1] });
 
 			const logs = receipt.logs && receipt.logs.length ? receipt.logs : [];
       const event = logs.filter(log => log.event === 'BidRejected');
@@ -223,7 +223,7 @@ contract('DomainDAO', (accounts) => {
 			await domain.invest({from: accounts[2], value: 1});
 			await domain.invest({from: accounts[3], value: 5});
 			await domain.createBid(bidID, info, {from: accounts[0]});  
-			let receipt = await domain.vote(bidID, false, { from: accounts[3] });
+			let receipt = await domain.vote(bidID, false, false, { from: accounts[3] });
 			const logs = receipt.logs && receipt.logs.length ? receipt.logs : [];
       const event = logs.filter(log => log.event === 'BidApproved');
       assert(logs.length || event.length);
@@ -245,8 +245,8 @@ contract('DomainDAO', (accounts) => {
 			assert.isTrue(investorsSnapShot);
 			expect(investorSharesSnapshot).to.be.bignumber.that.equals(new BN(1));
 
-			await domain.vote(bidID, true, { from: accounts[0] });
-			await domain.vote(bidID, true, { from: accounts[1] });
+			await domain.vote(bidID, true, false, { from: accounts[0] });
+			await domain.vote(bidID, true, false, { from: accounts[1] });
 
 			const investorArraySnapShot2 = await domain.getInvestorArraySnapshot(bidID);		
 			const investorsSnapShot2 = await domain.getInvestorsSnapshot(bidID, accounts[0]);
@@ -262,8 +262,8 @@ contract('DomainDAO', (accounts) => {
 			domain = await DomainDAO.new(domainRegistryAddress, domainHash, {from: accounts[0], value: 1});
 			await domain.invest({from: accounts[1], value: 1});   
 			await domain.createBid(bidID, info, {from: accounts[0]});
-			await domain.vote(bidID, true, { from: accounts[0] });
-			await domain.vote(bidID, true, { from: accounts[1] });
+			await domain.vote(bidID, true, false, { from: accounts[0] });
+			await domain.vote(bidID, true, false, { from: accounts[1] });
 			const bid = await domain.getBid(bidID);
 			expect(bid[0]).to.be.bignumber.that.equals(new BN(0));
 			expect(web3.utils.hexToAscii(bid[1]).replace(/\0/g, '')).to.be.equal('');
@@ -279,8 +279,8 @@ contract('DomainDAO', (accounts) => {
 			domain = await DomainDAO.new(domainRegistryAddress, domainHash, {from: accounts[0], value: 1});
 			await domain.invest({from: accounts[1], value: 1});   
 			await domain.createBid(bidID, info, {from: accounts[0]});
-			await domain.vote(bidID, true, { from: accounts[0] });
-			await domain.vote(bidID, true, { from: accounts[1] });
+			await domain.vote(bidID, true, false, { from: accounts[0] });
+			await domain.vote(bidID, true, false, { from: accounts[1] });
 			try {
 				await domain.createBid(bidID, info, {from: accounts[0]});
 			} catch (err) {

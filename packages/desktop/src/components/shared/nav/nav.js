@@ -3,6 +3,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import 'antd/dist/antd.css';
 import { Input, Tooltip, Icon, Avatar, Button } from 'antd';
 import { setSearchText } from '../../../redux/actions/actionCreators/search';
+import { hashDomainUrl } from '../../../shared/helpers/domain';
+import { getWalletProvider } from '../../../shared/helpers/provider';
+import { generateWallet } from '../../../shared/helpers/user';
 
 const Nav = () => {
   const [url, setUrl] = useState("")
@@ -16,6 +19,9 @@ const Nav = () => {
         return;
     }
     setUrl(e.target.value)
+    const hash = hashDomainUrl(url);
+    const provider = getWalletProvider();
+    const wallet = generateWallet(provider);
   }
 
   return (

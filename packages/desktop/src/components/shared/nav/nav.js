@@ -5,10 +5,11 @@ import { Input, Tooltip, Icon } from 'antd';
 import 'antd/dist/antd.css';
 
 const Nav = () => {
+  const url = 'https://avatars1.githubusercontent.com/u/19377315?s=400&v=4';
   return (
     <div className="sticky-header flex">
         <div className="left">
-            <Avatar size={64} src="https://avatars1.githubusercontent.com/u/19377315?s=400&v=4" />
+            <Avatar size={64} src={`${url}`} />
         </div>
         <div className="mid">
         <Input

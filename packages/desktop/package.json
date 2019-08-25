@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/lanten/electron-antd#readme",
   "dependencies": {
+    "3box": "^1.10.7",
     "antd": "^3.19.6",
     "dotenv": "^8.1.0",
     "ethers": "^4.0.36",

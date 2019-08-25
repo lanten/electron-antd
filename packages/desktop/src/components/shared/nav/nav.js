@@ -7,6 +7,8 @@ import { hashDomainUrl } from '../../../shared/helpers/domain';
 import { getWalletProvider } from '../../../shared/helpers/provider';
 import { generateWallet } from '../../../shared/helpers/user';
 import { deployDomainRegistry, deployDomainDAO, deployAdvertisingDAO } from '../../../shared/helpers/deployment';
+import Box from '3box';
+import HDWalletProvider from "truffle-hdwallet-provider";
 
 const Nav = () => {
   const [url, setUrl] = useState("")
@@ -23,14 +25,91 @@ const Nav = () => {
    
   }
 
-    const submit = async() => {
-        const hash = hashDomainUrl(url);
-        const provider = getWalletProvider();
-        const wallet = generateWallet(provider);
-        const domainRegistryAddress = await deployDomainRegistry(wallet);
-        const domainDAOAddress = await deployDomainDAO(wallet, url, domainRegistryAddress);
-        const advertisingDAOAddress = await deployAdvertisingDAO(wallet, domainDAOAddress);
+	const submit = async() => {
+			const hash = hashDomainUrl(url);
+			const provider = getWalletProvider();
+			const wallet = generateWallet(provider);
+			const boxWalletProvider = get3BoxWalletProvider();
+			const box = await createBox();
+			const space = await createSpace();
+			const thread = await createThread();
+			const adminThread = await adminThread();
+			// const domainRegistryAddress = await deployDomainRegistry(wallet);
+			// const domainDAOAddress = await deployDomainDAO(wallet, url, domainRegistryAddress);
+			// const advertisingDAOAddress = await deployAdvertisingDAO(wallet, domainDAOAddress);
+	}
+
+	const get3BoxWalletProvider = async() => {
+    var provider = new HDWalletProvider(process.env.REACT_APP_PRIVATE_KEY, "http://goerli.infura.io/v3/82c35d2e074c4021a54f6fd4c0bde238");
+    return provider;
+  }
+
+  const createBox = async() => {
+    const provider = await getWalletProvider();
+    try {
+      const box = await Box.openBox(provider.addresses[0], provider);
+      await box.public.set('name', 'Anonymous Person');
+      await box.public.set('ethereumAddress', '0x5367468213aff78638417329419');
+      box.name = await box.public.get('name');
+      console.log(await box.public.all());
+      return box;
+    } catch (err) {
+      console.log(err.messsage);
     }
+  }
+
+  const createSpace = async() => {
+    const box = await createBox();
+    try {
+      const space = await box.openSpace('Unique Post ID');
+      await space.public.set('domain', '0x123412312');
+      await space.public.set('title', 'POST TITLE');
+      await space.public.set(
+        'description', 
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.');
+      console.log('space', await space.public.all())
+      return space;
+    } catch (err) {
+      console.log(err.messsage);
+    }
+  }
+
+  const createThread = async() => {
+    const space = await createSpace();
+    try {
+      const publicThread = await space.joinThread('Public Comment Thread 2');
+      await publicThread.post('Public Comment 1');
+      await publicThread.post('Public Comment 2');
+      await publicThread.post('Public Comment 3');
+      const posts = await publicThread.getPosts();
+      console.log("posts", posts)
+      const metadataThread = await space.joinThread(posts[0].postId);
+      await metadataThread.post('Likes cars');
+      console.log(metadataThread)
+      const metadataPosts = await metadataThread.getPosts();
+      console.log("posts", metadataPosts)
+    } catch (err) {
+      console.log(err.messsage);
+    }
+  }
+
+  const createAdminThread = async() => {
+    const provider = await getWalletProvider();
+    const space = await createSpace();
+    try {
+      const thread = await space.joinThread('DAO Investor Collaboration Thread', {
+        firstModerator: provider.addresses[0],
+        members: true
+      });
+      await thread.post('DAO Investor Comment 1');
+      await thread.post('DAO Investor Comment 2');
+      await thread.post('DAO Investor Comment 3');
+      const posts = await thread.getPosts();
+      console.log("posts", posts)
+    } catch (err) {
+      console.log(err.messsage);
+    }
+  }
 
   return (
     <div className="sticky-header flex">

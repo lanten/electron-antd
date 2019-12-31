@@ -1,17 +1,253 @@
+@import './_var.less';
+
 html,
-body {
-  background-color: transparent !important;
-}
-
+body,
 #app {
-  padding: 16px;
+  height: calc(~'100% - @{height_navbar}');
 }
 
-.loopFontSize (@count)when(@count > 9) {
-  .fs-@{count} {
-    font-size: @count*1px  !important;
+body {
+  font-family: -apple-system, BlinkMacSystemFont, Helvetica Neue, PingFang SC, Microsoft YaHei,
+    Source Han Sans SC, Noto Sans CJK SC, sans-serif;
+  position: relative;
+  overflow-x: auto;
+  font-size: 14px;
+  color: @color_default;
+  background: @color_background;
+}
+
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+}
+
+a,
+span,
+i {
+  display: inline-block;
+}
+
+a {
+  cursor: pointer;
+  text-decoration: none;
+  color: @color_blue;
+  &:focus {
+    text-decoration: none;
   }
-  .loopFontSize((@count - 2));
+  &:hover {
+    color: darken(@color_blue, 20);
+  }
 }
 
-.loopFontSize(48);
+input,
+textarea {
+  -webkit-appearance: none;
+}
+
+ul {
+  padding: 0;
+  margin: 0;
+  li {
+    list-style-type: none;
+  }
+}
+
+.flex {
+  display: flex;
+
+  &.row {
+    flex-direction: row;
+  }
+
+  &.column {
+    flex-direction: column;
+  }
+
+  &.center {
+    justify-content: center;
+    align-items: center;
+  }
+
+  &.center-h {
+    justify-content: center;
+  }
+
+  &.center-v {
+    align-items: center;
+  }
+
+  &.between {
+    justify-content: space-between;
+  }
+
+  &.end {
+    justify-content: flex-end;
+  }
+
+  .flex-none {
+    flex: none;
+  }
+
+  .loopFlex(@i) when (@i > 0) {
+    .flex-@{i} {
+      flex: @i;
+    }
+    .loopFlex(@i - 1);
+  }
+  .loopFlex(12);
+}
+
+.text {
+  &-center {
+    text-align: center;
+  }
+  &-left {
+    text-align: left;
+  }
+  &-right {
+    text-align: right;
+  }
+  &-ellipsis {
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+  &-wrap {
+    word-wrap: break-word;
+  }
+  &-nowrap {
+    word-wrap: keep-all;
+    white-space: nowrap;
+  }
+  // 大写字母
+  &-up {
+    text-transform: uppercase;
+  }
+
+  // 控制字体粗细 text-w{num} [3-7] , text-w5
+  .loopFontWeight(@i) when (@i <=7) {
+    &-w@{i} {
+      font-weight: @i*100;
+    }
+    .loopFontWeight(@i+1);
+  }
+  .loopFontWeight(3);
+
+  // 字体颜色 通过变量:@colors 遍历, text-{name}
+  .loopTextColor(@i) when (@i > 0) {
+    @name: extract(@colors, @i);
+    // @val: extract(@color-val, @n);
+    @nameV: 'color_@{name}';
+    &-@{name} {
+      color: @@nameV;
+    }
+    .loopTextColor((@i - 1));
+  }
+  .loopTextColor(length(@colors));
+}
+
+// 字体大小 fs-{size} [10-60]
+.loopFontSize(@i) when (@i <=60) {
+  .fs-@{i} {
+    font-size: @i * 1px;
+  }
+  .loopFontSize(@i + 2);
+}
+.loopFontSize(10);
+
+// 盒模型 size:0-32(4 的整数倍) m-{size} ml-{size} mr-{size} mt-{size} mb-{size}
+.loopBox(@i) when (@i <=8) {
+  @size: @i*4;
+  @sizePx: @size*1px;
+  .m-@{size} {
+    margin: @sizePx;
+  }
+  .mt-@{size} {
+    margin-top: @sizePx;
+  }
+  .ml-@{size} {
+    margin-left: @sizePx;
+  }
+  .mr-@{size} {
+    margin-right: @sizePx;
+  }
+  .mb-@{size} {
+    margin-bottom: @sizePx;
+  }
+  .p-@{size} {
+    padding: @sizePx;
+  }
+  .pt-@{size} {
+    padding-top: @sizePx;
+  }
+  .pl-@{size} {
+    padding-left: @sizePx;
+  }
+  .pr-@{size} {
+    padding-right: @sizePx;
+  }
+  .pb-@{size} {
+    padding-bottom: @sizePx;
+  }
+  .loopBox(@i+1);
+}
+.loopBox(0);
+
+// Tag 标签 通过变量:@colors 遍历, tag-{name}
+.tag {
+  border-radius: 20px;
+  color: @color_white;
+  padding: 0 10px;
+  line-height: 1.6em;
+  height: 1.6em;
+  .loopTextColor(@i) when (@i > 0) {
+    @name: extract(@colors, @i);
+    // @val: extract(@color-val, @n);
+    @nameV: 'color_@{name}';
+    &-@{name} {
+      background-color: @@nameV;
+    }
+    .loopTextColor((@i - 1));
+  }
+  .loopTextColor(length(@colors));
+}
+
+.border-bottom {
+  position: relative;
+  &::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    bottom: -50%;
+    left: -50%;
+    right: -50%;
+    width: 200%;
+    height: 200%;
+    -webkit-transform: scale(0.5);
+    transform: scale(0.5);
+    border-bottom: 1px solid @color_border;
+    box-sizing: border-box;
+  }
+}
+
+// .app-content-layout {
+//   &::before {
+//     content: '';
+//     display: block;
+//     height: @height_navbar;
+//   }
+// }
+
+div.app-content {
+  box-sizing: border-box;
+  overflow-x: auto;
+  padding: @padding_layout;
+  position: relative;
+}

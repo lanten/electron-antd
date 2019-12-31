@@ -1,13 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<%= lang %>">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <!-- <title>Document</title> -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+  <!-- <meta name="format-detection" content="email=no">
+  <meta name="format-detection" content="telephone=no">
+  <meta name="renderer" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> -->
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+  <title><%= process.env.PROJECT_TITLE %> - <%= title %></title>
+
+  <!-- cache disable -->
+  <!-- <meta http-equiv="Cache-Control" content="no-cache,must-revalidate, proxy-revalidate"> -->
+  <!-- <meta http-equiv="Cache" content="no-cache"> -->
+  <!-- <meta http-equiv="Pragma" content="no-cache"> -->
+  <!-- <meta http-equiv="Expires" content="0"> -->
+
+  <!-- site description -->
+  <!-- <meta name="description" content="undef"> -->
+  <!-- <meta name="keywords" content="undef"> -->
 </head>
-<body>
-  <div id="root">
-  </div>
+
+<body class="app-content-layout">
+  <div id="app"></div>
 </body>
+
 </html>

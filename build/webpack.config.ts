@@ -25,7 +25,7 @@ console.log(NODE_ENV)
 const appPath = path.join(__dirname, '../src')
 const ENV_CONFIG = env[BUILD_ENV]
 
-const webpackConfig: Configuration = {
+export const webpackConfig: Configuration = {
   mode: NODE_ENV,
   target: 'electron-renderer',
 

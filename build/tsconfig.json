@@ -1,7 +1,7 @@
 {
 	"compilerOptions": {
+		"target": "es6",
 		"module": "commonjs",
-		"target": "esnext",
 		"outDir": "../dist",
 		"baseUrl": "build",
 		"sourceMap": false,
@@ -18,13 +18,10 @@
 		],
 	},
 	"include": [
-		"types/**/*.ts",
-		"build/**/*.ts",
+		"../types/**/*.ts",
+		"**/*.ts",
 	],
 	"exclude": [
 		"node_modules",
-		"../node_modules",
-		"**/node_modules",
-		"../**/node_modules",
 	]
 }

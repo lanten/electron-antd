@@ -2,7 +2,7 @@ import React from 'react'
 import { Breadcrumb } from 'antd'
 import { RouteComponentProps, Link } from 'react-router-dom'
 
-import { BREADCRUMB_MAP } from '@/auto-routes'
+import { BREADCRUMB_MAP } from '@src/auto-routes'
 
 import './breadcrumb.less'
 

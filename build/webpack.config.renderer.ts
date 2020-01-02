@@ -7,9 +7,9 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin'
 import TerserPlugin from 'terser-webpack-plugin'
 
-import devConfig from '../config/dev.config'
+import devConfig from './dev.config'
 
-const { dist, template, alias, provide, env, htmlConfig } = devConfig
+const { dist, template, alias, provide, env, htmlConfig, rendererSource: appPath } = devConfig
 const { NODE_ENV, BUILD_ENV = 'dev' } = process.env
 
 const styleLoader = [{ loader: 'css-loader' }]
@@ -20,18 +20,16 @@ if (NODE_ENV === 'development') {
   styleLoader.unshift({ loader: MiniCssExtractPlugin.loader })
 }
 
-console.log(NODE_ENV)
+console.log(`NODE_ENV=${NODE_ENV}`)
 
-const appPath = path.join(__dirname, '../src')
 const ENV_CONFIG = env[BUILD_ENV]
 
 export const webpackConfig: Configuration = {
-  mode: NODE_ENV as 'development' | 'production' | 'none',
+  mode: NODE_ENV as 'development' | 'production',
   target: 'electron-renderer',
 
   entry: {
-    // iconfont: `${appPath}/assets/iconfont/iconfont.css`,
-    app: `${appPath}/index.tsx`,
+    renderer: path.resolve(appPath, 'index.tsx'),
   },
 
   resolve: {
@@ -97,8 +95,8 @@ export const webpackConfig: Configuration = {
         test: /\.(png|jpe?g|gif|svg|swf|woff2?|eot|ttf|otf)(\?.*)?$/,
         loader: 'file-loader',
         query: {
-          limit: 1000,
-          name: '[name]-[hash:7].[ext]',
+          // limit: 10000,
+          name: 'assets/[name]-[hash:7].[ext]',
         },
       },
     ],

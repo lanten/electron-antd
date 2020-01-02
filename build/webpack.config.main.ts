@@ -2,36 +2,24 @@ import path from 'path'
 import webpack, { Configuration } from 'webpack'
 
 import WebpackBar from 'webpackbar'
-import htmlWebpackPlugin from 'html-webpack-plugin'
-import MiniCssExtractPlugin from 'mini-css-extract-plugin'
-import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin'
 import TerserPlugin from 'terser-webpack-plugin'
 
-import devConfig from '../config/dev.config'
+import devConfig from './dev.config'
 
-const { dist, template, alias, provide, env, htmlConfig } = devConfig
+const { dist, alias, provide, env, mainSource: appPath } = devConfig
 const { NODE_ENV, BUILD_ENV = 'dev' } = process.env
 
-const styleLoader = [{ loader: 'css-loader' }]
+console.log(`NODE_ENV=${NODE_ENV}`)
 
-if (NODE_ENV === 'development') {
-  styleLoader.unshift({ loader: 'css-hot-loader' }, { loader: 'style-loader' })
-} else {
-  styleLoader.unshift({ loader: MiniCssExtractPlugin.loader })
-}
-
-console.log(NODE_ENV)
-
-const appPath = path.join(__dirname, '../src')
 const ENV_CONFIG = env[BUILD_ENV]
 
 export const webpackConfig: Configuration = {
-  mode: NODE_ENV as 'development' | 'production' | 'none',
-  target: 'electron-renderer',
+  mode: NODE_ENV as 'development' | 'production',
+  target: 'electron-main',
+  watch: true,
 
   entry: {
-    // iconfont: `${appPath}/assets/iconfont/iconfont.css`,
-    app: `${appPath}/index.tsx`,
+    main: path.join(appPath, 'index.tsx'),
   },
 
   resolve: {
@@ -41,7 +29,7 @@ export const webpackConfig: Configuration = {
 
   output: {
     publicPath: ENV_CONFIG.publicPath,
-    path: path.join(dist, 'renderer'),
+    path: path.join(dist, 'main'),
     filename: 'js/[name].[hash:7].js',
     chunkFilename: 'js/[name].[chunkhash:7].js',
   },
@@ -69,35 +57,10 @@ export const webpackConfig: Configuration = {
       //   exclude: /node_modules/,
       // },
       {
-        test: /\.(sass|scss)$/,
-        use: [
-          ...styleLoader,
-          {
-            loader: 'sass-loader',
-          },
-        ],
-      },
-      {
-        test: /\.(less)$/,
-        use: [
-          ...styleLoader,
-          {
-            loader: 'less-loader',
-            options: {
-              javascriptEnabled: true,
-            },
-          },
-        ],
-      },
-      {
-        test: /\.css$/,
-        use: styleLoader,
-      },
-      {
         test: /\.(png|jpe?g|gif|svg|swf|woff2?|eot|ttf|otf)(\?.*)?$/,
         loader: 'file-loader',
         query: {
-          limit: 1000,
+          // limit: 10000,
           name: '[name]-[hash:7].[ext]',
         },
       },
@@ -124,15 +87,6 @@ export const webpackConfig: Configuration = {
       })()
     ),
     new WebpackBar(),
-    new htmlWebpackPlugin({
-      template: template,
-      filename: 'index.html',
-      templateParameters: htmlConfig,
-    }),
-    new MiniCssExtractPlugin({
-      filename: '[name]-[hash:7].css',
-      chunkFilename: '[name]-[chunkhash:7].css',
-    }),
     new webpack.ProvidePlugin(provide),
   ],
 }
@@ -141,12 +95,10 @@ export const webpackConfig: Configuration = {
 if (NODE_ENV === 'development') {
   webpackConfig.devtool = 'source-map'
 
-  webpackConfig.plugins?.push(new webpack.HotModuleReplacementPlugin(), new webpack.NoEmitOnErrorsPlugin())
+  // webpackConfig.plugins?.push(new webpack.HotModuleReplacementPlugin(), new webpack.NoEmitOnErrorsPlugin())
 
   // 生产环境配置
 } else if (NODE_ENV === 'production') {
-  webpackConfig.plugins?.push(new OptimizeCSSAssetsPlugin())
-
   webpackConfig.optimization?.minimizer?.push(
     // https://github.com/terser-js/terser
     new TerserPlugin({

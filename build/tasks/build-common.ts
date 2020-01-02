@@ -3,7 +3,7 @@ import webpack from 'webpack'
 import chalk from 'chalk'
 
 import webpackConfigLocal from '../webpack.config.renderer'
-import devConfig from '../../config/dev.config'
+import devConfig from '../dev.config'
 
 import { clearDir } from '../utils'
 

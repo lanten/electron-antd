@@ -1,22 +1,27 @@
 import path from 'path'
 
+import appConfig from '../app/app.config'
+
 const devConfig = {
-  name: 'electron-antd',
   host: '127.0.0.1',
   port: 13311,
-  source: path.resolve(__dirname, '../src'),
-  template: path.resolve(__dirname, '../src/index.html'),
+  mainSource: path.resolve(__dirname, '../app/core'),
+  rendererSource: path.resolve(__dirname, '../app/src'),
+  template: path.resolve(__dirname, '../app/src/index.html'),
   dist: path.resolve(__dirname, '../dist'),
 
   htmlConfig: {
-    title: 'Electron Antd',
+    title: appConfig.title,
     lang: 'zh-CN',
   },
 
   proxy: {},
 
   alias: {
-    '@': path.resolve(__dirname, '../src'),
+    '@': path.resolve(__dirname, '../app'),
+    '@src': path.resolve(__dirname, '../app/src'),
+    '@core': path.resolve(__dirname, '../app/core'),
+    '@root': path.resolve(__dirname, '../'),
   },
 
   provide: {

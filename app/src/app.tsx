@@ -1,6 +1,6 @@
 import React from 'react'
-import { AppRouter } from '@/components'
-import { store } from '@/store'
+import { AppRouter } from '@src/components'
+import { store } from '@src/store'
 
 import { ConfigProvider } from 'antd'
 import zhCN from 'antd/es/locale/zh_CN'

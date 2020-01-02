@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button } from 'antd'
-import { withBreadcrumb } from '@/components'
+import { withBreadcrumb } from '@src/components'
 
 import './error-page.less'
 
@@ -16,7 +16,7 @@ export default class ErrorPage extends React.Component<PageProps> {
   private readonly ERROR_CODE_MAP: { [key: string]: ErrorInfo } = {
     404: {
       title: '对不起，页面没有找到！',
-      img: require('@/assets/images/404.svg'),
+      img: require('@src/assets/images/404.svg'),
       desc: 'Page Not Found',
       content: (
         <Button type="primary" onClick={() => history.go(-1)}>
@@ -27,7 +27,7 @@ export default class ErrorPage extends React.Component<PageProps> {
 
     403: {
       title: '温馨提示：您没有使用该功能的权限',
-      img: require('@/assets/images/403.svg'),
+      img: require('@src/assets/images/403.svg'),
       desc: '如有需要，请联系管理员开通',
       content: (
         <a href="/">

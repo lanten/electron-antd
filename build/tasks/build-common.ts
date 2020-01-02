@@ -2,10 +2,12 @@ import path from 'path'
 import webpack from 'webpack'
 import chalk from 'chalk'
 
-import webpackConfigLocal from '../webpack.config'
-import { dist, dist_dev, env as envConfig } from '../dev.config'
+import webpackConfigLocal from '../webpack.config.renderer'
+import devConfig from '../../config/dev.config'
 
 import { clearDir } from '../utils'
+
+const { dist, dist_dev, env: envConfig } = devConfig
 
 function build({ env, dev, webpackConfig = webpackConfigLocal } = {}) {
   return new Promise((resolve, reject) => {

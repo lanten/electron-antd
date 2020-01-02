@@ -12,16 +12,18 @@
 		"esModuleInterop": true,
 		"allowSyntheticDefaultImports": true,
 		"suppressImplicitAnyIndexErrors": true,
+		"types": [
+			"node"
+		],
 		"lib": [
 			"esnext",
 			"es6"
 		],
 	},
 	"include": [
-		"../types/**/*.ts",
 		"**/*.ts",
 	],
 	"exclude": [
 		"node_modules",
-	]
+	],
 }

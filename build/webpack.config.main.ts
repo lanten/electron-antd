@@ -7,7 +7,7 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin'
 import TerserPlugin from 'terser-webpack-plugin'
 
-import devConfig from '../configs/dev.config'
+import devConfig from '../config/dev.config'
 
 const { dist, template, alias, provide, env, htmlConfig } = devConfig
 const { NODE_ENV, BUILD_ENV = 'dev' } = process.env
@@ -26,7 +26,7 @@ const appPath = path.join(__dirname, '../src')
 const ENV_CONFIG = env[BUILD_ENV]
 
 export const webpackConfig: Configuration = {
-  mode: NODE_ENV,
+  mode: NODE_ENV as 'development' | 'production' | 'none',
   target: 'electron-renderer',
 
   entry: {
@@ -41,17 +41,17 @@ export const webpackConfig: Configuration = {
 
   output: {
     publicPath: ENV_CONFIG.publicPath,
-    path: dist,
+    path: path.join(dist, 'renderer'),
     filename: 'js/[name].[hash:7].js',
     chunkFilename: 'js/[name].[chunkhash:7].js',
   },
 
   module: {
     rules: [
-      {
-        test: /\.d\.ts$/,
-        loader: 'ignore-loader',
-      },
+      // {
+      //   test: /\.d\.ts$/,
+      //   loader: 'ignore-loader',
+      // },
       {
         test: /(?<!\.d)\.tsx?$/,
         loader: ['babel-loader', 'ts-loader', 'eslint-loader'],
@@ -113,7 +113,7 @@ export const webpackConfig: Configuration = {
 
   plugins: [
     new webpack.DefinePlugin(
-      ((): AnyObj => {
+      ((): { [key: string]: any } => {
         const defines = {}
         const variables = Object.assign({}, ENV_CONFIG.variables)
         Object.keys(variables).forEach(key => {
@@ -127,7 +127,6 @@ export const webpackConfig: Configuration = {
     new htmlWebpackPlugin({
       template: template,
       filename: 'index.html',
-      favicon: devConfig.favicon,
       templateParameters: htmlConfig,
     }),
     new MiniCssExtractPlugin({

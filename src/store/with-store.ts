@@ -25,10 +25,7 @@ export function withStore(options: React.ComponentClass<any> | WithStoreOptions 
         }
       }
 
-      return connect(
-        mapStates,
-        dispatch => new Object({ dispatch })
-      )(Component)
+      return connect(mapStates, dispatch => new Object({ dispatch }))(Component)
     }
   }
 }

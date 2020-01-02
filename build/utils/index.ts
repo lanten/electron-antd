@@ -2,6 +2,21 @@ import fs from 'fs'
 import { execSync } from 'child_process'
 
 /**
+ * 同步执行命令
+ * @param {String} path
+ * @param {String} bash
+ * @param {String} msg
+ */
+export function syncExec(cwd: string, bash: string, msg?: string): void {
+  try {
+    execSync(bash, { cwd })
+    console.log(`=> ${msg || bash}成功`)
+  } catch (ex) {
+    console.log(`=> ${msg || bash}失败\n`, ex)
+  }
+}
+
+/**
  * 清空文件夹
  *
  * @param {String} path 要清空的文件夹路径
@@ -9,13 +24,13 @@ import { execSync } from 'child_process'
  * @param {Boolean} createDir 如果不存在,是否创建
  * @param {Boolean} log 是否输出日志
  */
-export function clearDir(path, delDir, createDir, log) {
+export function clearDir(path: string, delDir?: boolean, createDir?: boolean, log?: boolean): void {
   let files = []
 
   if (fs.existsSync(path)) {
     files = fs.readdirSync(path)
     files.forEach(file => {
-      let curPath = path + '/' + file
+      const curPath = path + '/' + file
 
       if (fs.statSync(curPath).isDirectory()) {
         clearDir(curPath, true)
@@ -28,19 +43,4 @@ export function clearDir(path, delDir, createDir, log) {
 
     if (delDir) fs.rmdirSync(path)
   } else if (createDir) syncExec(process.cwd(), `mkdir -p ${path}`)
-}
-
-/**
- * 同步执行命令
- * @param {String} path
- * @param {String} bash
- * @param {String} msg
- */
-export function syncExec(cwd, bash, msg) {
-  try {
-    execSync(bash, { cwd })
-    console.log(`=> ${msg || bash}成功`)
-  } catch (ex) {
-    console.log(`=> ${msg || bash}失败\n`, ex)
-  }
 }

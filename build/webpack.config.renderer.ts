@@ -1,16 +1,16 @@
-const path = require('path')
-const webpack = require('webpack')
+import path from 'path'
+import webpack, { Configuration } from 'webpack'
 
-const WebpackBar = require('webpackbar')
-const htmlWebpackPlugin = require('html-webpack-plugin')
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
-const TerserPlugin = require('terser-webpack-plugin')
+import WebpackBar from 'webpackbar'
+import htmlWebpackPlugin from 'html-webpack-plugin'
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin'
+import TerserPlugin from 'terser-webpack-plugin'
 
-const devConfig = require('./dev.config')
+import devConfig from '../config/dev.config'
 
-const { dist, template, alias, provide, env, htmlConfig, projectName, projectTitle } = devConfig
-const { NODE_ENV, BUILD_ENV } = process.env
+const { dist, template, alias, provide, env, htmlConfig } = devConfig
+const { NODE_ENV, BUILD_ENV = 'dev' } = process.env
 
 const styleLoader = [{ loader: 'css-loader' }]
 
@@ -25,8 +25,9 @@ console.log(NODE_ENV)
 const appPath = path.join(__dirname, '../src')
 const ENV_CONFIG = env[BUILD_ENV]
 
-const webpackConfig = {
-  mode: NODE_ENV,
+export const webpackConfig: Configuration = {
+  mode: NODE_ENV as 'development' | 'production' | 'none',
+  target: 'electron-renderer',
 
   entry: {
     // iconfont: `${appPath}/assets/iconfont/iconfont.css`,
@@ -40,17 +41,17 @@ const webpackConfig = {
 
   output: {
     publicPath: ENV_CONFIG.publicPath,
-    path: dist,
+    path: path.join(dist, 'renderer'),
     filename: 'js/[name].[hash:7].js',
     chunkFilename: 'js/[name].[chunkhash:7].js',
   },
 
   module: {
     rules: [
-      {
-        test: /\.d\.ts$/,
-        loader: 'ignore-loader',
-      },
+      // {
+      //   test: /\.d\.ts$/,
+      //   loader: 'ignore-loader',
+      // },
       {
         test: /(?<!\.d)\.tsx?$/,
         loader: ['babel-loader', 'ts-loader', 'eslint-loader'],
@@ -84,10 +85,6 @@ const webpackConfig = {
             loader: 'less-loader',
             options: {
               javascriptEnabled: true,
-              // modifyVars: {
-              //   // antd 更改主题色
-              //   hack: `true; @import "${path.join(process.cwd(), 'src/styles/antd-theme.less')}";`, // Override with less file
-              // },
             },
           },
         ],
@@ -100,7 +97,7 @@ const webpackConfig = {
         test: /\.(png|jpe?g|gif|svg|swf|woff2?|eot|ttf|otf)(\?.*)?$/,
         loader: 'file-loader',
         query: {
-          // limit: 10000,
+          limit: 1000,
           name: '[name]-[hash:7].[ext]',
         },
       },
@@ -116,22 +113,20 @@ const webpackConfig = {
 
   plugins: [
     new webpack.DefinePlugin(
-      (variables => {
-        let defines = {}
-        variables = Object.assign({}, variables)
+      ((): { [key: string]: any } => {
+        const defines = {}
+        const variables = Object.assign({}, ENV_CONFIG.variables)
         Object.keys(variables).forEach(key => {
-          defines[`process.env.${key}`] = JSON.stringify(variables[key])
+          const val = variables[key]
+          defines[`process.env.${key}`] = typeof val === 'string' ? val : JSON.stringify(val)
         })
-        defines['process.env.PROJECT_NAME'] = `'${projectName}'`
-        defines['process.env.PROJECT_TITLE'] = `'${projectTitle}'`
         return defines
-      })(ENV_CONFIG.variables)
+      })()
     ),
     new WebpackBar(),
     new htmlWebpackPlugin({
       template: template,
       filename: 'index.html',
-      favicon: devConfig.favicon,
       templateParameters: htmlConfig,
     }),
     new MiniCssExtractPlugin({
@@ -146,18 +141,19 @@ const webpackConfig = {
 if (NODE_ENV === 'development') {
   webpackConfig.devtool = 'source-map'
 
-  webpackConfig.plugins.push(new webpack.HotModuleReplacementPlugin(), new webpack.NoEmitOnErrorsPlugin())
+  webpackConfig.plugins?.push(new webpack.HotModuleReplacementPlugin(), new webpack.NoEmitOnErrorsPlugin())
 
   // 生产环境配置
 } else if (NODE_ENV === 'production') {
-  webpackConfig.plugins.push(new OptimizeCSSAssetsPlugin())
+  webpackConfig.plugins?.push(new OptimizeCSSAssetsPlugin())
 
-  webpackConfig.optimization.minimizer.push(
+  webpackConfig.optimization?.minimizer?.push(
     // https://github.com/terser-js/terser
     new TerserPlugin({
       terserOptions: {
         compress: {
           warnings: true,
+          /* eslint-disable */
           drop_console: true,
         },
       },
@@ -165,4 +161,4 @@ if (NODE_ENV === 'development') {
   )
 }
 
-module.exports = webpackConfig
+export default webpackConfig

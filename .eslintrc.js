@@ -60,7 +60,7 @@ module.exports = {
     '@typescript-eslint/ban-ts-ignore': 0, // 禁用 @ts-ignore
     '@typescript-eslint/explicit-function-return-type': 0, // 在函数和类方法上需要显式的返回类型
     '@typescript-eslint/no-var-requires': 0, // 除 import 语句外，禁止使用require语句
-    '@typescript-eslint/no-use-before-define': 1,
+    '@typescript-eslint/no-use-before-define': 0,
     '@typescript-eslint/no-empty-interface': 0,
     '@typescript-eslint/no-empty-function': 1,
     '@typescript-eslint/no-unused-vars': 1, // 导入内容未使用

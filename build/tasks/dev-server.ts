@@ -1,5 +1,7 @@
 import chalk from 'chalk'
 import webpack from 'webpack'
+import electron from 'electron'
+import { spawn, ChildProcessWithoutNullStreams } from 'child_process'
 import WebpackDevServer from 'webpack-dev-server'
 
 import devConfig from '../dev.config'
@@ -23,12 +25,48 @@ const devServerOptions: WebpackDevServer.Configuration = {
   compress: true,
 }
 
-function startElectron() {
-  // const mainCompiler = webpack(webpackConfigMain)
+let electronProcess: ChildProcessWithoutNullStreams | undefined
+
+function startMain() {
+  return new Promise(resolve => {
+    const mainCompiler = webpack(webpackConfigMain, (err, stats) => {
+      if (err) {
+        throw err
+      }
+
+      // process.stdout.write(
+      //   stats.toString({
+      //     colors: true,
+      //     hash: true,
+      //     version: true,
+      //     timings: true,
+      //     assets: true,
+      //     chunks: false,
+      //     children: false,
+      //     modules: false,
+      //   }) + '\n\n'
+      // )
+
+      if (electronProcess && electronProcess.kill) {
+        process.kill(electronProcess.pid)
+        electronProcess = undefined
+        startElectron()
+      }
+
+      if (stats.hasErrors()) {
+        throw new Error(stats.toString())
+      } else {
+        resolve(mainCompiler)
+      }
+    })
+  })
 }
 
 function startRenderer(): Promise<void> {
   return new Promise(resolve => {
+    process.env.port = String(devConfig.port)
+    process.env.host = devConfig.host
+
     const hotClient = ['webpack-dev-server/client', 'webpack/hot/only-dev-server']
     if (typeof webpackConfigRenderer.entry === 'object') {
       Object.keys(webpackConfigRenderer.entry).forEach(name => {
@@ -61,4 +99,20 @@ function startRenderer(): Promise<void> {
   })
 }
 
-startRenderer().then(startElectron)
+function startElectron() {
+  // @ts-ignore
+  electronProcess = spawn(electron, ['.'])
+  if (!electronProcess) throw new Error('electron start error!')
+  electronProcess.on('close', () => {
+    process.exit()
+  })
+}
+
+async function startDevServer() {
+  await startRenderer()
+
+  await startMain()
+  startElectron()
+}
+
+startDevServer()

@@ -9,7 +9,7 @@ import TerserPlugin from 'terser-webpack-plugin'
 
 import devConfig from './dev.config'
 
-const { dist, template, alias, provide, env, htmlConfig, rendererSource: appPath } = devConfig
+const { dist, template, alias, provide, env, rendererSource: appPath } = devConfig
 const { NODE_ENV, BUILD_ENV = 'dev' } = process.env
 
 const styleLoader = [{ loader: 'css-loader' }]
@@ -123,11 +123,10 @@ export const webpackConfig: Configuration = {
     new htmlWebpackPlugin({
       template: template,
       filename: 'index.html',
-      templateParameters: htmlConfig,
     }),
     new MiniCssExtractPlugin({
-      filename: '[name].css',
-      chunkFilename: '[name].css',
+      filename: 'css/[name].css',
+      chunkFilename: 'css/[name].css',
     }),
     new webpack.ProvidePlugin(provide),
   ],

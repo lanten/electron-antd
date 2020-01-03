@@ -1,7 +1,5 @@
 import path from 'path'
 
-import appConfig from '../app/app.config'
-
 const devConfig = {
   host: '127.0.0.1',
   port: 13311,
@@ -9,11 +7,6 @@ const devConfig = {
   rendererSource: path.resolve(__dirname, '../app/src'),
   template: path.resolve(__dirname, '../app/src/index.html'),
   dist: path.resolve(__dirname, '../dist'),
-
-  htmlConfig: {
-    title: appConfig.title,
-    lang: 'zh-CN',
-  },
 
   proxy: {},
 

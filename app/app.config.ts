@@ -1,21 +1,16 @@
-/**
- * 页面全局变量 $config
- */
+// import path from 'path'
 
-const path = require('path')
+/** 应用名称 */
+export const APP_NAME = 'electron-antd'
 
-export default {
-  /** 应用名称 */
-  name: 'electron-antd',
-  /** 应用标题 */
-  title: 'Electron Antd',
+/** 应用标题 */
+export const APP_TITLE = 'Electron Antd'
 
-  /** 应用主图标 (桌面) */
-  appIcon: path.join(__dirname, '../assets/app-icon/app-icon@256.png'),
+/** 应用主图标 (桌面) */
+export const APP_ICON = require('./assets/app-icon/app-icon@256.png')
 
-  /** 亮色风格托盘图标 标准尺寸 16*16, 系统会自动载入 @2x 和 @3x */
-  trayIconLight: path.join(__dirname, '../assets/tray-icon/tray-icon-light.png'),
+/** 亮色风格托盘图标 标准尺寸 16*16, 系统会自动载入 @2x 和 @3x */
+export const TRAY_ICON_LIGHT = require('./assets/tray-icon/tray-icon-light.png')
 
-  /** 暗色风格托盘图标 (仅 macOS) */
-  trayIconDark: path.join(__dirname, '../assets/tray-icon/tray-icon-dark.png'),
-}
+/** 暗色风格托盘图标 (仅 macOS) */
+export const TRAY_ICON_DARK = require('./assets/tray-icon/tray-icon-dark.png')

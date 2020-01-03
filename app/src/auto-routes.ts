@@ -1,4 +1,9 @@
-// 自动导入 views 文件夹下所有的 routes.tsx? 以生成路由
+/** - auto-routes -------------------------------------------------------------------- *
+ *
+ * 自动导入 views 文件夹下所有的 routes.tsx? 以生成路由
+ *
+ * ----------------------------------------------------------------------------------- */
+
 const views = require.context('./views', true, /routes\.tsx?$/)
 
 let routes: Array<RouteConfig> = []

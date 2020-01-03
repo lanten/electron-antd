@@ -2,9 +2,9 @@
   "name": "electron-antd",
   "version": "1.0.0",
   "private": false,
+  "main": "dist/main/main.js",
   "scripts": {
     "ts-run-dev": "ts-node build/tasks/dev-server.ts",
-    "test": "ts-node build/test.ts",
     "dev": "cross-env NODE_ENV=development BUILD_ENV=dev npm run ts-run-dev",
     "build:dev": "cross-env NODE_ENV=production BUILD_ENV=dev ts-node build/tasks/build.ts",
     "build:prod": "cross-env NODE_ENV=production BUILD_ENV=prod ts-node build/tasks/build.ts"

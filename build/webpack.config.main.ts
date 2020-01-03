@@ -59,7 +59,7 @@ export const webpackConfig: Configuration = {
         loader: 'file-loader',
         query: {
           // limit: 10000,
-          name: '[name].[ext]',
+          name: 'assets/[name].[ext]',
         },
       },
     ],

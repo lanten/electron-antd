@@ -1,1 +1,1 @@
-console.log(1111222)
+console.log(process.env.ELECTRON_OVERRIDE_DIST_PATH)

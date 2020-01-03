@@ -34,7 +34,6 @@ function build() {
   )
 
   Promise.all([buildMain(), buildRenderer()]).then(res => {
-    console.log(chalk.greenBright('[webpack] => Build complete!'))
     process.exit()
   })
 }

@@ -20,8 +20,6 @@ if (NODE_ENV === 'development') {
   styleLoader.unshift({ loader: MiniCssExtractPlugin.loader })
 }
 
-console.log(`NODE_ENV=${NODE_ENV}`)
-
 const ENV_CONFIG = env[BUILD_ENV]
 
 export const webpackConfig: Configuration = {
@@ -40,8 +38,8 @@ export const webpackConfig: Configuration = {
   output: {
     publicPath: ENV_CONFIG.publicPath,
     path: path.join(dist, 'renderer'),
-    filename: 'js/[name].[hash:7].js',
-    chunkFilename: 'js/[name].[chunkhash:7].js',
+    filename: 'js/[name].js',
+    chunkFilename: 'js/[name].js',
   },
 
   module: {
@@ -96,7 +94,7 @@ export const webpackConfig: Configuration = {
         loader: 'file-loader',
         query: {
           // limit: 10000,
-          name: 'assets/[name]-[hash:7].[ext]',
+          name: 'assets/[name].[ext]',
         },
       },
     ],
@@ -128,8 +126,8 @@ export const webpackConfig: Configuration = {
       templateParameters: htmlConfig,
     }),
     new MiniCssExtractPlugin({
-      filename: '[name]-[hash:7].css',
-      chunkFilename: '[name]-[chunkhash:7].css',
+      filename: '[name].css',
+      chunkFilename: '[name].css',
     }),
     new webpack.ProvidePlugin(provide),
   ],

@@ -5,7 +5,7 @@ import appConfig from '../app/app.config'
 const devConfig = {
   host: '127.0.0.1',
   port: 13311,
-  mainSource: path.resolve(__dirname, '../app/core'),
+  mainSource: path.resolve(__dirname, '../app/electron'),
   rendererSource: path.resolve(__dirname, '../app/src'),
   template: path.resolve(__dirname, '../app/src/index.html'),
   dist: path.resolve(__dirname, '../dist'),
@@ -21,6 +21,7 @@ const devConfig = {
     '@': path.resolve(__dirname, '../app'),
     '@src': path.resolve(__dirname, '../app/src'),
     '@core': path.resolve(__dirname, '../app/core'),
+    '@electron': path.resolve(__dirname, '../app/electron'),
     '@root': path.resolve(__dirname, '../'),
   },
 

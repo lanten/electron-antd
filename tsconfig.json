@@ -28,6 +28,9 @@
       "@core/*": [
         "app/core/*"
       ],
+      "@electron/*": [
+        "app/electron/*"
+      ],
       "@root/*": [
         "*"
       ]

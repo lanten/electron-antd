@@ -17,7 +17,7 @@ const devServerOptions: WebpackDevServer.Configuration = {
   hot: true,
   noInfo: true,
   proxy: proxy,
-  // quiet: true, // 关闭编译日志
+  // quiet: true, // 完全关闭编译日志
   clientLogLevel: 'warn',
   historyApiFallback: true,
   compress: true,

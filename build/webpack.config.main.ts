@@ -9,8 +9,6 @@ import devConfig from './dev.config'
 const { dist, alias, provide, env, mainSource: appPath } = devConfig
 const { NODE_ENV, BUILD_ENV = 'dev' } = process.env
 
-console.log(`NODE_ENV=${NODE_ENV}`)
-
 const ENV_CONFIG = env[BUILD_ENV]
 
 export const webpackConfig: Configuration = {
@@ -19,19 +17,19 @@ export const webpackConfig: Configuration = {
   watch: true,
 
   entry: {
-    main: path.join(appPath, 'index.tsx'),
+    main: path.join(appPath, 'index.ts'),
   },
 
   resolve: {
     alias,
-    extensions: ['.ts', '.tsx', '.js'],
+    extensions: ['.ts', '.js'],
   },
 
   output: {
     publicPath: ENV_CONFIG.publicPath,
     path: path.join(dist, 'main'),
-    filename: 'js/[name].[hash:7].js',
-    chunkFilename: 'js/[name].[chunkhash:7].js',
+    filename: '[name].js',
+    chunkFilename: '[name].js',
   },
 
   module: {
@@ -41,12 +39,12 @@ export const webpackConfig: Configuration = {
       //   loader: 'ignore-loader',
       // },
       {
-        test: /(?<!\.d)\.tsx?$/,
+        test: /(?<!\.d)\.ts$/,
         loader: ['babel-loader', 'ts-loader', 'eslint-loader'],
         exclude: /node_modules/,
       },
       {
-        test: /\.js[x]?$/,
+        test: /\.js$/,
         include: appPath,
         loader: ['babel-loader', 'eslint-loader'],
         exclude: /node_modules/,
@@ -61,7 +59,7 @@ export const webpackConfig: Configuration = {
         loader: 'file-loader',
         query: {
           // limit: 10000,
-          name: '[name]-[hash:7].[ext]',
+          name: '[name].[ext]',
         },
       },
     ],

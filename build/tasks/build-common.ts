@@ -1,26 +1,23 @@
-import path from 'path'
-import webpack from 'webpack'
-import chalk from 'chalk'
+import webpack, { Configuration } from 'webpack'
 
-import webpackConfigLocal from '../webpack.config.renderer'
 import devConfig from '../dev.config'
 
-import { clearDir } from '../utils'
+/** - interface - start ------------------------------------------------------------------- */
 
-const { dist, dist_dev, env: envConfig } = devConfig
+interface BuildConfig {
+  env: keyof typeof devConfig.env
+  webpackConfig: Configuration
+  type: 'main' | 'renderer'
+}
 
-function build({ env, dev, webpackConfig = webpackConfigLocal } = {}) {
+/** - interface - end --------------------------------------------------------------------- */
+
+const { env: envConfig } = devConfig
+
+function build({ env, webpackConfig }: BuildConfig): Promise<typeof devConfig.env['prod']> {
   return new Promise((resolve, reject) => {
-    if (dev) {
-      clearDir(path.resolve(__dirname, '../', dist_dev), false, true)
-      webpackConfig.output.path = path.join(__dirname, '../', dist_dev)
-    } else {
-      console.log(chalk.yellowBright('=> 清空 dist'))
-      clearDir(path.resolve(__dirname, '../', dist), false, true)
-    }
-
     // 更换 publicPath
-    if (env) {
+    if (env && webpackConfig.output) {
       const { publicPath } = envConfig[env]
       webpackConfig.output.publicPath = publicPath
     }
@@ -46,7 +43,7 @@ function build({ env, dev, webpackConfig = webpackConfigLocal } = {}) {
       if (stats.hasErrors()) {
         reject(stats)
       } else {
-        resolve(envConfig[env], stats)
+        resolve(envConfig[env])
       }
     })
   })

@@ -13,11 +13,9 @@ process.env.NODE_ENV = 'development'
 /** 禁用 electron warning */
 process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = 'true'
 
-const { env, port, host, proxy } = devConfig
-const publicPath = env.dev.publicPath
+const { port, host, proxy } = devConfig
 const devServerOptions: WebpackDevServer.Configuration = {
   host,
-  publicPath,
   disableHostCheck: true,
   hot: true,
   noInfo: true,
@@ -79,9 +77,7 @@ function startRenderer(): Promise<webpack.Stats> {
 
     const rendererCompiler = webpack(webpackConfigRenderer)
     rendererCompiler.hooks.done.tap('done', stats => {
-      exConsole.success(
-        `Server renderer server at ${chalk.magenta.underline(`http://${host}:${port}${publicPath}`)}`
-      )
+      exConsole.success(`Server renderer server at ${chalk.magenta.underline(`http://${host}:${port}`)}`)
       resolve(stats)
     })
 

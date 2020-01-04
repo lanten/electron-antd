@@ -2,7 +2,7 @@ import webpack, { Configuration } from 'webpack'
 
 import devConfig from '../dev.config'
 
-/** - interface - start ------------------------------------------------------------------- */
+const { env: envConfig } = devConfig
 
 interface BuildConfig {
   env: keyof typeof devConfig.env
@@ -10,18 +10,8 @@ interface BuildConfig {
   type: 'main' | 'renderer'
 }
 
-/** - interface - end --------------------------------------------------------------------- */
-
-const { env: envConfig } = devConfig
-
 function build({ env, webpackConfig }: BuildConfig): Promise<typeof devConfig.env['prod']> {
   return new Promise((resolve, reject) => {
-    // 更换 publicPath
-    if (env && webpackConfig.output) {
-      const { publicPath } = envConfig[env]
-      webpackConfig.output.publicPath = publicPath
-    }
-
     webpack(webpackConfig, (err, stats) => {
       if (err) {
         throw err

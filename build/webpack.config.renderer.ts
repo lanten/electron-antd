@@ -1,16 +1,15 @@
 import path from 'path'
 import webpack, { Configuration } from 'webpack'
 
-import WebpackBar from 'webpackbar'
 import htmlWebpackPlugin from 'html-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin'
-import TerserPlugin from 'terser-webpack-plugin'
 
+import webpackConfigBase from './webpack.config.base'
 import devConfig from './dev.config'
 
-const { dist, template, alias, provide, env, rendererSource: appPath } = devConfig
-const { NODE_ENV, BUILD_ENV = 'dev' } = process.env
+const { dist, template, rendererSource: appPath } = devConfig
+const { NODE_ENV } = process.env
 
 const styleLoader = [{ loader: 'css-loader' }]
 
@@ -20,27 +19,15 @@ if (NODE_ENV === 'development') {
   styleLoader.unshift({ loader: MiniCssExtractPlugin.loader })
 }
 
-const ENV_CONFIG = env[BUILD_ENV]
-
-export const webpackConfig: Configuration = {
-  mode: NODE_ENV as 'development' | 'production',
+const webpackConfig: Configuration = {
+  ...webpackConfigBase,
   target: 'electron-renderer',
-  node: {
-    __dirname: false,
-    __filename: false,
-  },
 
   entry: {
     renderer: path.resolve(appPath, 'index.tsx'),
   },
 
-  resolve: {
-    alias,
-    extensions: ['.ts', '.tsx', '.js'],
-  },
-
   output: {
-    publicPath: ENV_CONFIG.publicPath,
     path: path.join(dist, 'renderer'),
     filename: '[name].js',
     chunkFilename: '[name].js',
@@ -48,17 +35,7 @@ export const webpackConfig: Configuration = {
 
   module: {
     rules: [
-      {
-        test: /(?<!\.d)\.tsx?$/,
-        loader: ['ts-loader', 'eslint-loader'],
-        exclude: /node_modules/,
-      },
-      {
-        test: /\.js[x]?$/,
-        include: appPath,
-        loader: ['eslint-loader'],
-        exclude: /node_modules/,
-      },
+      ...(webpackConfigBase?.module?.rules ?? []),
       {
         test: /\.(sass|scss)$/,
         use: [
@@ -87,26 +64,8 @@ export const webpackConfig: Configuration = {
     ],
   },
 
-  optimization: {
-    splitChunks: {
-      name: 'bundle',
-    },
-    minimizer: [],
-  },
-
   plugins: [
-    new webpack.DefinePlugin(
-      ((): { [key: string]: any } => {
-        const defines = {}
-        const variables = Object.assign({}, ENV_CONFIG.variables)
-        Object.keys(variables).forEach(key => {
-          const val = variables[key]
-          defines[`process.env.${key}`] = typeof val === 'string' ? val : JSON.stringify(val)
-        })
-        return defines
-      })()
-    ),
-    new WebpackBar(),
+    ...(webpackConfigBase?.plugins ?? []),
     new htmlWebpackPlugin({
       template: template,
       filename: 'index.html',
@@ -115,32 +74,13 @@ export const webpackConfig: Configuration = {
       filename: '[name].css',
       chunkFilename: '[name].css',
     }),
-    new webpack.ProvidePlugin(provide),
   ],
 }
 
-// 开发环境配置
 if (NODE_ENV === 'development') {
-  webpackConfig.devtool = 'source-map'
-
   webpackConfig.plugins?.push(new webpack.HotModuleReplacementPlugin(), new webpack.NoEmitOnErrorsPlugin())
-
-  // 生产环境配置
 } else if (NODE_ENV === 'production') {
   webpackConfig.plugins?.push(new OptimizeCSSAssetsPlugin())
-
-  webpackConfig.optimization?.minimizer?.push(
-    // https://github.com/terser-js/terser
-    new TerserPlugin({
-      terserOptions: {
-        compress: {
-          warnings: true,
-          /* eslint-disable */
-          drop_console: true,
-        },
-      },
-    })
-  )
 }
 
 export default webpackConfig

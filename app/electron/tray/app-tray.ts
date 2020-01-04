@@ -4,15 +4,11 @@ import { APP_NAME, TRAY_ICON_DARK, TRAY_ICON_LIGHT } from '@/app.config'
 import { createWindow } from '../window'
 import { trayMenus } from '../menus'
 
-/** - interface - start ------------------------------------------------------------------- */
-
 export interface AppIconConfig {
   menus?: any
   title?: string
   icon?: string
 }
-
-/** - interface - end --------------------------------------------------------------------- */
 
 export function creatAppTray({ menus = trayMenus, title = APP_NAME, icon }: AppIconConfig = {}): Tray {
   const iconPath =

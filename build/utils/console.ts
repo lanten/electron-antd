@@ -14,16 +14,23 @@ export class Console {
     this.log('INFO', message)
   }
   warn(message: string) {
-    this.log('WARN', message)
+    this.log('WARN', chalk.yellow(message))
   }
-  error(message: string) {
-    this.log('ERROR', message)
+  error(message: string | Error, showDetail = false) {
+    let messageH: string
+    if (message instanceof Error) {
+      messageH = `${chalk.bold(message.name)}: ${message.message}`
+      if (showDetail) messageH = `Detail: ${messageH}\n${message.stack}`
+    } else {
+      messageH = message
+    }
+    this.log('ERROR', chalk.red(messageH))
   }
   success(message: string) {
-    this.log('SUCCESS', message)
+    this.log('SUCCESS', chalk.green(message))
   }
 
-  log(type: LogTypes, message: string) {
+  log(type: LogTypes, message: string | Error) {
     const conf = config[type]
     const str = `[ ${chalk.gray(this.getDateStr())} ] : ${chalk.white[conf.color].bold(
       this.center(type)
@@ -33,7 +40,7 @@ export class Console {
     return str
   }
 
-  center(str: string, width = 10) {
+  center(str: string, width = 9) {
     const lack = width - str.length
 
     if (lack <= 0) return str

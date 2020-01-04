@@ -1,10 +1,10 @@
 import chalk from 'chalk'
 import webpack from 'webpack'
-import electron from 'electron'
-import { spawn, ChildProcessWithoutNullStreams } from 'child_process'
+
 import WebpackDevServer from 'webpack-dev-server'
 
 import { exConsole } from '../utils'
+import ElectronProcess from './electron-process'
 import devConfig from '../dev.config'
 import webpackConfigRenderer from '../webpack.config.renderer'
 import webpackConfigMain from '../webpack.config.main'
@@ -20,14 +20,16 @@ const devServerOptions: WebpackDevServer.Configuration = {
   hot: true,
   noInfo: true,
   proxy: proxy,
-  // quiet: true, // 完全关闭编译日志
   clientLogLevel: 'warn',
   historyApiFallback: true,
   compress: true,
 }
 
-let electronProcess: ChildProcessWithoutNullStreams | undefined
+const electronProcess = new ElectronProcess()
 
+/**
+ * 启动主进程编译服务
+ */
 function startMain() {
   return new Promise(resolve => {
     const mainCompiler = webpack(webpackConfigMain, (err, stats) => {
@@ -35,37 +37,19 @@ function startMain() {
         throw err
       }
 
-      // process.stdout.write(
-      //   stats.toString({
-      //     colors: true,
-      //     hash: true,
-      //     version: true,
-      //     timings: true,
-      //     assets: true,
-      //     chunks: false,
-      //     children: false,
-      //     modules: false,
-      //   }) + '\n\n'
-      // )
-
-      if (electronProcess && electronProcess.kill) {
-        try {
-          process.kill(electronProcess.pid)
-        } catch (error) {
-          exConsole.error(chalk.red(`Kill electron process: ${electronProcess.pid} failed.`))
-        }
-        startElectron()
-      }
-
       if (stats.hasErrors()) {
-        throw new Error(stats.toString())
+        exConsole.error(stats.toString())
       } else {
+        electronProcess.start()
         resolve(mainCompiler)
       }
     })
   })
 }
 
+/**
+ * 启动渲染进程编译服务
+ */
 function startRenderer(): Promise<void> {
   return new Promise(resolve => {
     process.env.port = String(devConfig.port)
@@ -89,7 +73,9 @@ function startRenderer(): Promise<void> {
 
     const rendererCompiler = webpack(webpackConfigRenderer)
     rendererCompiler.hooks.done.tap('done', stats => {
-      exConsole.info(`Server local at ${chalk.magenta.underline(`http://${host}:${port}${publicPath}`)}`)
+      exConsole.success(
+        `Server renderer server at ${chalk.magenta.underline(`http://${host}:${port}${publicPath}`)}`
+      )
       resolve()
     })
 
@@ -97,27 +83,15 @@ function startRenderer(): Promise<void> {
 
     server.listen(port, host, err => {
       if (err) {
-        exConsole.error(chalk.red(err.message))
+        exConsole.error(err)
       }
     })
   })
 }
 
-function startElectron() {
-  // @ts-ignore
-  electronProcess = spawn(electron, ['.'])
-  if (!electronProcess) throw new Error('electron start error!')
-  electronProcess.on('close', () => {
-    electronProcess = undefined
-    // process.exit()
-  })
-}
-
 async function startDevServer() {
   await startRenderer()
-
   await startMain()
-  startElectron()
 }
 
 startDevServer()

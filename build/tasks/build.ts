@@ -35,9 +35,13 @@ function build() {
     )
   )
 
-  Promise.all([buildMain(), buildRenderer()]).then(res => {
-    process.exit()
-  })
+  Promise.all([buildMain(), buildRenderer()])
+    .then(res => {
+      process.exit()
+    })
+    .catch(err => {
+      throw new Error(err)
+    })
 }
 
 build()

@@ -50,13 +50,13 @@ export const webpackConfig: Configuration = {
       // },
       {
         test: /(?<!\.d)\.tsx?$/,
-        loader: ['babel-loader', 'ts-loader', 'eslint-loader'],
+        loader: ['ts-loader', 'eslint-loader'],
         exclude: /node_modules/,
       },
       {
         test: /\.js[x]?$/,
         include: appPath,
-        loader: ['babel-loader', 'eslint-loader'],
+        loader: ['eslint-loader'],
         exclude: /node_modules/,
       },
       // {
@@ -93,7 +93,6 @@ export const webpackConfig: Configuration = {
         test: /\.(png|jpe?g|gif|svg|swf|woff2?|eot|ttf|otf)(\?.*)?$/,
         loader: 'file-loader',
         query: {
-          // limit: 10000,
           name: 'assets/[name].[ext]',
         },
       },

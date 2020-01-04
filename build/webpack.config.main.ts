@@ -34,31 +34,21 @@ export const webpackConfig: Configuration = {
 
   module: {
     rules: [
-      // {
-      //   test: /\.d\.ts$/,
-      //   loader: 'ignore-loader',
-      // },
       {
         test: /(?<!\.d)\.ts$/,
-        loader: ['babel-loader', 'ts-loader', 'eslint-loader'],
+        loader: ['ts-loader', 'eslint-loader'],
         exclude: /node_modules/,
       },
       {
         test: /\.js$/,
         include: appPath,
-        loader: ['babel-loader', 'eslint-loader'],
+        loader: ['ts-loader', 'eslint-loader'],
         exclude: /node_modules/,
       },
-      // {
-      //   test: /\.json$/,
-      //   loader: ['json-loader'],
-      //   exclude: /node_modules/,
-      // },
       {
         test: /\.(png|jpe?g|gif|svg|swf|woff2?|eot|ttf|otf)(\?.*)?$/,
         loader: 'file-loader',
         query: {
-          // limit: 10000,
           name: 'assets/[name].[ext]',
         },
       },

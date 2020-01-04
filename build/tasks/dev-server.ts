@@ -48,8 +48,11 @@ function startMain() {
       // )
 
       if (electronProcess && electronProcess.kill) {
-        process.kill(electronProcess.pid)
-        electronProcess = undefined
+        try {
+          process.kill(electronProcess.pid)
+        } catch (error) {
+          console.log(chalk.red(`[ERROR] => Kill electron process: ${electronProcess.pid} failed.`))
+        }
         startElectron()
       }
 
@@ -104,7 +107,8 @@ function startElectron() {
   electronProcess = spawn(electron, ['.'])
   if (!electronProcess) throw new Error('electron start error!')
   electronProcess.on('close', () => {
-    process.exit()
+    electronProcess = undefined
+    // process.exit()
   })
 }
 

@@ -45,13 +45,6 @@ export const webpackConfig: Configuration = {
         loader: ['ts-loader', 'eslint-loader'],
         exclude: /node_modules/,
       },
-      {
-        test: /\.(png|jpe?g|gif|svg|swf|woff2?|eot|ttf|otf)(\?.*)?$/,
-        loader: 'file-loader',
-        query: {
-          name: 'assets/[name].[ext]',
-        },
-      },
     ],
   },
 

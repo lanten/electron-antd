@@ -1,4 +1,4 @@
-import React from 'react'
+import * as React from 'react'
 import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import AsyncImport from '../async-import'
@@ -56,16 +56,8 @@ export default class AppRouter extends React.Component<AppRouterProps, {}> {
 
     // 校验用户权限
     if (permissionsCode) {
-      // @ts-ignore
-      const userPermissions: string[] | void = await $api.user
-        .getUserPermissions()
-        .then(res => res.data || [])
-        .catch(() => void 0)
-
-      if (permissionsCode && userPermissions && !userPermissions.includes(permissionsCode)) {
-        nextFlg = false
-        return history.replace('/403')
-      }
+      console.log(history)
+      nextFlg = false
     }
 
     if (nextFlg) next()

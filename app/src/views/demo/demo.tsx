@@ -1,10 +1,9 @@
-import React from 'react'
+import * as React from 'react'
 import { Button, Input } from 'antd'
 
-import { withStore } from '@src/store'
-import { withBreadcrumb } from '@src/components'
+import { withStore } from '@/src/store'
 
-import { APP_ICON } from '@/app.config'
+import { APP_ICON, TRAY_ICON_DARK } from '@/app.config'
 
 // 声明一个接口 ，继承自 PageProps，包含 PageProps 中所有的属性以及自身定义的 id
 // ? 表示 属性 id 可以为空，在 : 前加上 ! 表示必填，默认必填
@@ -24,7 +23,7 @@ declare interface DemoState {
  * DemoState 是组件的 state 类型声明
  * props 和 state 的默认值需要单独声明
  */
-@withBreadcrumb
+
 @withStore(['count', 'count2'])
 export default class Demo extends React.Component<DemoProps, DemoState> {
   // props 默认值
@@ -93,19 +92,7 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
 
         <div className="panel mt-24">
           <div className="mb-16">
-            <Button
-              type="primary"
-              loading={loading}
-              onClick={() => {
-                this.setState({ loading: true })
-                $api.user
-                  .getUserPermissions()
-                  .then(resData => {
-                    this.setState({ resData })
-                  })
-                  .finally(() => this.setState({ loading: false }))
-              }}
-            >
+            <Button type="primary" loading={loading}>
               Request
             </Button>
           </div>
@@ -114,8 +101,11 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
         </div>
 
         <img src={APP_ICON} alt="" />
+        <img src={TRAY_ICON_DARK} alt="" />
 
         {JSON.stringify(APP_ICON)}
+        <br />
+        {JSON.stringify(TRAY_ICON_DARK)}
       </div>
     )
   }

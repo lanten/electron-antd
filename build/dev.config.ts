@@ -12,10 +12,6 @@ const devConfig = {
 
   alias: {
     '@': path.resolve(__dirname, '../app'),
-    '@src': path.resolve(__dirname, '../app/src'),
-    '@core': path.resolve(__dirname, '../app/core'),
-    '@electron': path.resolve(__dirname, '../app/electron'),
-    '@root': path.resolve(__dirname, '../'),
   },
 
   provide: {

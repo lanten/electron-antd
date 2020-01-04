@@ -1,4 +1,4 @@
-import path from 'path'
+import * as path from 'path'
 import { BrowserWindow } from 'electron'
 import { APP_ICON } from '@/app.config'
 

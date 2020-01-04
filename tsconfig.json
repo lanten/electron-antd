@@ -21,18 +21,6 @@
     "paths": {
       "@/*": [
         "app/*"
-      ],
-      "@src/*": [
-        "app/src/*"
-      ],
-      "@core/*": [
-        "app/core/*"
-      ],
-      "@electron/*": [
-        "app/electron/*"
-      ],
-      "@root/*": [
-        "*"
       ]
     },
     "lib": [

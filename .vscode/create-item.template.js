@@ -38,7 +38,7 @@ function toCamel(str, c = true) {
 function tsxItem(name) {
   const nameH = toCamel(name)
   return [
-    `import React from 'react'`,
+    `import * as React from 'react'`,
     ``,
     `import './${name}.less'`,
     ``,

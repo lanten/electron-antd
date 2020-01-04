@@ -10,6 +10,8 @@ import webpackConfigRenderer from '../webpack.config.renderer'
 import webpackConfigMain from '../webpack.config.main'
 
 process.env.NODE_ENV = 'development'
+/** 禁用 electron warning */
+process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = 'true'
 
 const { env, port, host, proxy } = devConfig
 const publicPath = env.dev.publicPath

@@ -101,11 +101,8 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
         </div>
 
         <img src={APP_ICON} alt="" />
-        <img src={TRAY_ICON_DARK} alt="" />
-
-        {JSON.stringify(APP_ICON)}
         <br />
-        {JSON.stringify(TRAY_ICON_DARK)}
+        <img src={TRAY_ICON_DARK} alt="" />
       </div>
     )
   }

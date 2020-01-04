@@ -3,9 +3,6 @@
 	// for the documentation about the extensions.json format
 	"recommendations": [
 		"esbenp.prettier-vscode",
-		// "lanten.swagger-to-types",
-		// "lanten.create-item-by-template",
-		"dbaeumer.vscode-eslint",
-		"pkief.material-icon-theme"
+		"dbaeumer.vscode-eslint"
 	]
 }

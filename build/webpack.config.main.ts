@@ -76,8 +76,6 @@ export const webpackConfig: Configuration = {
 if (NODE_ENV === 'development') {
   webpackConfig.devtool = 'source-map'
 
-  // webpackConfig.plugins?.push(new webpack.HotModuleReplacementPlugin(), new webpack.NoEmitOnErrorsPlugin())
-
   // 生产环境配置
 } else if (NODE_ENV === 'production') {
   webpackConfig.optimization?.minimizer?.push(

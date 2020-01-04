@@ -34,6 +34,7 @@ const electronProcess = new ElectronProcess()
  */
 function startMain() {
   return new Promise(resolve => {
+    webpackConfigMain.devtool = 'source-map'
     const mainCompiler = webpack(webpackConfigMain, (err, stats) => {
       if (err) {
         throw err
@@ -72,6 +73,8 @@ function startRenderer(): Promise<void> {
       webpackConfigRenderer.entry = [...hotClient, webpackConfigRenderer.entry] as string[]
     }
     WebpackDevServer.addDevServerEntrypoints(webpackConfigRenderer, devServerOptions)
+
+    webpackConfigRenderer.devtool = 'source-map'
 
     const rendererCompiler = webpack(webpackConfigRenderer)
     rendererCompiler.hooks.done.tap('done', stats => {

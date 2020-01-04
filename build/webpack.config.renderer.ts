@@ -42,16 +42,12 @@ export const webpackConfig: Configuration = {
   output: {
     publicPath: ENV_CONFIG.publicPath,
     path: path.join(dist, 'renderer'),
-    filename: 'js/[name].js',
-    chunkFilename: 'js/[name].js',
+    filename: '[name].js',
+    chunkFilename: '[name].js',
   },
 
   module: {
     rules: [
-      // {
-      //   test: /\.d\.ts$/,
-      //   loader: 'ignore-loader',
-      // },
       {
         test: /(?<!\.d)\.tsx?$/,
         loader: ['ts-loader', 'eslint-loader'],
@@ -63,11 +59,6 @@ export const webpackConfig: Configuration = {
         loader: ['eslint-loader'],
         exclude: /node_modules/,
       },
-      // {
-      //   test: /\.json$/,
-      //   loader: ['json-loader'],
-      //   exclude: /node_modules/,
-      // },
       {
         test: /\.(sass|scss)$/,
         use: [
@@ -121,8 +112,8 @@ export const webpackConfig: Configuration = {
       filename: 'index.html',
     }),
     new MiniCssExtractPlugin({
-      filename: 'css/[name].css',
-      chunkFilename: 'css/[name].css',
+      filename: '[name].css',
+      chunkFilename: '[name].css',
     }),
     new webpack.ProvidePlugin(provide),
   ],

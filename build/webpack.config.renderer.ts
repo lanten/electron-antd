@@ -25,6 +25,10 @@ const ENV_CONFIG = env[BUILD_ENV]
 export const webpackConfig: Configuration = {
   mode: NODE_ENV as 'development' | 'production',
   target: 'electron-renderer',
+  node: {
+    __dirname: false,
+    __filename: false,
+  },
 
   entry: {
     renderer: path.resolve(appPath, 'index.tsx'),

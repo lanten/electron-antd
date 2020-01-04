@@ -5,7 +5,7 @@
 		"outDir": "../dist",
 		"baseUrl": "build",
 		"sourceMap": false,
-		"rootDir": ".",
+		"rootDir": "../",
 		"strict": true,
 		"moduleResolution": "node",
 		"resolveJsonModule": true,
@@ -21,7 +21,7 @@
 		],
 	},
 	"include": [
-		"**/*.ts",
+		"build/**/*.ts",
 	],
 	"exclude": [
 		"node_modules",

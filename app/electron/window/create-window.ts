@@ -1,4 +1,4 @@
-import * as path from 'path'
+import path from 'path'
 import { BrowserWindow } from 'electron'
 import { APP_ICON } from '@/app.config'
 
@@ -23,7 +23,7 @@ export function getWindowUrl(key: string) {
   if (NODE_ENV === 'development') {
     url = `http://${host}:${port}#${hash}`
   } else {
-    url = `file://${path.join(__dirname, '../../dist/index.html')}#${hash}`
+    url = `file://${path.join(__dirname, '../renderer/index.html')}#${hash}`
   }
   return { url, config }
 }

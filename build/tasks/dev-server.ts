@@ -35,6 +35,7 @@ const electronProcess = new ElectronProcess()
 function startMain() {
   return new Promise(resolve => {
     webpackConfigMain.devtool = 'source-map'
+    webpackConfigMain.watch = true
     const mainCompiler = webpack(webpackConfigMain, (err, stats) => {
       if (err) {
         throw err
@@ -61,7 +62,6 @@ function startRenderer(): Promise<void> {
     const hotClient = ['webpack-dev-server/client', 'webpack/hot/only-dev-server']
     if (typeof webpackConfigRenderer.entry === 'object') {
       Object.keys(webpackConfigRenderer.entry).forEach(name => {
-        if (!webpackConfigRenderer.entry) throw new Error(webpackConfigRenderer.entry)
         const value = webpackConfigRenderer.entry[name]
         if (Array.isArray(value)) {
           value.unshift(...hotClient)

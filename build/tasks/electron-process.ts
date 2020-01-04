@@ -45,6 +45,12 @@ export default class ElectronProcess {
     this.restarting = false
     if (this.process) {
       exConsole.success(`Electron main process has ${this.isRestart ? 'restarted' : 'started'}`)
+      this.process.stdout.on('data', data => {
+        exConsole.info(data)
+      })
+      this.process.stderr.on('data', data => {
+        exConsole.info(data)
+      })
       this.process.on('close', () => {
         if (!this.restarting) {
           this.process = undefined

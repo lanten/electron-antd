@@ -14,7 +14,11 @@ const ENV_CONFIG = env[BUILD_ENV]
 export const webpackConfig: Configuration = {
   mode: NODE_ENV as 'development' | 'production',
   target: 'electron-main',
-  watch: true,
+
+  node: {
+    __dirname: false,
+    __filename: false,
+  },
 
   entry: {
     main: path.join(appPath, 'index.ts'),

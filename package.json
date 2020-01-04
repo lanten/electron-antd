@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "private": false,
   "main": "dist/main/main.js",
+  "author": "lanten",
   "scripts": {
     "ts:dev": "ts-node -P build/tsconfig.json build/tasks/dev-server.ts",
     "ts:build": "ts-node -P build/tsconfig.json build/tasks/build.ts",
@@ -42,6 +43,7 @@
     "css-hot-loader": "^1.4.4",
     "css-loader": "^3.4.0",
     "electron": "^7.1.7",
+    "electron-builder": "^21.2.0",
     "electron-debug": "^3.0.1",
     "eslint": "^6.8.0",
     "eslint-config-prettier": "^6.9.0",
@@ -65,5 +67,14 @@
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.10.1",
     "webpackbar": "^4.0.0"
-  }
+  },
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lanten/electron-antd.git"
+  },
+  "bugs": {
+    "url": "https://github.com/lanten/electron-antd/issues"
+  },
+  "homepage": "https://github.com/lanten/electron-antd#readme"
 }

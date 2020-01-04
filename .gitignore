@@ -2,7 +2,7 @@
 .history
 node_modules
 dist
-prod
+release
 build/build-dist
 
 # local env files

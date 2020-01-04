@@ -1,6 +1,8 @@
 import fs from 'fs'
 import { execSync } from 'child_process'
 
+export * from './console'
+
 /**
  * 同步执行命令
  * @param {String} path

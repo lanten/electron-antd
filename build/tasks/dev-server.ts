@@ -4,6 +4,7 @@ import electron from 'electron'
 import { spawn, ChildProcessWithoutNullStreams } from 'child_process'
 import WebpackDevServer from 'webpack-dev-server'
 
+import { exConsole } from '../utils'
 import devConfig from '../dev.config'
 import webpackConfigRenderer from '../webpack.config.renderer'
 import webpackConfigMain from '../webpack.config.main'
@@ -51,7 +52,7 @@ function startMain() {
         try {
           process.kill(electronProcess.pid)
         } catch (error) {
-          console.log(chalk.red(`[ERROR] => Kill electron process: ${electronProcess.pid} failed.`))
+          exConsole.error(chalk.red(`Kill electron process: ${electronProcess.pid} failed.`))
         }
         startElectron()
       }
@@ -88,7 +89,7 @@ function startRenderer(): Promise<void> {
 
     const rendererCompiler = webpack(webpackConfigRenderer)
     rendererCompiler.hooks.done.tap('done', stats => {
-      console.log(`Server local at ${chalk.magenta.underline(`http://${host}:${port}${publicPath}`)}`)
+      exConsole.info(`Server local at ${chalk.magenta.underline(`http://${host}:${port}${publicPath}`)}`)
       resolve()
     })
 
@@ -96,7 +97,7 @@ function startRenderer(): Promise<void> {
 
     server.listen(port, host, err => {
       if (err) {
-        console.log(chalk.red(err.message))
+        exConsole.error(chalk.red(err.message))
       }
     })
   })

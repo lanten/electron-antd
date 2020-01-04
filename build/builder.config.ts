@@ -6,10 +6,12 @@
 import path from 'path'
 import { Configuration, CliOptions } from 'electron-builder'
 
+const ICON_ICO = path.resolve(__dirname, '../assets/app-icon/icon/icon.ico')
+const ICON_ICNS = path.resolve(__dirname, '../assets/app-icon/icon/icon.icns')
+
 const config: Configuration = {
   productName: 'electron-antd',
   appId: 'org.electron.electron-antd',
-  // icon: path.resolve(__dirname, '../assets/app-icon/icon/icon'),
   files: ['dist/', 'assets', 'node_modules/', 'package.json'],
   asar: false,
   directories: {
@@ -17,18 +19,18 @@ const config: Configuration = {
     output: 'release',
   },
   dmg: {
-    icon: path.resolve(__dirname, '../assets/app-icon/icon/icon.icns'),
+    icon: ICON_ICNS,
     contents: [
       { x: 130, y: 220 },
       { x: 410, y: 220, type: 'link', path: '/Applications' },
     ],
   },
   win: {
-    icon: path.resolve(__dirname, '../assets/app-icon/icon/icon.ico'),
+    icon: ICON_ICO,
     target: ['nsis', 'msi'],
   },
   linux: {
-    icon: path.resolve(__dirname, '../assets/app-icon/icon/icon.icns'),
+    icon: ICON_ICNS,
     target: ['deb', 'rpm', 'AppImage'],
     category: 'Development',
   },

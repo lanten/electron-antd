@@ -5,12 +5,6 @@ import { createWindow } from './window'
 
 let tray: Tray
 
-// const { NODE_ENV } = process.env
-
-// if (NODE_ENV === 'development') {
-require('electron-debug')({ showDevTools: true })
-// }
-
 app.on('ready', () => {
   tray = creatAppTray()
   createWindow('home')

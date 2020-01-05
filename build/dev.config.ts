@@ -7,14 +7,9 @@ const devConfig = {
   rendererSource: path.resolve(__dirname, '../app/src'),
   template: path.resolve(__dirname, '../app/src/index.html'),
   dist: path.resolve(__dirname, '../dist'),
+  release: path.resolve(__dirname, '../release'),
 
   proxy: {},
-
-  alias: {
-    '@': path.resolve(__dirname, '../app'),
-  },
-
-  provide: {},
 
   env: {
     mock: {

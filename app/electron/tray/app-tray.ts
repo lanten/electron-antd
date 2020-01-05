@@ -20,7 +20,7 @@ export function creatAppTray({ menus = trayMenus, title = APP_NAME, icon }: AppI
       : TRAY_ICON_LIGHT)
 
   const image = nativeImage.createFromPath(iconPath)
-  image.setTemplateImage(true)
+  image.isMacTemplateImage = true
   const tray = new Tray(image)
   tray.setToolTip(title)
   tray.setContextMenu(Menu.buildFromTemplate(menus))

@@ -1,3 +1,4 @@
+import '@/core/main.init'
 import { app, Tray } from 'electron'
 
 import { creatAppTray } from './tray'
@@ -8,7 +9,6 @@ let tray: Tray
 app.on('ready', () => {
   tray = creatAppTray()
   createWindow('home')
-  console.log({ __dirname })
 })
 
 app.on('window-all-closed', function() {

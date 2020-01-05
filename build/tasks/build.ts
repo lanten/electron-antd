@@ -1,4 +1,5 @@
 import chalk from 'chalk'
+import path from 'path'
 import { build as electronBuilder } from 'electron-builder'
 import { clearDir, exConsole } from '../utils'
 
@@ -12,20 +13,23 @@ const env = process.env.BUILD_ENV as keyof typeof devConfig.env
 
 async function buildMain() {
   return buildCommon({ env, webpackConfig: webpackConfigMain, type: 'main' }).then(() => {
-    exConsole.success(`[Main Complete] : ${chalk.magenta.underline(`${devConfig.dist}/main`)}`)
+    exConsole.success(`[Main Complete] : ${chalk.magenta.underline(path.resolve(devConfig.dist, 'main'))}`)
   })
 }
 
 async function buildRenderer() {
   return buildCommon({ env, webpackConfig: webpackConfigRenderer, type: 'renderer' }).then(() => {
-    exConsole.success(`[Renderer Complete] : ${chalk.magenta.underline(`${devConfig.dist}/renderer`)}`)
+    exConsole.success(
+      `[Renderer Complete] : ${chalk.magenta.underline(path.resolve(devConfig.dist, 'renderer'))}`
+    )
   })
 }
 
 function build() {
-  const { dist } = devConfig
-  exConsole.info(chalk.cyanBright(`[Clear Dir] : ${chalk.magenta.underline(`${devConfig.dist}`)}`))
-  clearDir(dist, false, true)
+  const { dist, release } = devConfig
+  exConsole.info(chalk.cyanBright(`[Clear Dir] : ${chalk.magenta.underline(devConfig.dist)}`))
+  clearDir(dist, false, true, true)
+  clearDir(release, false, true, true)
 
   exConsole.info(`[Building Start] : ${env} : ${process.env.NODE_ENV}`)
 

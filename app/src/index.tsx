@@ -1,5 +1,6 @@
-import * as React from 'react'
-import * as reactDom from 'react-dom'
+import '@/core/renderer.init'
+import React from 'react'
+import reactDom from 'react-dom'
 
 import App from './app'
 import '@/src/styles/index.less'

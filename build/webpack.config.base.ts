@@ -1,3 +1,4 @@
+import path from 'path'
 import webpack, { Configuration } from 'webpack'
 
 import WebpackBar from 'webpackbar'
@@ -5,7 +6,7 @@ import TerserPlugin from 'terser-webpack-plugin'
 
 import devConfig from './dev.config'
 
-const { alias, provide, env } = devConfig
+const { env } = devConfig
 const { NODE_ENV, BUILD_ENV = 'dev' } = process.env
 const ENV_CONFIG = env[BUILD_ENV]
 
@@ -18,7 +19,7 @@ const webpackConfig: Configuration = {
   },
 
   resolve: {
-    alias,
+    alias: { '@': path.resolve(__dirname, '../app') },
     extensions: ['.ts', '.tsx', '.js'],
   },
 
@@ -53,11 +54,13 @@ const webpackConfig: Configuration = {
           const val = variables[key]
           defines[`process.env.${key}`] = typeof val === 'string' ? val : JSON.stringify(val)
         })
+        defines['$api'] = 'global.__$api'
+        defines['$logger'] = 'global.__$logger'
+        defines['$tools'] = 'global.__$tools'
         return defines
       })()
     ),
     new WebpackBar(),
-    new webpack.ProvidePlugin(provide),
   ],
 }
 

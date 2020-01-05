@@ -1,8 +1,6 @@
-declare namespace JSX {
-  // 自定义 jsx 标签 (全局组件)
-  interface IntrinsicElements {
-    // Navbar: any
-  }
+interface AnyObj {
+  /* eslint-disable */
+  [key: string]: any
 }
 
 declare namespace NodeJS {

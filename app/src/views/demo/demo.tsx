@@ -45,7 +45,6 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
 
   componentDidMount() {
     console.log(this)
-    console.log({ __dirname })
     console.log(process.env)
     this.queryData()
   }

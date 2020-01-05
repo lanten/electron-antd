@@ -2512,6 +2512,11 @@ electron-builder@^21.2.0:
     update-notifier "^3.0.1"
     yargs "^13.3.0"
 
+electron-log@^4.0.2:
+  version "4.0.2"
+  resolved "https://registry.npm.taobao.org/electron-log/download/electron-log-4.0.2.tgz#159431b60688297420ce233895ec7f72d72e84dc"
+  integrity sha1-FZQxtgaIKXQgziM4lex/ctcuhNw=
+
 electron-publish@21.2.0:
   version "21.2.0"
   resolved "https://registry.npm.taobao.org/electron-publish/download/electron-publish-21.2.0.tgz#cc225cb46aa62e74b899f2f7299b396c9802387d"

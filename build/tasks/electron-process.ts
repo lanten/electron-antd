@@ -1,3 +1,4 @@
+import chalk from 'chalk'
 import electron from 'electron'
 import { spawn, ChildProcessWithoutNullStreams } from 'child_process'
 import { exConsole } from '../utils'
@@ -45,11 +46,15 @@ export default class ElectronProcess {
     this.restarting = false
     if (this.process) {
       exConsole.success(`Electron main process has ${this.isRestart ? 'restarted' : 'started'}`)
+
       this.process.stdout.on('data', data => {
-        exConsole.info(data)
+        let message: string = data.toString()
+
+        if (message.length < 10 && (!message || !message.replace(/\s/g, ''))) message = chalk.gray('null')
+        exConsole.info(message)
       })
       this.process.stderr.on('data', data => {
-        exConsole.info(data)
+        exConsole.error(data)
       })
       this.process.on('close', () => {
         if (!this.restarting) {

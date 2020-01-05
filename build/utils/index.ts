@@ -1,6 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 
+import { exConsole } from './console'
 export * from './console'
 
 /**
@@ -21,10 +22,10 @@ export function clearDir(pathStr: string, delDir?: boolean, createDir?: boolean,
 
       if (fs.statSync(curPath).isDirectory()) {
         clearDir(curPath, true)
-        if (log) console.log(`[delete dir ] - ${curPath}`)
+        if (log) exConsole.success(`[delete dir]: ${curPath}`)
       } else {
         fs.unlinkSync(curPath)
-        if (log) console.log(`[delete file] - ${curPath}`)
+        if (log) exConsole.success(`[delete file]: ${curPath}`)
       }
     })
 

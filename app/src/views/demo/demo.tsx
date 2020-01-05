@@ -46,6 +46,9 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
   componentDidMount() {
     console.log(this)
     console.log(process.env)
+    console.log($api, $tools, $logger)
+
+    $logger.warn('renderer start log ok')
     this.queryData()
   }
 

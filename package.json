@@ -9,7 +9,7 @@
     "ts:build": "ts-node -P build/tsconfig.json build/tasks/build.ts",
     "dev": "cross-env NODE_ENV=development BUILD_ENV=dev npm run ts:dev",
     "build:dev": "cross-env NODE_ENV=production BUILD_ENV=dev npm run ts:build",
-    "build:prod": "cross-env NODE_ENV=production BUILD_ENV=prod npm run ts:build"
+    "build": "cross-env NODE_ENV=production BUILD_ENV=prod npm run ts:build"
   },
   "dependencies": {
     "antd": "^3.26.5",

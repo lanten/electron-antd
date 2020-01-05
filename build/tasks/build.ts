@@ -27,9 +27,9 @@ async function buildRenderer() {
 
 function build() {
   const { dist, release } = devConfig
-  exConsole.info(chalk.cyanBright(`[Clear Dir] : ${chalk.magenta.underline(devConfig.dist)}`))
-  clearDir(dist, false, true, true)
-  clearDir(release, false, true, true)
+  exConsole.info(chalk.cyanBright(`[Clear Dir...] : ${chalk.magenta.underline(devConfig.dist)}`))
+  clearDir(dist, false, true)
+  clearDir(release, false, true)
 
   exConsole.info(`[Building Start] : ${env} : ${process.env.NODE_ENV}`)
 

@@ -3,8 +3,6 @@ import { Button, Input } from 'antd'
 
 import { withStore } from '@/src/store'
 
-import { APP_ICON, TRAY_ICON_DARK } from '@/app.config'
-
 // 声明一个接口 ，继承自 PageProps，包含 PageProps 中所有的属性以及自身定义的 id
 // ? 表示 属性 id 可以为空，在 : 前加上 ! 表示必填，默认必填
 interface DemoProps extends PageProps, StoreProps {
@@ -104,9 +102,9 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
           <Input.TextArea value={JSON.stringify(resData)} />
         </div>
 
-        <img src={APP_ICON} alt="" />
+        <img src={$config.APP_ICON} alt="" />
         <br />
-        <img src={TRAY_ICON_DARK} alt="" />
+        <img src={$config.TRAY_ICON_DARK} alt="" />
       </div>
     )
   }

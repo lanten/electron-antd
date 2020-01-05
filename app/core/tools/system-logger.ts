@@ -1,6 +1,9 @@
 import electronLog, { ElectronLog } from 'electron-log'
 
-/** 创建一个 electron-log 记录器 */
+/**
+ * 创建一个 electron-log 记录器
+ * 参考：https://github.com/megahertz/electron-log
+ */
 export class SystemLogger {
   public logger: ElectronLog
   public logId: string

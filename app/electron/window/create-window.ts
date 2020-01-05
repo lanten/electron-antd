@@ -1,6 +1,5 @@
 import path from 'path'
 import { BrowserWindow } from 'electron'
-import { APP_ICON } from '@/app.config'
 
 import { urls } from './window-urls'
 
@@ -50,7 +49,7 @@ export function createWindow(key: string, options: any = {}) {
   }
 
   const defaultOptions = {
-    icon: APP_ICON,
+    icon: $config.APP_ICON,
     width: 800,
     height: 600,
     show: false,
@@ -60,7 +59,7 @@ export function createWindow(key: string, options: any = {}) {
     },
     // frame: false, // 无边框窗口
     // skipTaskbar: false, // 是否在任务栏中隐藏窗口
-    // backgroundColor: '#fff',
+    backgroundColor: '#fff',
     // transparent: true, // 窗口是否透明
     // titleBarStyle: 'default',
     vibrancy: 'appearance-based', // 毛玻璃效果

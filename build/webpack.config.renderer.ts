@@ -24,7 +24,7 @@ const webpackConfig: Configuration = {
   target: 'electron-renderer',
 
   entry: {
-    renderer: path.resolve(appPath, 'index.tsx'),
+    renderer: path.resolve(appPath, 'index.ts'),
   },
 
   output: {

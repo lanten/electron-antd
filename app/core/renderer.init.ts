@@ -1,11 +1,16 @@
 import { remote } from 'electron'
 import { SystemLogger } from '@/core/tools/system-logger'
 
-// @ts-ignore
-$tools = remote.getGlobal('__$tools')
+export async function initRenderer() {
+  // @ts-ignore
+  $tools = remote.getGlobal('__$tools')
 
-// @ts-ignore
-$logger = new SystemLogger('renderer')
+  // @ts-ignore
+  $config = remote.getGlobal('__$config')
 
-// @ts-ignore
-$api = remote.getGlobal('__$api')
+  // @ts-ignore
+  $logger = new SystemLogger('renderer')
+
+  // @ts-ignore
+  $api = remote.getGlobal('__$api')
+}

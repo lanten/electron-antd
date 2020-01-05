@@ -1,8 +1,9 @@
 import { Menu, Tray, systemPreferences, nativeImage } from 'electron'
-import { APP_NAME, TRAY_ICON_DARK, TRAY_ICON_LIGHT } from '@/app.config'
 
 import { createWindow } from '../window'
 import { trayMenus } from '../menus'
+
+const { APP_NAME, TRAY_ICON_DARK, TRAY_ICON_LIGHT } = $config
 
 export interface AppIconConfig {
   menus?: any

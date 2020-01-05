@@ -1,11 +1,19 @@
-import * as config from '../app.config'
 import * as tools from './tools'
 
-// @ts-ignore
-$tools = { ...tools, config }
+export async function initMain() {
+  return new Promise(async resolve => {
+    // @ts-ignore
+    $tools = tools
 
-// @ts-ignore
-$logger = new $tools.SystemLogger('main')
+    // @ts-ignore
+    $config = await import('@/core/config')
 
-// @ts-ignore
-$api = { a: 1 }
+    // @ts-ignore
+    $logger = new $tools.SystemLogger('main')
+
+    // @ts-ignore
+    $api = { a: 1 }
+
+    resolve()
+  })
+}

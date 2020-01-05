@@ -56,6 +56,7 @@ const webpackConfig: Configuration = {
         })
         defines['$api'] = 'global.__$api'
         defines['$logger'] = 'global.__$logger'
+        defines['$config'] = 'global.__$config'
         defines['$tools'] = 'global.__$tools'
         return defines
       })()

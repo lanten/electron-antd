@@ -1,21 +1,29 @@
-
 ## Quick start
+install
 ```bash
+yarn
+# or
 npm install
+```
 
-# 
-
+start dev
+```bash
 npm run dev
 ```
 
 ## Overview
-- webpack 4
+- webpack
 - electron
-- electron-package
-- react 16
-- react-router 5
+- electron-builder
+- electron-log
+- react
+- react-router
+- redux
 - ant-design
 - less
+- typescript
+- eslint
+- prettier
 
 ## DevTools
 
@@ -25,22 +33,23 @@ Toggle DevTools:
 * Linux: <kbd>Ctrl</kbd> <kbd>Shift</kbd> <kbd>I</kbd> or <kbd>F12</kbd>
 * Windows: <kbd>Ctrl</kbd> <kbd>Shift</kbd> <kbd>I</kbd> or <kbd>F12</kbd>
 
-## Packaging
+## Build package
 
-Modify [package.config.js](./config/package.config.js) to edit package info.
+Modify [builder.config.ts](./build/builder.config.ts) to edit package info.
 
-For a full list of options see: https://github.com/electron-userland/electron-packager/blob/master/docs/api.md.
+For a full list of options see: https://www.electron.build/configuration/configuration
 
 Create a package for OSX, Windows and Linux
 ```
-npm run pack
+npm run build
 ```
 
-Or target a specific platform
-```
-npm run pack:mac
-npm run pack:win
-npm run pack:linux
-```
+Please check the `release` folder after the build is complete.
 
-> The `browser-sync` version archive to [branch v1.0](https://github.com/lanten/electron-antd/tree/v1.0)
+
+## Old version
+- The `browser-sync` version archive to [branch v1.0](https://github.com/lanten/electron-antd/tree/v1.0)
+- The `js-babel` version archive to [babel](https://github.com/lanten/electron-antd/tree/babel)
+
+## License
+[MIT](./LICENSE)

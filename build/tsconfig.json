@@ -1,0 +1,29 @@
+{
+	"compilerOptions": {
+		"target": "es6",
+		"module": "commonjs",
+		"outDir": "../dist",
+		"baseUrl": "build",
+		"sourceMap": false,
+		"rootDir": "../",
+		"strict": true,
+		"moduleResolution": "node",
+		"resolveJsonModule": true,
+		"esModuleInterop": true,
+		"allowSyntheticDefaultImports": true,
+		"suppressImplicitAnyIndexErrors": true,
+		"types": [
+			"node"
+		],
+		"lib": [
+			"esnext",
+			"es6"
+		],
+	},
+	"include": [
+		"build/**/*.ts",
+	],
+	"exclude": [
+		"node_modules",
+	],
+}

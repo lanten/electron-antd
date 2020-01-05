@@ -1,0 +1,130 @@
+@import './_var.less';
+@import './antd-theme.less';
+
+.title-block {
+  position: relative;
+  color: @color_title;
+  font-size: 16px;
+  &::before {
+    @w: 3px;
+    content: '';
+    display: block;
+    position: absolute;
+    left: -8px - @w;
+    width: @w;
+    height: 1em;
+    background-color: @color_primary;
+    top: 0.27em;
+  }
+}
+
+.panel {
+  padding: @padding @padding_lg;
+  box-shadow: @shadow;
+  background-color: @color_white;
+  box-sizing: border-box;
+
+  &.full {
+    @offH: @height_navbar + (@padding_lg * 2);
+    height: calc(~'100vh - @{offH}');
+    &.has-breadcrumb {
+      @offH: @height_navbar + (@padding_lg * 2) + 37px;
+      height: calc(~'100vh - @{offH}');
+    }
+  }
+
+  &.full-min {
+    @offH: @height_navbar + (@padding_lg * 2);
+    min-height: calc(~'100vh - @{offH}');
+    &.has-breadcrumb {
+      @offH: @height_navbar + (@padding_lg * 2) + 37px;
+      min-height: calc(~'100vh - @{offH}');
+    }
+  }
+
+  &.p-0 {
+    padding: 0;
+  }
+  .panel-title {
+    .title-block;
+    border-bottom: 1px solid @color_border;
+    font-weight: 500;
+  }
+  .border-bottom-full {
+    position: relative;
+    @w: @padding_lg*4 + 1px;
+    @p: @padding_lg * 2 + 1px;
+    &::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      bottom: -50%;
+      left: calc(~'-50% - @{p}');
+      right: calc(~'-50% - @{p}');
+      width: calc(~'200% + @{w}');
+      height: 1px;
+      -webkit-transform: scale(0.5);
+      transform: scale(0.5);
+      border-bottom: 1px solid @color_border;
+      box-sizing: border-box;
+    }
+  }
+}
+
+.ant-btn {
+  &.ant-btn-primary {
+    &[disabled] {
+      background-color: lighten(@color_primary, 20);
+      color: @color_white;
+      border-color: lighten(@color_primary, 10);
+    }
+  }
+}
+
+.ant-message {
+  display: flex;
+  justify-content: center;
+  padding-top: @height_navbar + @padding_layout;
+}
+
+.ant-table-wrapper {
+  &.nowrap {
+    th,
+    td {
+      // 表头不换行
+      word-wrap: keep-all;
+      white-space: nowrap;
+    }
+  }
+  .ant-table-body {
+    tr:nth-child(even) {
+      background: #fcfcfc;
+    }
+  }
+  .ant-table {
+    th,
+    td {
+      padding: 12px;
+    }
+  }
+}
+
+.ant-timeline {
+  .ant-timeline-item-last {
+    padding-bottom: 0;
+    > .ant-timeline-item-content {
+      min-height: auto;
+    }
+  }
+}
+
+.ant-form {
+  .ant-form-item-children {
+    width: 100%;
+  }
+}
+
+.ant-form-explain {
+  font-size: 12px;
+  line-height: 22px;
+}

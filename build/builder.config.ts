@@ -7,17 +7,27 @@ import path from 'path'
 import { Configuration, CliOptions } from 'electron-builder'
 import devConfig from './dev.config'
 
+const { name, appId, version, buildVersion } = require('../package.json')
+
 const ICON_ICO = path.resolve(__dirname, '../assets/app-icon/icon/icon.ico')
 const ICON_ICNS = path.resolve(__dirname, '../assets/app-icon/icon/icon.icns')
 
 const config: Configuration = {
-  productName: 'electron-antd',
-  appId: 'org.electron.electron-antd',
+  productName: name,
+  buildVersion,
+  appId,
   files: ['dist/', 'assets', 'node_modules/', 'package.json'],
   asar: false,
   directories: {
     buildResources: 'assets',
-    output: devConfig.release,
+    output: path.join(devConfig.release, `${name}-release-${version}.${buildVersion}`),
+  },
+  win: {
+    icon: ICON_ICO,
+    target: ['nsis', 'msi'],
+  },
+  mac: {
+    icon: ICON_ICNS,
   },
   dmg: {
     icon: ICON_ICNS,
@@ -25,10 +35,6 @@ const config: Configuration = {
       { x: 130, y: 220 },
       { x: 410, y: 220, type: 'link', path: '/Applications' },
     ],
-  },
-  win: {
-    icon: ICON_ICO,
-    target: ['nsis', 'msi'],
   },
   linux: {
     icon: ICON_ICNS,

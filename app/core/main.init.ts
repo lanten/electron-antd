@@ -6,9 +6,6 @@ export async function initMain() {
     $tools = tools
 
     // @ts-ignore
-    $config = await import('@/core/config')
-
-    // @ts-ignore
     $logger = new $tools.SystemLogger('main')
 
     // @ts-ignore

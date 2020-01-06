@@ -102,9 +102,9 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
           <Input.TextArea value={JSON.stringify(resData)} />
         </div>
 
-        <img src={$config.APP_ICON} alt="" />
+        <img src={$tools.APP_ICON} alt="" />
         <br />
-        <img src={$config.TRAY_ICON_DARK} alt="" />
+        <img src={$tools.TRAY_ICON_DARK} alt="" />
       </div>
     )
   }

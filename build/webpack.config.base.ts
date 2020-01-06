@@ -19,7 +19,10 @@ const webpackConfig: Configuration = {
   },
 
   resolve: {
-    alias: { '@': path.resolve(__dirname, '../app') },
+    alias: {
+      '@': path.resolve(__dirname, '../app'),
+      '@root': path.resolve(__dirname, '../'),
+    },
     extensions: ['.ts', '.tsx', '.js'],
   },
 
@@ -56,7 +59,6 @@ const webpackConfig: Configuration = {
         })
         defines['$api'] = 'global.__$api'
         defines['$logger'] = 'global.__$logger'
-        defines['$config'] = 'global.__$config'
         defines['$tools'] = 'global.__$tools'
         return defines
       })()

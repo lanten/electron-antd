@@ -49,7 +49,7 @@ export function createWindow(key: string, options: any = {}) {
   }
 
   const defaultOptions = {
-    icon: $config.APP_ICON,
+    icon: $tools.APP_ICON,
     width: 800,
     height: 600,
     show: false,
@@ -62,7 +62,7 @@ export function createWindow(key: string, options: any = {}) {
     backgroundColor: '#fff',
     // transparent: true, // 窗口是否透明
     // titleBarStyle: 'default',
-    vibrancy: 'appearance-based', // 毛玻璃效果
+    // vibrancy: 'appearance-based', // 毛玻璃效果
     ...config,
   }
   win = new BrowserWindow(Object.assign(defaultOptions, options))

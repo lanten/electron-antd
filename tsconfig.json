@@ -22,6 +22,9 @@
     "paths": {
       "@/*": [
         "app/*"
+      ],
+      "@root/*": [
+        "*"
       ]
     },
     "lib": [
@@ -38,6 +41,10 @@
     "app/**/*.tsx"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "build",
+    "dist",
+    "release",
+    "assets"
   ]
 }

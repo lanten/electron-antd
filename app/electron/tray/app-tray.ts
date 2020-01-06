@@ -1,9 +1,9 @@
-import { Menu, Tray, systemPreferences, nativeImage } from 'electron'
+import { Menu, Tray, nativeTheme, nativeImage } from 'electron'
 
 import { createWindow } from '../window'
 import { trayMenus } from '../menus'
 
-const { APP_NAME, TRAY_ICON_DARK, TRAY_ICON_LIGHT } = $config
+const { APP_NAME, TRAY_ICON_DARK, TRAY_ICON_LIGHT } = $tools
 
 export interface AppIconConfig {
   menus?: any
@@ -15,7 +15,7 @@ export function creatAppTray({ menus = trayMenus, title = APP_NAME, icon }: AppI
   const iconPath =
     icon ??
     (process.platform === 'darwin'
-      ? systemPreferences.isDarkMode()
+      ? nativeTheme.shouldUseDarkColors
         ? TRAY_ICON_LIGHT
         : TRAY_ICON_DARK
       : TRAY_ICON_LIGHT)

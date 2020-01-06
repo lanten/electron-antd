@@ -3,7 +3,7 @@ import path from 'path'
 import { build as electronBuilder } from 'electron-builder'
 import { clearDir, exConsole } from '../utils'
 
-import packageConfig from '../builder.config'
+import builderConfig from '../builder.config'
 import devConfig from '../dev.config'
 import webpackConfigMain from '../webpack.config.main'
 import webpackConfigRenderer from '../webpack.config.renderer'
@@ -26,16 +26,20 @@ async function buildRenderer() {
 }
 
 function build() {
-  const { dist, release } = devConfig
+  const { dist } = devConfig
   exConsole.info(chalk.cyanBright(`[Clear Dir...] : ${chalk.magenta.underline(devConfig.dist)}`))
-  clearDir(dist, false, true)
-  clearDir(release, false, true)
+
+  try {
+    clearDir(dist, false, true)
+  } catch (error) {
+    exConsole.warn(error.message)
+  }
 
   exConsole.info(`[Building Start] : ${env} : ${process.env.NODE_ENV}`)
 
   Promise.all([buildMain(), buildRenderer()])
     .then(() => {
-      electronBuilder(packageConfig)
+      electronBuilder(builderConfig)
         .then(res => {
           exConsole.success(`[Released] : ${res}`)
         })

@@ -12,7 +12,8 @@ export * from './console'
  * @param {Boolean} createDir 如果不存在,是否创建
  * @param {Boolean} log 是否输出日志
  */
-export function clearDir(pathStr: string, delDir?: boolean, createDir?: boolean, log?: boolean): void {
+export function clearDir(pathStr?: string, delDir?: boolean, createDir?: boolean, log?: boolean): void {
+  if (!pathStr) return exConsole.warn('[clearDir]: Empty Path!')
   let files = []
 
   if (fs.existsSync(pathStr)) {

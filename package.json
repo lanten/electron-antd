@@ -1,6 +1,8 @@
 {
   "name": "electron-antd",
+  "appId": "org.electron.electron-antd",
   "version": "1.0.0",
+  "buildVersion": "0001",
   "private": false,
   "main": "dist/main/main.js",
   "author": "lanten",

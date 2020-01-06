@@ -1,4 +1,4 @@
-import { remote } from 'electron'
+import { remote, webFrame } from 'electron'
 
 export function initRenderer() {
   // @ts-ignore
@@ -6,7 +6,7 @@ export function initRenderer() {
 
   // @ts-ignore
   $logger = new $tools.SystemLogger('renderer')
-  $logger.info(`Window <${location.href}> is open`)
+  $logger.info(`Window <${webFrame.routingId}> url: ${location.href} is open`)
 
   // @ts-ignore
   $api = remote.getGlobal('__$api')

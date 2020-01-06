@@ -1,11 +1,11 @@
 import path from 'path'
-import { BrowserWindow } from 'electron'
+import { BrowserWindow, BrowserWindowConstructorOptions } from 'electron'
 
 import { urls } from './window-urls'
 
 const { NODE_ENV, port, host } = process.env
 
-export const windowList = {}
+export const windowList: Set<BrowserWindow> = new Set()
 
 /**
  * 通过 window-urls.js 中的 key 得到 url
@@ -32,8 +32,8 @@ export function getWindowUrl(key: string) {
  * @param {String} urlKey
  * @param {Object} BrowserWindowOptions
  */
-export function createWindow(key: string, options: any = {}) {
-  let win = windowList[key]
+export function createWindow(key: string, options: BrowserWindowConstructorOptions = {}) {
+  let win: BrowserWindow = windowList[key]
 
   if (windowList[key]) {
     win.show()
@@ -42,13 +42,7 @@ export function createWindow(key: string, options: any = {}) {
 
   const { url, config } = getWindowUrl(key)
 
-  let from
-  if (options.from) {
-    from = options.from
-    delete options.from
-  }
-
-  const defaultOptions = {
+  const defaultOptions: BrowserWindowConstructorOptions = {
     icon: $tools.APP_ICON,
     width: 800,
     height: 600,
@@ -66,7 +60,7 @@ export function createWindow(key: string, options: any = {}) {
     ...config,
   }
   win = new BrowserWindow(Object.assign(defaultOptions, options))
-  if (from) win.from = from
+
   windowList[key] = win
   win.loadURL(url)
   win.once('ready-to-show', () => {

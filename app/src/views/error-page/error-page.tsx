@@ -14,7 +14,7 @@ export default class ErrorPage extends React.Component<PageProps> {
   private readonly ERROR_CODE_MAP: { [key: string]: ErrorInfo } = {
     404: {
       title: '对不起，页面没有找到！',
-      img: 'assets/images/404.svg',
+      img: $tools.asAssetsPath('images/404.svg'),
       desc: 'Page Not Found',
       content: (
         <Button type="primary" onClick={() => history.go(-1)}>
@@ -25,7 +25,7 @@ export default class ErrorPage extends React.Component<PageProps> {
 
     403: {
       title: '温馨提示：您没有使用该功能的权限',
-      img: 'assets/images/403.svg',
+      img: $tools.asAssetsPath('images/403.svg'),
       desc: '如有需要，请联系管理员开通',
       content: (
         <a href="/">

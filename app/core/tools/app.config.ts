@@ -4,6 +4,8 @@ import { asAssetsPath } from './paths'
 /** 应用名称 */
 export const APP_NAME = packageJson.name
 
+console.log('APP_NAME:', APP_NAME)
+
 /** 应用标题 */
 export const APP_TITLE = 'Electron Antd'
 

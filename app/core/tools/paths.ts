@@ -1,5 +1,6 @@
 import path from 'path'
 import { app } from 'electron'
+import { name } from '@root/package.json'
 
 /** 当前应用程序所在目录 */
 export const APP_PATH: string = app.getAppPath()
@@ -8,7 +9,7 @@ export const APP_DATA_PATH: string = app.getPath('appData')
 /** 储存你应用程序设置文件的文件夹 */
 export const USER_DATA_PATH: string = app.getPath('userData')
 /** 应用程序的日志文件夹 */
-export const LOGS_PATH: string = app.getPath('logs')
+export const LOGS_PATH: string = path.resolve(app.getPath('logs'), `../${name}`)
 
 /** 资源文件夹 */
 export const ASSETS_PATH: string =

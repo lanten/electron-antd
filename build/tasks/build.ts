@@ -35,7 +35,7 @@ function build() {
     exConsole.warn(error.message)
   }
 
-  exConsole.info(`[Building Start] : ${env} : ${process.env.NODE_ENV}`)
+  exConsole.info(`[Building...] : ${env} : ${process.env.NODE_ENV}`)
 
   Promise.all([buildMain(), buildRenderer()])
     .then(() => {

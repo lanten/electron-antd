@@ -17,4 +17,4 @@ function addRouteConfig(conf: RouteConfig) {
 export default routes
 
 /** 用于 createWindow 时的提示 */
-export type RouterKeys = 'home' | 'demo' | 'noMatch'
+export type RouterKey = 'home' | 'demo' | 'noMatch'

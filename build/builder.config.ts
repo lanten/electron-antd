@@ -7,8 +7,6 @@ import path from 'path'
 import { Configuration, CliOptions } from 'electron-builder'
 import devConfig from './dev.config'
 
-// const { name, appId, version, buildVersion } = require('../package.json')
-
 const ICON_ICO = path.resolve(__dirname, '../assets/app-icon/icon/icon.ico')
 const ICON_ICNS = path.resolve(__dirname, '../assets/app-icon/icon/icon.icns')
 

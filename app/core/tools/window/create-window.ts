@@ -1,18 +1,18 @@
 import path from 'path'
 import { BrowserWindow, BrowserWindowConstructorOptions } from 'electron'
 import { log } from '../log'
-import routes, { RouterKeys } from '@/src/auto-routes'
+import routes, { RouterKey } from '@/src/auto-routes'
 
 const { NODE_ENV, port, host } = process.env
 
 /** 已创建的窗口列表 */
-export const windowList: Map<RouterKeys, BrowserWindow> = new Map()
+export const windowList: Map<RouterKey, BrowserWindow> = new Map()
 
 /**
  * 通过 routes 中的 key(name) 得到 url
- * @param {String} urlKey
+ * @param key
  */
-export function getWindowUrl(key: RouterKeys): string {
+export function getWindowUrl(key: RouterKey): string {
   const routePath = routes.get(key)?.path
   if (NODE_ENV === 'development') {
     return `http://${host}:${port}#${routePath}`
@@ -23,10 +23,10 @@ export function getWindowUrl(key: RouterKeys): string {
 
 /**
  * 创建一个新窗口
- * @param {String} urlKey
- * @param {Object} BrowserWindowOptions
+ * @param key
+ * @param options
  */
-export function createWindow(key: RouterKeys, options: BrowserWindowConstructorOptions = {}): BrowserWindow {
+export function createWindow(key: RouterKey, options: BrowserWindowConstructorOptions = {}): BrowserWindow {
   const config: BrowserWindowConstructorOptions = routes.get(key)?.window ?? {}
   let win: BrowserWindow | undefined = windowList.get(key)
 
@@ -51,7 +51,7 @@ export function createWindow(key: RouterKeys, options: BrowserWindowConstructorO
   })
 
   win.once('show', () => {
-    log.info(`Window <key:${win?.id}> url: ${url} is opened.`)
+    log.info(`Window <${key}:${win?.id}> url: ${url} is opened.`)
   })
 
   win.on('close', () => {

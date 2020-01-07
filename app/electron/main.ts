@@ -18,6 +18,7 @@ app.on('window-all-closed', function() {
 })
 
 app.on('before-quit', () => {
+  $tools.log.info(`Application <${$tools.APP_NAME}> has exited normally.`)
   if (process.platform === 'win32') {
     tray.destroy()
   }

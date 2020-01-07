@@ -5,6 +5,8 @@ const routes: RouteConfig[] = [
     redirect: '/demo',
     window: {
       title: '好的',
+      width: 1000,
+      height: 600,
     },
   },
 ]

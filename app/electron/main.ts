@@ -1,13 +1,12 @@
 import { app, Tray } from 'electron'
 
 import { creatAppTray } from './tray'
-import { createWindow } from './window'
 
 let tray: Tray
 
 app.on('ready', () => {
   tray = creatAppTray()
-  createWindow('home')
+  $tools.createWindow('home')
 })
 
 app.on('window-all-closed', function() {

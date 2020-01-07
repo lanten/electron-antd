@@ -2,9 +2,11 @@ import * as React from 'react'
 import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import AsyncImport from '../async-import'
+import { beforeRouter } from './router-hooks'
+import pageResource from '@/src/page-resource'
 
 interface AppRouterProps {
-  routes: RouteConfig[]
+  routes: Map<string, RouteConfig>
   store: AppStore
 }
 
@@ -13,53 +15,67 @@ export default class AppRouter extends React.Component<AppRouterProps, {}> {
     routes: [],
   }
 
+  noMatch?: JSX.Element
+  routeElements: JSX.Element[]
+
+  constructor(props: AppRouterProps) {
+    super(props)
+    this.routeElements = this.createRoutes()
+
+    console.log(this.routeElements)
+  }
+
   render() {
-    const { routes, store } = this.props
+    const { store } = this.props
 
     return (
       <Provider store={store}>
         <Router>
-          <Switch>{routes.map(this.creatRoute)}</Switch>
+          <Switch>
+            {this.routeElements}
+            {this.noMatch ?? null}
+          </Switch>
         </Router>
       </Provider>
     )
   }
 
-  creatRoute = (routeConfig: RouteConfig, i: number) => {
-    const { key = i, path, exact = true, asyncImport, redirectTo, ...params } = routeConfig
+  createRoutes() {
+    const { routes } = this.props
+    const res: JSX.Element[] = []
+
+    console.log(routes)
+
+    routes.forEach((conf, key) => {
+      const routeEl = this.creatRoute(conf, key)
+      if (conf.path) {
+        res.push(routeEl)
+      } else {
+        this.noMatch = routeEl
+      }
+    })
+
+    return res
+  }
+
+  creatRoute = (routeConfig: RouteConfig, key: string) => {
+    const { name, path, exact = true, resource, redirect, ...params } = routeConfig
 
     const routeProps: any = {
-      key,
+      key: name ?? key,
       path,
       exact,
     }
 
-    if (redirectTo) {
-      routeProps.render = (props: any) => <Redirect to={{ pathname: redirectTo }} {...props} {...params} />
-    } else {
-      const Comp = AsyncImport(asyncImport, this.routerHook.bind(this))
+    if (redirect) {
+      routeProps.render = (props: any) => <Redirect to={{ pathname: redirect }} {...props} {...params} />
+    } else if (resource) {
+      const Comp = AsyncImport(pageResource[resource], beforeRouter.bind(this))
       routeProps.render = (props: any) => <Comp {...props} {...params} />
+    } else {
+      throw new Error('Route config error: resource or redirect must be set one.')
     }
 
     return <Route {...routeProps} />
-  }
-
-  /**
-   * 路由钩子,页面切切换时触发,返回一个 boolean 用于控制是否渲染组件
-   * @param props
-   */
-  async routerHook(props: PageProps, next: Function) {
-    console.log('routerHook', props)
-    const { permissionsCode, history } = props
-
-    let nextFlg = true
-
-    // 校验用户权限
-    if (permissionsCode) {
-      console.log(history)
-      nextFlg = false
-    }
-
-    if (nextFlg) next()
   }
 }

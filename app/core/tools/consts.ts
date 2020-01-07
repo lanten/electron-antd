@@ -1,3 +1,4 @@
+import { BrowserWindowConstructorOptions } from 'electron'
 import { asAssetsPath } from './paths'
 
 /** 应用标题 */
@@ -11,3 +12,21 @@ export const TRAY_ICON_LIGHT = asAssetsPath('tray-icon/tray-icon-light.png')
 
 /** 暗色风格托盘图标 (仅 macOS) */
 export const TRAY_ICON_DARK = asAssetsPath('tray-icon/tray-icon-dark.png')
+
+/** 创建新窗口时默认加载的选项 */
+export const DEFAULT_WINDOW_CONFIG: BrowserWindowConstructorOptions = {
+  icon: APP_ICON,
+  width: 800,
+  height: 600,
+  show: false,
+  hasShadow: true,
+  webPreferences: {
+    nodeIntegration: true,
+  },
+  // frame: false, // 无边框窗口
+  // skipTaskbar: false, // 是否在任务栏中隐藏窗口
+  // backgroundColor: '#fff',
+  // transparent: true, // 窗口是否透明
+  // titleBarStyle: 'default',
+  vibrancy: 'fullscreen-ui', // 毛玻璃效果
+}

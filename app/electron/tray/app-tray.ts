@@ -1,6 +1,5 @@
 import { Menu, Tray, nativeTheme, nativeImage } from 'electron'
 
-import { createWindow } from '../window'
 import { trayMenus } from '../menus'
 
 const { APP_NAME, TRAY_ICON_DARK, TRAY_ICON_LIGHT } = $tools
@@ -27,7 +26,7 @@ export function creatAppTray({ menus = trayMenus, title = APP_NAME, icon }: AppI
   tray.setContextMenu(Menu.buildFromTemplate(menus))
 
   tray.on('double-click', () => {
-    createWindow('home')
+    $tools.createWindow('home')
   })
 
   return tray

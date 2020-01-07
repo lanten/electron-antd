@@ -1,10 +1,13 @@
 import * as React from 'react'
 
+interface RouterHook {
+  (props: PageProps, next: Function): boolean | void | Promise<boolean | void>
+}
 interface State {
   comp: React.ComponentClass | null
 }
 
-export default function asyncComponent(importComponent: ImportComponent, hook?: RouterHook) {
+export default function asyncComponent(importComponent: Promise<any>, hook?: RouterHook) {
   class AsyncComponent extends React.Component<PageProps, State> {
     constructor(props: PageProps) {
       super(props)
@@ -12,7 +15,7 @@ export default function asyncComponent(importComponent: ImportComponent, hook?: 
     }
 
     componentDidMount(): void {
-      importComponent().then(({ default: comp }: any) => {
+      importComponent.then(({ default: comp }: any) => {
         const next = () => this.setState({ comp })
         if (hook) {
           const hookRes = hook(this.props, next)

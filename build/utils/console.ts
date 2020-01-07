@@ -33,9 +33,7 @@ export class Console {
 
   log(type: LogTypes, message: string | Error) {
     const conf = config[type]
-    const str = `[${chalk.gray(this.getDateStr())}] ${chalk.white[conf.color].bold(
-      this.center(type)
-    )} ${message}\n`
+    const str = `[${this.getDateStr()}] ${chalk.white[conf.color].bold(this.center(type))} ${message}\n`
 
     console.log(str)
     return str

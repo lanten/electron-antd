@@ -1,15 +1,13 @@
-import { createWindow } from '../window'
-
 export const trayMenus = [
-  { label: 'home', click: () => createWindow('home') },
+  { label: 'home', click: () => $tools.createWindow('home') },
 
   { type: 'separator' },
 
-  { label: 'demo1', click: () => createWindow('demo1') },
-  { label: 'demo2', click: () => createWindow('demo2') },
+  { label: 'demo1', click: () => $tools.createWindow('demo') },
+  { label: 'demo2', click: () => $tools.createWindow('demo') },
 
   { type: 'separator' },
 
-  { label: 'about', click: () => createWindow('about') },
+  { label: 'about', click: () => $tools.createWindow('demo') },
   { label: 'quit', role: 'quit' },
 ]

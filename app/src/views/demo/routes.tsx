@@ -1,12 +1,9 @@
-export default [
+const routes: RouteConfig[] = [
   {
-    path: '/',
-    exact: true,
-    redirectTo: '/demo',
-  },
-  {
+    name: 'demo',
     path: '/demo',
-    exact: true,
-    asyncImport: () => import(/* webpackChunkName:"demo" */ './demo'),
+    resource: 'demo',
   },
-] as RouteConfig[]
+]
+
+export default routes

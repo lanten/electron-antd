@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Button } from 'antd'
 
-import './error-page.less'
+import './no-match.less'
 
 interface ErrorInfo {
   title: string
@@ -41,9 +41,9 @@ export default class ErrorPage extends React.Component<PageProps> {
 
   render() {
     return (
-      <div className="panel full has-breadcrumb flex column center error-page">
+      <div className="panel full has-breadcrumb flex column center no-match">
         <div className="flex center-v">
-          <img className="state-img" src={this.errorInfo.img} alt="Error 403" />
+          <img className="state-img" src={this.errorInfo.img} />
           <div>
             <h2 className="fs-32 text-title">{this.errorInfo.title}</h2>
             <p className="text-light mt-16 mb-24">{this.errorInfo.desc}</p>

@@ -1,6 +1,6 @@
 /**
  * 格式化日期
- * @param format
+ * @param format 'YYYY-MM-DD H:I:S.MS'
  */
 export function formatDate(format = 'YYYY-MM-DD H:I:S.MS') {
   const date = new Date()

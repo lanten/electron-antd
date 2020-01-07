@@ -2,6 +2,8 @@ import { app, Tray } from 'electron'
 
 import { creatAppTray } from './tray'
 
+$tools.log.info(`Application <${$tools.APP_NAME}> launched.`)
+
 let tray: Tray
 
 app.on('ready', () => {

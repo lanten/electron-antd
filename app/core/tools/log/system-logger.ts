@@ -1,7 +1,7 @@
 import path from 'path'
 import electronLog, { ElectronLog } from 'electron-log'
-import { formatDate } from './utils'
-import { LOGS_PATH } from './paths'
+import { formatDate } from '../utils'
+import { LOGS_PATH } from '../paths'
 
 /**
  * 创建一个 electron-log 记录器
@@ -24,9 +24,9 @@ export class SystemLogger {
       return path.resolve(LOGS_PATH, this.logFileName)
     }
 
-    const isDev = process.env.NODE_ENV === 'development' ? 'dev-' : ''
+    const isDev = process.env.NODE_ENV === 'development' ? ' [dev]' : ''
 
-    this.logger.transports.file.format = `[{y}-{m}-{d} {h}:{i}:{s}.{ms}] [{level}] [${isDev}${logId}] {text}`
+    this.logger.transports.file.format = `[{y}-{m}-{d} {h}:{i}:{s}.{ms}] [{level}]${isDev} {text}`
   }
 
   log(...params: any[]) {

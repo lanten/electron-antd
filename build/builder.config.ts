@@ -7,20 +7,27 @@ import path from 'path'
 import { Configuration, CliOptions } from 'electron-builder'
 import devConfig from './dev.config'
 
-const { name, appId, version, buildVersion } = require('../package.json')
+// const { name, appId, version, buildVersion } = require('../package.json')
 
 const ICON_ICO = path.resolve(__dirname, '../assets/app-icon/icon/icon.ico')
 const ICON_ICNS = path.resolve(__dirname, '../assets/app-icon/icon/icon.icns')
 
+const {
+  npm_package_name: productName,
+  npm_package_buildVersion: buildVersion,
+  npm_package_appId: appId,
+  npm_package_version: version,
+} = process.env
+
 const config: Configuration = {
-  productName: name,
+  productName,
   buildVersion,
   appId,
   files: ['dist/', 'assets', 'node_modules/', 'package.json'],
   asar: false,
   directories: {
     buildResources: 'assets',
-    output: path.join(devConfig.release, `${name}-release-${version}.${buildVersion}`),
+    output: path.join(devConfig.release, `${productName}-release-${version}.${buildVersion}`),
   },
   win: {
     icon: ICON_ICO,

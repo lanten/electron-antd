@@ -6,10 +6,6 @@ export async function initMain() {
     $tools = tools
 
     // @ts-ignore
-    $logger = new $tools.SystemLogger('main')
-    $logger.info(`Application <${$tools.APP_NAME}> launched.`)
-
-    // @ts-ignore
     $api = { a: 1 }
 
     resolve()

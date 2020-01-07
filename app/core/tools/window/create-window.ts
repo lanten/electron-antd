@@ -1,6 +1,6 @@
 import path from 'path'
 import { BrowserWindow, BrowserWindowConstructorOptions } from 'electron'
-
+import { log } from '../log'
 import routes, { RouterKeys } from '@/src/auto-routes'
 
 const { NODE_ENV, port, host } = process.env
@@ -41,18 +41,22 @@ export function createWindow(key: RouterKeys, options: BrowserWindowConstructorO
     ...config, // routes 中的配置的选项
     ...options, // 调用方法时传入的选项
   })
-
+  const url = getWindowUrl(key)
   windowList.set(key, win)
-
-  win.loadURL(getWindowUrl(key))
+  win.loadURL(url)
 
   win.once('ready-to-show', () => {
     win?.show()
     // win.webContents.openDevTools()
   })
 
+  win.once('show', () => {
+    log.info(`Window <key:${win?.id}> url: ${url} is opened.`)
+  })
+
   win.on('close', () => {
     windowList.delete(key)
+    log.info(`Window <${key}:${win?.id}> is closed.`)
   })
 
   // win.on('moved', (e: any) => {

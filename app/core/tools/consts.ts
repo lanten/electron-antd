@@ -1,6 +1,9 @@
 import { BrowserWindowConstructorOptions } from 'electron'
 import { asAssetsPath } from './paths'
+import { app } from 'electron'
 
+/** 应用名称 */
+export const APP_NAME = app.name
 /** 应用标题 */
 export const APP_TITLE = 'Electron Antd'
 

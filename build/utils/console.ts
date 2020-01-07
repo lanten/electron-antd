@@ -1,4 +1,5 @@
 import chalk from 'chalk'
+import { fixedStringLength } from '../../app/core/tools/utils'
 
 const config = {
   INFO: { color: 'bgCyan' },
@@ -32,7 +33,7 @@ export class Console {
 
   log(type: LogTypes, message: string | Error) {
     const conf = config[type]
-    const str = `[ ${chalk.gray(this.getDateStr())} ] : ${chalk.white[conf.color].bold(
+    const str = `[${chalk.gray(this.getDateStr())}] ${chalk.white[conf.color].bold(
       this.center(type)
     )} ${message}\n`
 
@@ -62,22 +63,14 @@ export class Console {
   getDateStr() {
     const date = new Date()
 
-    const Y = date.getFullYear()
-    const M = date.getMonth() + 1
-    const D = date.getDate()
-    const H = date.getHours()
-    const MIN = date.getMinutes()
-    const S = date.getSeconds()
-
-    const p = (n: number) => {
-      if (n < 10) {
-        return `0${n}`
-      } else {
-        return n
-      }
+    const obj = {
+      H: fixedStringLength(date.getHours(), 2),
+      I: fixedStringLength(date.getMinutes(), 2),
+      S: fixedStringLength(date.getSeconds(), 2),
+      MS: fixedStringLength(date.getMilliseconds(), 3),
     }
 
-    return `${Y}-${p(M)}-${p(D)} ${p(H)}:${p(MIN)}:${p(S)}`
+    return `${chalk.hex('#f78c6c')(`${obj.H}:${obj.I}:${obj.S}`)}.${chalk.hex('#b2ccd6')(obj.MS)}`
   }
 }
 

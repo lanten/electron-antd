@@ -72,5 +72,9 @@ export function createWindow(key: string, options: BrowserWindowConstructorOptio
     delete windowList[key]
   })
 
+  win.on('moved', (e: any) => {
+    console.log(e.sender.getBounds())
+  })
+
   return win
 }

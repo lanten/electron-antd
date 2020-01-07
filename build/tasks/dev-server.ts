@@ -92,6 +92,7 @@ function startRenderer(): Promise<webpack.Stats> {
 }
 
 async function startDevServer() {
+  exConsole.info(`${process.env.BUILD_ENV} starting...`)
   await startRenderer()
   await startMain()
 }

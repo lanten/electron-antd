@@ -12,9 +12,9 @@ app.on('ready', () => {
 })
 
 app.on('window-all-closed', function() {
-  if (process.platform !== 'darwin') {
-    app.quit()
-  }
+  // if (process.platform !== 'darwin') {
+  //   app.quit()
+  // }
 })
 
 app.on('before-quit', () => {

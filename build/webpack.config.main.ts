@@ -27,11 +27,6 @@ const webpackConfig: Configuration = {
         loader: ['ts-loader', 'eslint-loader'],
         exclude: /node_modules/,
       },
-      {
-        test: /\.js$/,
-        loader: ['ts-loader', 'eslint-loader'],
-        exclude: /node_modules/,
-      },
     ],
   },
 }

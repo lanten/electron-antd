@@ -16,3 +16,5 @@ declare namespace NodeJS {
     API_BASE_PATH: string
   }
 }
+
+declare const nodeRequire: NodeRequire

@@ -28,15 +28,11 @@ export function getWindowUrl(key: RouterKey): string {
  */
 export function createWindow(key: RouterKey, options: BrowserWindowConstructorOptions = {}): BrowserWindow {
   const routeConf: RouteConfig | AnyObj = routes.get(key) || {}
-  let win: BrowserWindow | undefined = windowList.get(key)
 
-  // 如果窗口已存在则激活此窗口而不是创建一个新的
-  if (win) {
-    win.show()
-    return win
-  }
+  const activeWin = activeWindow(key)
+  if (activeWin) return activeWin
 
-  win = new BrowserWindow({
+  const win = new BrowserWindow({
     ...$tools.DEFAULT_WINDOW_CONFIG, // 默认新窗口选项
     ...routeConf.window, // routes 中的配置的window选项
     ...options, // 调用方法时传入的选项
@@ -51,21 +47,36 @@ export function createWindow(key: RouterKey, options: BrowserWindowConstructorOp
   }
 
   win.once('ready-to-show', () => {
-    win?.show()
-    if (routeConf.saveWindowBounds) win?.webContents.openDevTools()
+    win.show()
+    if (routeConf.saveWindowBounds) win.webContents.openDevTools()
   })
 
   win.once('show', () => {
-    log.info(`Window <${key}:${win?.id}> url: ${url} is opened.`)
+    log.info(`Window <${key}:${win.id}> url: ${url} is opened.`)
   })
 
   win.on('close', () => {
     if (routeConf.saveWindowBounds && win) saveLocalBounds(key, win)
     windowList.delete(key)
-    log.info(`Window <${key}:${win?.id}> is closed.`)
+    log.info(`Window <${key}:${win.id}> is closed.`)
   })
 
   return win
+}
+
+/**
+ * 激活一个已存在的窗口, 成功返回 BrowserWindow 失败返回 false
+ * @param key
+ */
+export function activeWindow(key: RouterKey): BrowserWindow | false {
+  const win: BrowserWindow | undefined = windowList.get(key)
+
+  if (win) {
+    win.show()
+    return win
+  } else {
+    return false
+  }
 }
 
 /**

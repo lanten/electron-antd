@@ -26,13 +26,6 @@ const webpackConfig: Configuration = {
     extensions: ['.ts', '.tsx', '.js'],
   },
 
-  optimization: {
-    splitChunks: {
-      name: 'bundle',
-    },
-    minimizer: [],
-  },
-
   plugins: [
     new webpack.DefinePlugin(
       ((): { [key: string]: any } => {
@@ -49,6 +42,9 @@ const webpackConfig: Configuration = {
       })()
     ),
     new WebpackBar(),
+    // new webpack.ProvidePlugin({
+    //   nodeRequire, //  全局使用 nodeRequire 动态导入 js
+    // }),
   ],
 }
 

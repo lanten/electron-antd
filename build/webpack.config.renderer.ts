@@ -41,11 +41,6 @@ const webpackConfig: Configuration = {
         exclude: /node_modules/,
       },
       {
-        test: /\.jsx?$/,
-        loader: ['ts-loader', 'eslint-loader'],
-        exclude: /node_modules/,
-      },
-      {
         test: /\.(sass|scss)$/,
         use: [
           ...styleLoader,

@@ -10,7 +10,11 @@ interface AppRouterProps {
   store: AppStore
 }
 
-export class AppRouter extends React.Component<AppRouterProps, {}> {
+interface AppRouterState {
+  readyToClose: boolean
+}
+
+export class AppRouter extends React.Component<AppRouterProps, AppRouterState> {
   static defaultProps = {
     routes: [],
   }
@@ -18,16 +22,24 @@ export class AppRouter extends React.Component<AppRouterProps, {}> {
   noMatch?: JSX.Element
   routeElements: JSX.Element[]
 
+  readonly state: AppRouterState = {
+    readyToClose: false,
+  }
+
   constructor(props: AppRouterProps) {
     super(props)
     this.routeElements = this.createRoutes()
 
-    console.log(this.routeElements)
+    // 保证组件正常卸载,防止 Redux 内存泄露
+    window.onbeforeunload = () => {
+      this.setState({ readyToClose: true })
+    }
   }
 
   render() {
     const { store } = this.props
-
+    const { readyToClose } = this.state
+    if (readyToClose) return null
     return (
       <Provider store={store}>
         <Router>
@@ -43,8 +55,6 @@ export class AppRouter extends React.Component<AppRouterProps, {}> {
   createRoutes() {
     const { routes } = this.props
     const res: JSX.Element[] = []
-
-    console.log(routes)
 
     routes.forEach((conf, key) => {
       const routeEl = this.creatRoute(conf, key)

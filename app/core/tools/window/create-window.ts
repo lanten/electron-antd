@@ -1,5 +1,5 @@
 import path from 'path'
-import { BrowserWindow, BrowserWindowConstructorOptions } from 'electron'
+import { BrowserWindow, BrowserWindowConstructorOptions, Rectangle } from 'electron'
 import { log } from '../log'
 import routes, { RouterKey } from '@/src/auto-routes'
 
@@ -27,7 +27,7 @@ export function getWindowUrl(key: RouterKey): string {
  * @param options
  */
 export function createWindow(key: RouterKey, options: BrowserWindowConstructorOptions = {}): BrowserWindow {
-  const config: BrowserWindowConstructorOptions = routes.get(key)?.window ?? {}
+  const routeConf: RouteConfig | AnyObj = routes.get(key) || {}
   let win: BrowserWindow | undefined = windowList.get(key)
 
   // 如果窗口已存在则激活此窗口而不是创建一个新的
@@ -38,16 +38,21 @@ export function createWindow(key: RouterKey, options: BrowserWindowConstructorOp
 
   win = new BrowserWindow({
     ...$tools.DEFAULT_WINDOW_CONFIG, // 默认新窗口选项
-    ...config, // routes 中的配置的选项
+    ...routeConf.window, // routes 中的配置的window选项
     ...options, // 调用方法时传入的选项
   })
+
   const url = getWindowUrl(key)
   windowList.set(key, win)
   win.loadURL(url)
 
+  if (routeConf.saveWindowBounds) {
+    win.setBounds(getLocalBounds(key))
+  }
+
   win.once('ready-to-show', () => {
     win?.show()
-    // win.webContents.openDevTools()
+    if (routeConf.saveWindowBounds) win?.webContents.openDevTools()
   })
 
   win.once('show', () => {
@@ -55,13 +60,40 @@ export function createWindow(key: RouterKey, options: BrowserWindowConstructorOp
   })
 
   win.on('close', () => {
+    if (routeConf.saveWindowBounds && win) saveLocalBounds(key, win)
     windowList.delete(key)
     log.info(`Window <${key}:${win?.id}> is closed.`)
   })
 
-  // win.on('moved', (e: any) => {
-  //   console.log(e.sender.getBounds())
-  // })
-
   return win
+}
+
+/**
+ * 将指定窗口的位置和尺寸保存到 localStorage
+ * @param win
+ */
+export function saveLocalBounds(key: RouterKey, win: BrowserWindow) {
+  const bounds = win.getBounds()
+
+  try {
+    const boundsStr = JSON.stringify(bounds)
+    localStorage.setItem(`bounds-${key}`, boundsStr)
+    log.info(`save window bounds ${key} success: ${boundsStr}`)
+  } catch (error) {
+    log.error(`save window bounds <${key}> failed: ${error.message}`)
+  }
+}
+
+/**
+ * 从 localStorage 中取出已保存的窗口位置和尺寸信息
+ * @param key
+ */
+export function getLocalBounds(key: RouterKey) {
+  let bounds: Partial<Rectangle> = {}
+  try {
+    bounds = JSON.parse(localStorage.getItem(key) || '')
+  } catch (error) {
+    log.error(`get window bounds <${key}> failed: ${error.message}`)
+  }
+  return bounds
 }

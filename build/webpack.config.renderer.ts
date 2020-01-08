@@ -35,7 +35,16 @@ const webpackConfig: Configuration = {
 
   module: {
     rules: [
-      ...(webpackConfigBase?.module?.rules ?? []),
+      {
+        test: /(?<!\.d)\.tsx?$/,
+        loader: ['ts-loader', 'eslint-loader'],
+        exclude: /node_modules/,
+      },
+      {
+        test: /\.jsx?$/,
+        loader: ['ts-loader', 'eslint-loader'],
+        exclude: /node_modules/,
+      },
       {
         test: /\.(sass|scss)$/,
         use: [

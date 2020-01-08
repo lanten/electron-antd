@@ -1,4 +1,4 @@
-declare namespace getUserPermissionsUsingGET {
+declare namespace queryTestInfoUsingGET {
   interface Params {}
 
   interface Response {

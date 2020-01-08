@@ -1,10 +1,10 @@
 const routes: RouteConfig[] = [
   {
-    name: 'noMatch',
+    name: 'no-match',
     code: 404,
-    resource: 'noMatch',
+    resource: 'no-match',
     window: {
-      title: '不太妙',
+      title: 'Page Error',
     },
   },
 ]

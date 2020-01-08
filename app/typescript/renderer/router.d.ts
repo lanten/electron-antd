@@ -13,10 +13,8 @@ declare global {
     code?: number
     /** 需要验证权限代码 */
     permissionsCode?: string
-
     /** 自定义参数, 视情况而定 */
     type?: string
-
     /** 以 createWindow 打开时, 加载的 BrowserWindow 选项 */
     window?: BrowserWindowConstructorOptions
   }
@@ -33,5 +31,10 @@ declare global {
     redirect?: string
     /** 默认为 true */
     exact?: boolean
+
+    /** 以新窗口打开时是否启动 DevTools */
+    openDevTools?: boolean
+    /** 记住窗口关闭时的位置, 窗口打开时自动加载 */
+    saveWindowBounds?: boolean
   }
 }

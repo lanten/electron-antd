@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Button, Input } from 'antd'
+import { Button, Input, Spin } from 'antd'
 
 import { withStore } from '@/src/components'
 
@@ -9,7 +9,7 @@ interface DemoProps extends PageProps, StoreProps {
 
 declare interface DemoState {
   count: number
-  resData: {}
+  resData: queryTestInfoUsingGET.Response | {}
   loading: boolean
 }
 
@@ -40,8 +40,6 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
 
   componentDidMount() {
     console.log(this)
-
-    this.queryData()
   }
 
   render() {
@@ -50,6 +48,7 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
     return (
       <div>
         <div className="panel">
+          <img src={$tools.TRAY_ICON_DARK} alt="" />
           <p className="title-block">state count : {count}</p>
           <p className="title-block fs-18">redux count : {reduxCount}</p>
           <p className="title-block fs-18">redux count2 : {count2}</p>
@@ -86,24 +85,56 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
           </div>
         </div>
 
-        <div className="panel mt-24">
-          <div className="mb-16">
-            <Button type="primary" loading={loading}>
-              Request
-            </Button>
+        <Spin spinning={loading}>
+          <div className="panel mt-24">
+            <div className="mb-16">
+              <Button type="primary" onClick={this.requestTest.bind(this)}>
+                Request
+              </Button>
+
+              <Button className="ml-16" type="primary" onClick={this.requestTestError.bind(this)}>
+                Request Error (notification)
+              </Button>
+
+              <Button className="ml-16" type="primary" onClick={this.requestTestErrorModal.bind(this)}>
+                Request Error (modal)
+              </Button>
+            </div>
+
+            <Input.TextArea value={JSON.stringify(resData)} autoSize />
           </div>
-
-          <Input.TextArea value={JSON.stringify(resData)} />
-        </div>
-
-        <img src={$tools.TRAY_ICON_DARK} alt="" />
+        </Spin>
       </div>
     )
   }
 
-  queryData() {
-    // $api.order.queryOrderPage({}).then(res => {
-    //   console.log(res)
-    // })
+  requestTest() {
+    this.setState({ loading: true })
+    $api
+      .queryTestInfo({})
+      .then(resData => {
+        this.setState({ resData })
+      })
+      .finally(() => this.setState({ loading: false }))
+  }
+
+  requestTestError() {
+    this.setState({ loading: true })
+    $api
+      .queryTestInfoError({})
+      .catch(resData => {
+        this.setState({ resData })
+      })
+      .finally(() => this.setState({ loading: false }))
+  }
+
+  requestTestErrorModal() {
+    this.setState({ loading: true })
+    $api
+      .queryTestInfoError({}, { errorType: 'modal' })
+      .catch(resData => {
+        this.setState({ resData })
+      })
+      .finally(() => this.setState({ loading: false }))
   }
 } // class Demo end

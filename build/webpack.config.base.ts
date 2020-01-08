@@ -33,21 +33,6 @@ const webpackConfig: Configuration = {
     minimizer: [],
   },
 
-  module: {
-    rules: [
-      {
-        test: /(?<!\.d)\.tsx?$/,
-        loader: ['ts-loader', 'eslint-loader'],
-        exclude: /node_modules/,
-      },
-      {
-        test: /\.jsx?$/,
-        loader: ['ts-loader', 'eslint-loader'],
-        exclude: /node_modules/,
-      },
-    ],
-  },
-
   plugins: [
     new webpack.DefinePlugin(
       ((): { [key: string]: any } => {
@@ -55,7 +40,7 @@ const webpackConfig: Configuration = {
         const variables = Object.assign({}, ENV_CONFIG.variables)
         Object.keys(variables).forEach(key => {
           const val = variables[key]
-          defines[`process.env.${key}`] = typeof val === 'string' ? val : JSON.stringify(val)
+          defines[`process.env.${key}`] = typeof val === 'string' ? `"${val}"` : JSON.stringify(val)
         })
         defines['$api'] = 'global.__$api'
         defines['$tools'] = 'global.__$tools'

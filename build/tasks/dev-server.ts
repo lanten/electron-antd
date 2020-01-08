@@ -1,3 +1,4 @@
+import path from 'path'
 import chalk from 'chalk'
 import webpack from 'webpack'
 
@@ -13,7 +14,7 @@ process.env.NODE_ENV = 'development'
 /** 禁用 electron warning */
 process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = 'true'
 
-const { port, host, proxy } = devConfig
+const { port, host, proxy, rendererSource } = devConfig
 const devServerOptions: WebpackDevServer.Configuration = {
   host,
   disableHostCheck: true,
@@ -34,6 +35,9 @@ function startMain(): Promise<webpack.Stats> {
   return new Promise(resolve => {
     webpackConfigMain.devtool = 'source-map'
     webpackConfigMain.watch = true
+    webpackConfigMain.watchOptions = {
+      ignored: [path.resolve(rendererSource, 'views/**/*')],
+    }
     webpack(webpackConfigMain, (err, stats) => {
       if (err) {
         throw err

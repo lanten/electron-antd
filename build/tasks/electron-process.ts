@@ -33,7 +33,7 @@ export default class ElectronProcess {
     if (this.isRestart) {
       this.debounce(() => {
         this.startElectron()
-      }, 2500) // 2.5 秒防抖
+      }, 1500) // 1.5 秒防抖
     } else {
       this.isRestart = true
       this.startElectron()

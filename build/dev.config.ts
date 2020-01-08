@@ -12,23 +12,30 @@ const devConfig = {
   proxy: {},
 
   env: {
+    // mock 环境变量
     mock: {
       variables: {
+        API_PROTOCOL: 'http://',
+        API_HOST: 'yapi.demo.qunar.com',
         API_BASE_PATH: '/mock/55986',
-        SSO_LOGIN_URL: '//jsonplaceholder.typicode.com/login/',
-      },
-    },
-    dev: {
-      variables: {
-        API_BASE_PATH: '/gateway/api',
-        SSO_LOGIN_URL: '//jsonplaceholder.typicode.com/login/',
       },
     },
 
+    // dev 环境变量 (npm run dev 将使用此配置)
+    dev: {
+      variables: {
+        API_PROTOCOL: 'http://',
+        API_HOST: 'yapi.demo.qunar.com',
+        API_BASE_PATH: '/mock/55986',
+      },
+    },
+
+    // prod 环境变量 (npm run build 将使用此配置)
     prod: {
       variables: {
-        API_BASE_PATH: '/gateway/api',
-        SSO_LOGIN_URL: '//jsonplaceholder.typicode.com/login/',
+        API_PROTOCOL: 'http://',
+        API_HOST: 'yapi.demo.qunar.com',
+        API_BASE_PATH: '/mock/55986',
       },
     },
   },

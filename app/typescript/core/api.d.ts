@@ -1,9 +1,9 @@
-declare namespace $api {
-  const a: string
-}
-
-declare namespace NodeJS {
-  interface Global {
-    __$api: typeof $api
+import * as api from '@/core/api'
+declare global {
+  const $api: typeof api
+  namespace NodeJS {
+    interface Global {
+      __$api: typeof $api
+    }
   }
 }

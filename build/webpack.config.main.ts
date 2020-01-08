@@ -19,6 +19,21 @@ const webpackConfig: Configuration = {
     filename: '[name].js',
     chunkFilename: '[name].js',
   },
+
+  module: {
+    rules: [
+      {
+        test: /(?<!\.d)\.ts$/,
+        loader: ['ts-loader', 'eslint-loader'],
+        exclude: /node_modules/,
+      },
+      {
+        test: /\.js$/,
+        loader: ['ts-loader', 'eslint-loader'],
+        exclude: /node_modules/,
+      },
+    ],
+  },
 }
 
 export default webpackConfig

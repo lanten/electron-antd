@@ -7,7 +7,7 @@ interface State {
   comp: React.ComponentClass | null
 }
 
-export default function asyncComponent(importComponent: Promise<any>, hook?: RouterHook) {
+export function asyncImport(importComponent: Promise<any>, hook?: RouterHook) {
   class AsyncComponent extends React.Component<PageProps, State> {
     constructor(props: PageProps) {
       super(props)

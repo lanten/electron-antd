@@ -35,4 +35,12 @@ declare global {
   interface StoreProps extends StoreStates {
     dispatch: <T extends StoreActionsKeys>(options: StoreAction<T>) => void
   }
+
+  const $store: AppStore
+
+  namespace NodeJS {
+    interface Global {
+      __$store: AppStore
+    }
+  }
 }

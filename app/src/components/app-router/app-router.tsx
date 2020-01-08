@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
 import { Provider } from 'react-redux'
-import AsyncImport from '../async-import'
+import { asyncImport } from '../async-import'
 import { beforeRouter } from './router-hooks'
 import pageResource from '@/src/page-resource'
 
@@ -10,7 +10,7 @@ interface AppRouterProps {
   store: AppStore
 }
 
-export default class AppRouter extends React.Component<AppRouterProps, {}> {
+export class AppRouter extends React.Component<AppRouterProps, {}> {
   static defaultProps = {
     routes: [],
   }
@@ -70,7 +70,7 @@ export default class AppRouter extends React.Component<AppRouterProps, {}> {
     if (redirect) {
       routeProps.render = (props: any) => <Redirect to={{ pathname: redirect }} {...props} {...params} />
     } else if (resource) {
-      const Comp = AsyncImport(pageResource[resource], beforeRouter.bind(this))
+      const Comp = asyncImport(pageResource[resource], beforeRouter.bind(this))
       routeProps.render = (props: any) => <Comp {...props} {...params} />
     } else {
       throw new Error('Route config error: resource or redirect must be set one.')

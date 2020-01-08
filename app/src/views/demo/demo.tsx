@@ -1,15 +1,12 @@
 import * as React from 'react'
 import { Button, Input } from 'antd'
 
-import { withStore } from '@/src/store'
+import { withStore } from '@/src/components'
 
-// 声明一个接口 ，继承自 PageProps，包含 PageProps 中所有的属性以及自身定义的 id
-// ? 表示 属性 id 可以为空，在 : 前加上 ! 表示必填，默认必填
 interface DemoProps extends PageProps, StoreProps {
   id?: number
 }
 
-// declare interface 语法上等价于 interface 都是声明一个接口，此外还有 type = { 。。。}
 declare interface DemoState {
   count: number
   resData: {}

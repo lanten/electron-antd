@@ -1,2 +1,1 @@
-import Router from './app-router'
-export default Router
+export * from './app-router'

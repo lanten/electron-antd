@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { AppRouter } from '@/src/components'
-import { store } from '@/src/store'
+// import { store } from '@/core/store'
 
 import { ConfigProvider } from 'antd'
 import zhCN from 'antd/es/locale/zh_CN'
@@ -11,7 +11,7 @@ export default class App extends React.Component {
     return (
       <div className="boss-layout app-content">
         <ConfigProvider locale={zhCN}>
-          <AppRouter routes={routes} store={store} />
+          <AppRouter routes={routes} store={$store} />
         </ConfigProvider>
       </div>
     )

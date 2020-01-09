@@ -5,6 +5,9 @@ import { withStore } from '@/src/components'
 
 interface DemoProps extends PageProps, StoreProps {
   id?: number
+  count: StoreStates['count']
+  count2: StoreStates['count2']
+  countAlias: StoreStates['count']
 }
 
 declare interface DemoState {
@@ -19,7 +22,7 @@ declare interface DemoState {
  * props 和 state 的默认值需要单独声明
  */
 
-@withStore(['count', 'count2'])
+@withStore(['count', 'count2', { countAlias: 'count' }])
 export default class Demo extends React.Component<DemoProps, DemoState> {
   // props 默认值
   static defaultProps = {
@@ -44,7 +47,7 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
 
   render() {
     const { count, resData, loading } = this.state
-    const { count: reduxCount, count2 } = this.props
+    const { count: reduxCount, count2, countAlias } = this.props
     return (
       <div>
         <div className="panel">
@@ -52,6 +55,7 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
           <p className="title-block">state count : {count}</p>
           <p className="title-block fs-18">redux count : {reduxCount}</p>
           <p className="title-block fs-18">redux count2 : {count2}</p>
+          <p className="title-block fs-18">redux countAlias : {countAlias}</p>
 
           <div className="mt-16">
             <Button
@@ -77,10 +81,20 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
               className="ml-16"
               type="primary"
               onClick={() => {
+                this.props.dispatch({ type: 'ACTION_ADD_COUNT', data: countAlias + 1 })
+              }}
+            >
+              add (redux) (alias)
+            </Button>
+
+            <Button
+              className="ml-16"
+              type="primary"
+              onClick={() => {
                 this.props.dispatch({ type: 'ACTION_ADD_COUNT2', data: count2 + 1 })
               }}
             >
-              add (redux) 2
+              add (redux) (count2)
             </Button>
           </div>
         </div>

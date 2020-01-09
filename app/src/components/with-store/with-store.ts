@@ -3,29 +3,46 @@ import { connect } from 'react-redux'
 /**
  * 挂载 Redux Store
  * @param options
+ * @param mapStates
  */
-export function withStore(options: React.ComponentClass<any> | WithStoreOptions | StoreStateKeys[]): any {
+export function withStore(
+  options: React.ComponentClass<any> | (StoreStateKeys | AliasStates)[] | AliasStates,
+  mapStates?: (states: StoreStates) => any
+): any {
   if (options instanceof Function) {
-    return connect(
-      states => states,
-      dispatch => new Object({ dispatch })
-    )(options)
+    return connect(mapStates ?? (states => states), dispatch => new Object({ dispatch }))(options)
   } else {
     return function(Component: React.ComponentClass<any>) {
-      let mapStates = (states: StoreStates): any => states
-
-      if (Array.isArray(options) || Array.isArray(options.mapStates)) {
-        const arr = Array.isArray(options) ? options : options.mapStates
-        mapStates = (states: StoreStates) => {
-          const resState = {}
-          arr.forEach((key: string) => {
-            resState[key] = states[key]
-          })
-          return resState
-        }
-      }
-
-      return connect(mapStates, dispatch => new Object({ dispatch }))(Component)
+      return connect(
+        mapStates ??
+          ((states: StoreStates) => {
+            const resState = {}
+            if (options instanceof Array) {
+              options.forEach(val => {
+                if (typeof val === 'string') {
+                  resState[val] = states[val]
+                } else {
+                  Object.assign(resState, mapAliasStates(val, states))
+                }
+              })
+            } else {
+              Object.assign(resState, mapAliasStates(options, states))
+            }
+            return resState
+          }),
+        dispatch => new Object({ dispatch })
+      )(Component)
     }
   }
+}
+
+function mapAliasStates(alias: AliasStates, states: StoreStates) {
+  const resState = {}
+
+  for (const key in alias) {
+    const statesKey = alias[key]
+    resState[key] = states[statesKey]
+  }
+
+  return resState
 }

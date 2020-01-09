@@ -18,7 +18,7 @@ const files = {
       `  render() {`,
       `    return (`,
       `      <div className="${name}">`,
-      `        <p>component ${name} is ok</p>`,
+      `        <p>component ${name} is created</p>`,
       `      </div>`,
       `    )`,
       `  }`,

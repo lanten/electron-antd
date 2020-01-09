@@ -17,7 +17,7 @@ export class SystemLogger {
    */
   constructor(logId: string) {
     this.logId = logId
-    this.logFileName = `${formatDate('YYYY-MM-DD')}.log`
+    this.logFileName = `${formatDate('YYYY-MM')}.log`
     this.logger = electronLog.create(logId)
 
     this.logger.transports.file.resolvePath = () => {

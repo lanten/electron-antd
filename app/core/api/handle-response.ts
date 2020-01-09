@@ -1,4 +1,4 @@
-import { Notification } from 'electron'
+import { Notification, BrowserWindow } from 'electron'
 /**
  * 发生接口发生错误时的处理
  * 注意这是运行在主进程中的方法,请不要使用 document api
@@ -32,6 +32,10 @@ export function errorAction(err: any, sendData: any, options: RequestOptions) {
         })
         n.show()
       } else {
+        $tools.createWindow('alert-modal', {
+          modal: true,
+          parent: BrowserWindow.getFocusedWindow() || undefined,
+        })
       }
       break
   }

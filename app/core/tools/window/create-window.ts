@@ -49,7 +49,7 @@ export function createWindow(key: RouterKey, options: BrowserWindowConstructorOp
 
   win.once('ready-to-show', () => {
     win.show()
-    if (routeConf.saveWindowBounds) win.webContents.openDevTools()
+    if (routeConf.openDevTools) win.webContents.openDevTools()
   })
 
   win.once('show', () => {

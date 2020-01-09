@@ -1,5 +1,5 @@
-import { RouteProps } from 'react-router-dom'
-import { BrowserWindowConstructorOptions } from 'electron'
+import { RouteProps, RouteComponentProps } from 'react-router-dom'
+import { BrowserWindow, BrowserWindowConstructorOptions } from 'electron'
 import pageResource from '@/src/page-resource'
 
 declare global {
@@ -36,5 +36,12 @@ declare global {
     openDevTools?: boolean
     /** 记住窗口关闭时的位置, 窗口打开时自动加载 */
     saveWindowBounds?: boolean
+  }
+
+  /**
+   * 页面默认 props
+   */
+  interface PageProps<Params = {}> extends RouteComponentProps<Params>, RouteParams {
+    currentWindow: BrowserWindow
   }
 }

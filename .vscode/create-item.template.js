@@ -1,21 +1,76 @@
-// You can add any javascript code here
+/**
+ * This is template config for extension: [Create Item By Template]
+ * This is a JavaScript code file that will be executed in the Node environment
+ * And you can add any Javascript(commonjs) code here
+ * For more advanced usage, please see this wiki: https://github.com/lanten/create-item-by-template/wiki/Template-Example
+ */
 
-module.exports = {
-  // tsx 组件
-  'ts-react-comp': name => {
+/** file list */
+const files = {
+  tsx: name => {
+    const nameH = toCamel(name)
+    return [
+      `import React from 'react'`,
+      ``,
+      `import './${name}.less'`,
+      ``,
+      `export default class ${nameH} extends React.Component<PageProps> {`,
+      `  render() {`,
+      `    return (`,
+      `      <div className="${name}">`,
+      `        <p>component ${name} is ok</p>`,
+      `      </div>`,
+      `    )`,
+      `  }`,
+      `} // class ${nameH} end`,
+      ``,
+    ]
+  },
+
+  routes: name => {
+    return [
+      `const routes: RouteConfig[] = [`,
+      `  {`,
+      `    name: '${name}',`,
+      `    path: '/${name}',`,
+      `    resource: '${name}',`,
+      `    saveWindowBounds: true,`,
+      `    window: {`,
+      `      title: 'New Page',`,
+      `    },`,
+      `  },`,
+      `]`,
+      ``,
+      `export default routes`,
+      ``,
+    ]
+  },
+
+  'index.ts': name => {
+    const nameH = toCamel(name)
+    return [`import ${nameH} from './${name}'`, `export default ${nameH}`, ``]
+  },
+
+  less: name => {
+    return [`.${name} {`, ``, `}`]
+  },
+}
+
+/** folder list */
+const folders = {
+  'react-component': name => {
     return {
-      [`${name}.tsx`]: tsxItem(name),
-      [`index.ts`]: indexItem(name),
-      [`${name}.less`]: lessItem(name),
+      'index.tsx': files['index.ts'],
+      [`${name}.tsx`]: files.tsx,
+      [`${name}.less`]: files.less,
     }
   },
 
-  // tsx 页面, 包含子路由
-  'ts-react-router': name => {
+  'react-routes': name => {
     return {
-      [`${name}.tsx`]: tsxItem(name),
-      [`routes.tsx`]: routerItem(name),
-      [`${name}.less`]: lessItem(name),
+      [`${name}.tsx`]: files.tsx,
+      [`routes.ts`]: files.routes,
+      [`${name}.less`]: files.less,
     }
   },
 }
@@ -31,57 +86,4 @@ function toCamel(str, c = true) {
   return strH
 }
 
-/**
- * tsx 基础单元
- * @param {String} name
- */
-function tsxItem(name) {
-  const nameH = toCamel(name)
-  return [
-    `import * as React from 'react'`,
-    ``,
-    `import './${name}.less'`,
-    ``,
-    `export default class ${nameH} extends React.Component {`,
-    `  render() {`,
-    `    return (`,
-    `      <div className="${name}">`,
-    `        <p>component ${name} is ok</p>`,
-    `      </div>`,
-    `    )`,
-    `  }`,
-    `} // class ${nameH} end`,
-    ``,
-  ]
-}
-
-/**
- * 子路由
- * @param {String} name
- * @param {String} ext
- */
-function routerItem(name) {
-  return [
-    `export default [`,
-    `  {`,
-    `    path: '/${name}',`,
-    `    title: '新页面',`,
-    `    asyncImport: () => import(/* webpackChunkName:"${name}" */ './${name}'),`,
-    `  },`,
-    `] as RouteConfig[]`,
-    ``,
-  ]
-}
-
-/**
- * index 文件中转
- * @param {String} name
- */
-function indexItem(name) {
-  const nameH = toCamel(name)
-  return [`import ${nameH} from './${name}'`, `export default ${nameH}`, ``]
-}
-
-function lessItem(name) {
-  return [`.${name} {`, ``, `}`]
-}
+module.exports = { files, folders }

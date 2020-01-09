@@ -27,6 +27,7 @@ export class SystemLogger {
     const isDev = process.env.NODE_ENV === 'development' ? ' [dev]' : ''
 
     this.logger.transports.file.format = `[{y}-{m}-{d} {h}:{i}:{s}.{ms}] [{level}]${isDev} {text}`
+    this.logger.transports.console.format = '[{level}] {text}'
   }
 
   log(...params: any[]) {

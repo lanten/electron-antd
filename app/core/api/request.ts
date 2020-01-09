@@ -5,14 +5,11 @@ import { errorAction } from './handle-response'
 // axios 跨域请求携带 cookie
 axios.defaults.withCredentials = true
 
-// api 绝对地址
-const { API_HOST, API_BASE_PATH, API_PROTOCOL } = process.env
-
 const DEFAULT_CONFIG = {
   method: 'POST',
-  host: API_HOST,
-  protocol: API_PROTOCOL,
-  baseUrl: API_BASE_PATH,
+  host: process.env.API_HOST,
+  protocol: process.env.API_PROTOCOL,
+  baseUrl: process.env.API_BASE_PATH,
   timeout: 30000,
   loading: false,
   errorType: 'notification',
@@ -35,7 +32,7 @@ export async function request(apiPath: string, params?: RequestParams, optionsSo
   const options: RequestOptions = Object.assign({}, DEFAULT_CONFIG, optionsSource)
   const { method, protocol, host, baseUrl, headers, responseType, checkStatus, formData } = options
   const sendData: AxiosRequestConfig = {
-    url: `${protocol}${path.join(host as string, baseUrl as string, apiPath as string)}`,
+    url: `${protocol}${path.join(host || '', baseUrl || '', apiPath || '')}`,
     method,
     headers,
     responseType,

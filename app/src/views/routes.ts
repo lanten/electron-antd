@@ -5,7 +5,7 @@ const routes: RouteConfig[] = [
     redirect: '/demo',
     saveWindowBounds: true,
     window: {
-      title: '好的',
+      title: 'App Home (redirect to demo)',
       width: 1200,
       height: 800,
     },

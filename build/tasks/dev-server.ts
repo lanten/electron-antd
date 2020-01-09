@@ -36,7 +36,7 @@ function startMain(): Promise<webpack.Stats> {
     webpackConfigMain.devtool = 'source-map'
     webpackConfigMain.watch = true
     webpackConfigMain.watchOptions = {
-      ignored: [path.resolve(rendererSource, 'views/**/*')],
+      ignored: ['**/*.tsx', '**/*.jsx'],
     }
     webpack(webpackConfigMain, (err, stats) => {
       if (err) {

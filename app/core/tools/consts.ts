@@ -19,6 +19,8 @@ export const TRAY_ICON_DARK = asAssetsPath('tray-icon/tray-icon-dark.png')
 /** 创建新窗口时默认加载的选项 */
 export const DEFAULT_WINDOW_CONFIG: BrowserWindowConstructorOptions = {
   icon: APP_ICON,
+  minWidth: 200,
+  minHeight: 200,
   width: 800,
   height: 600,
   show: false,

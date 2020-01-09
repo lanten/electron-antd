@@ -11,7 +11,7 @@ export default class AlertModal extends React.Component<PageProps> {
         <Button
           type="primary"
           onClick={() => {
-            this.props.currentWindow.close()
+            this.props.closeWindow()
           }}
         >
           close

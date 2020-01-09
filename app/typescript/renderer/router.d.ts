@@ -42,6 +42,7 @@ declare global {
    * 页面默认 props
    */
   interface PageProps<Params = {}> extends RouteComponentProps<Params>, RouteParams {
+    closeWindow: Function
     currentWindow: BrowserWindow
   }
 }

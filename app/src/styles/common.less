@@ -1,20 +1,12 @@
 @import './_var.less';
 
-html,
-body,
-#app {
-  height: calc(~'100% - @{height_navbar}');
+html {
   background-color: transparent;
 }
 
-body {
-  font-family: -apple-system, BlinkMacSystemFont, Helvetica Neue, PingFang SC, Microsoft YaHei,
-    Source Han Sans SC, Noto Sans CJK SC, sans-serif;
-  position: relative;
-  overflow-x: auto;
-  font-size: 14px;
-  color: @color_default;
-  background: @color_background;
+body,
+#app {
+  height: 100vh;
 }
 
 p,
@@ -248,7 +240,7 @@ ul {
 
 div.app-content {
   box-sizing: border-box;
-  overflow-x: auto;
+  overflow-x: hidden;
   padding: @padding_layout;
   position: relative;
 }

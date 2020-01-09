@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { Button, Input, Spin } from 'antd'
+import { Button, Input, Spin, Card } from 'antd'
 
 import { withStore } from '@/src/components'
 
@@ -50,12 +50,18 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
     const { count: reduxCount, count2, countAlias } = this.props
     return (
       <div>
-        <div className="panel">
-          <img src={$tools.TRAY_ICON_DARK} alt="" />
-          <p className="title-block">state count : {count}</p>
-          <p className="title-block fs-18">redux count : {reduxCount}</p>
-          <p className="title-block fs-18">redux count2 : {count2}</p>
-          <p className="title-block fs-18">redux countAlias : {countAlias}</p>
+        <Card title="Image Test" className="mb-16">
+          <div className="flex center-v">
+            <img height="64" src={$tools.APP_ICON} />
+            <img className="ml-16" src={$tools.TRAY_ICON_DARK} />
+          </div>
+        </Card>
+
+        <Card title="Redux Test" className="mb-16">
+          <p>state count : {count}</p>
+          <p>redux count : {reduxCount}</p>
+          <p>redux count2 : {count2}</p>
+          <p>redux countAlias : {countAlias}</p>
 
           <div className="mt-16">
             <Button
@@ -97,10 +103,10 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
               add (redux) (count2)
             </Button>
           </div>
-        </div>
+        </Card>
 
         <Spin spinning={loading}>
-          <div className="panel mt-24">
+          <Card title="Request Test" className="mb-16">
             <div className="mb-16">
               <Button type="primary" onClick={this.requestTest.bind(this)}>
                 Request
@@ -116,7 +122,7 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
             </div>
 
             <Input.TextArea value={JSON.stringify(resData)} autoSize />
-          </div>
+          </Card>
         </Spin>
       </div>
     )

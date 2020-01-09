@@ -84,11 +84,19 @@ export class AppRouter extends React.Component<AppRouterProps, AppRouterState> {
       routeProps.render = (props: any) => <Redirect to={{ pathname: redirect }} {...props} {...params} />
     } else if (resource) {
       const Comp = asyncImport(pageResource[resource], beforeRouter.bind(this))
-      routeProps.render = (props: any) => <Comp {...props} {...params} currentWindow={currentWindow} />
+      routeProps.render = (props: any) => (
+        <Comp {...props} {...params} currentWindow={currentWindow} closeWindow={this.closeWindow} />
+      )
     } else {
       throw new Error('Route config error: resource or redirect must be set one.')
     }
 
     return <Route {...routeProps} />
+  }
+
+  closeWindow = () => {
+    this.setState({ readyToClose: true }, () => {
+      currentWindow.close()
+    })
   }
 }

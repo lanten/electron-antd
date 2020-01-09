@@ -8,7 +8,7 @@ import routes from './auto-routes'
 export default class App extends React.Component {
   render() {
     return (
-      <div className="boss-layout app-content">
+      <div className="app-content">
         <ConfigProvider locale={zhCN}>
           <AppRouter routes={routes} store={$store} />
         </ConfigProvider>

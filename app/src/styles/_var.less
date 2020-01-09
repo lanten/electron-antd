@@ -4,9 +4,9 @@
 @color_yellow: #ff9900;
 @color_red: #ff5257;
 
-@color_primary: #f37327;
-@color_primary_light: #ff9752;
-@color_primary_dark: #ec6414;
+@color_primary: #3e82db;
+@color_primary_light: lighten(@color_primary, 20);
+@color_primary_dark: darken(@color_primary, 20);
 
 @color_info: @color_blue;
 @color_success: @color_green;
@@ -24,33 +24,25 @@
 // 颜色集 用于遍历, 值为所定义的颜色变量后半部分 : @color_{value}
 @colors: primary, info, success, warn, error, title, default, light, disabled;
 
-// ---
 @color_border: #dcdcdc;
 @color_border_light: #e8eaec;
 @border_light_bottom: 1px solid @color_border_light;
-// ----
+
 @color_background: fade(@color_black, 4);
 @color_placeholder: #c5cad5;
 @color_navbar: @color_background;
-@color_footer: #061649;
-// ----
 
-@height_navbar: 64px;
-@height_footer: 256px;
-
-@width_content: 1200px;
-@width_min: 900px;
+@height_navbar: 0px;
 
 @padding: 16px;
 @padding_lg: 24px;
-@padding_layout: @padding_lg;
+@padding_layout: @padding;
 
-// other
+@radius: 4px;
+@radius_lg: 8px;
 
-@padding: 16px;
 @shadow: 0px 1px 2px 0px rgba(128, 134, 149, 0.2);
-@radius: 3px;
-@radius_lg: 6px;
+
 @animation: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 @animationFadeOut: cubic-bezier(0.175, 0.82, 0.265, 1);
 @animationFadeIn: cubic-bezier(0.55, 0.055, 0.675, 0.19);

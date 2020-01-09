@@ -75,13 +75,16 @@ export class CreateSettings<T extends AnyObj = AnyObj> {
     let flg = false
     try {
       let saveStr: string
+      let logMessage: string
       if (typeof key === 'string') {
         saveStr = JSON.stringify(Object.assign({}, jsonConfig, { [key]: confH }), undefined, 2)
+        logMessage = `Set settings <${this.name}> - <${key}> : `
       } else {
         saveStr = JSON.stringify(Object.assign({}, jsonConfig, confH), undefined, 2)
+        logMessage = `Set settings <${this.name}> : `
       }
       fs.writeFileSync(this.filePath, saveStr, 'utf-8')
-      log.info(`Set settings <${this.name}> : `, confH)
+      log.info(logMessage, confH)
       flg = true
     } catch (error) {
       log.error(error)

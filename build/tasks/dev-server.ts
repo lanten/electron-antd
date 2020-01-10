@@ -81,7 +81,7 @@ function startRenderer(): Promise<webpack.Stats> {
 
     const rendererCompiler = webpack(webpackConfigRenderer)
     rendererCompiler.hooks.done.tap('done', stats => {
-      exConsole.success(`Server renderer server at ${chalk.magenta.underline(`http://${host}:${port}`)}`)
+      exConsole.success(`Server renderer start at ${chalk.magenta.underline(`http://${host}:${port}`)}`)
       resolve(stats)
     })
 

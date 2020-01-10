@@ -5,7 +5,7 @@ import htmlWebpackPlugin from 'html-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin'
 
-import webpackConfigBase from './webpack.config.base'
+import webpackConfigBase, { tsLoader } from './webpack.config.base'
 import devConfig from './dev.config'
 
 const { dist, template, rendererSource: appPath } = devConfig
@@ -37,7 +37,7 @@ const webpackConfig: Configuration = {
     rules: [
       {
         test: /(?<!\.d)\.tsx?$/,
-        loader: ['ts-loader', 'eslint-loader'],
+        loader: [tsLoader, 'eslint-loader'],
         exclude: /node_modules/,
       },
       {

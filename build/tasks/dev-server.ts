@@ -14,7 +14,7 @@ process.env.NODE_ENV = 'development'
 /** 禁用 electron warning */
 process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = 'true'
 
-const { port, host, proxy, rendererSource } = devConfig
+const { port, host, proxy } = devConfig
 const devServerOptions: WebpackDevServer.Configuration = {
   host,
   disableHostCheck: true,

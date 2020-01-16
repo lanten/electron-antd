@@ -11,6 +11,12 @@ app.on('ready', () => {
   $tools.createWindow('home')
 })
 
+app.on('activate', () => {
+  if (process.platform == 'darwin') {
+    $tools.createWindow('home')
+  }
+})
+
 app.on('window-all-closed', function() {
   // if (process.platform !== 'darwin') {
   //   app.quit()

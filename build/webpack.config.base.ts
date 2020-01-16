@@ -1,28 +1,14 @@
 import path from 'path'
-import webpack, { Configuration, RuleSetUseItem } from 'webpack'
+import webpack, { Configuration } from 'webpack'
 
 import WebpackBar from 'webpackbar'
 import TerserPlugin from 'terser-webpack-plugin'
-import tsImportPluginFactory from 'ts-import-plugin'
 
 import devConfig from './dev.config'
 
 const { env } = devConfig
 const { NODE_ENV, BUILD_ENV = 'dev' } = process.env
 const ENV_CONFIG = env[BUILD_ENV]
-
-export const tsLoader: RuleSetUseItem = {
-  loader: 'ts-loader',
-  options: {
-    transpileOnly: true,
-    getCustomTransformers: () => ({
-      before: [tsImportPluginFactory(/** options */)],
-    }),
-    compilerOptions: {
-      module: 'es2015',
-    },
-  },
-}
 
 const webpackConfig: Configuration = {
   mode: NODE_ENV as 'development' | 'production',
@@ -38,14 +24,6 @@ const webpackConfig: Configuration = {
       '@root': path.resolve(__dirname, '../'),
     },
     extensions: ['.ts', '.tsx', '.js'],
-  },
-
-  optimization: {
-    splitChunks: {
-      chunks: 'all',
-      name: 'bundle',
-    },
-    minimizer: [],
   },
 
   plugins: [

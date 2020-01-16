@@ -4,8 +4,9 @@ import webpack, { Configuration } from 'webpack'
 import htmlWebpackPlugin from 'html-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin'
+import tsImportPluginFactory from 'ts-import-plugin'
 
-import webpackConfigBase, { tsLoader } from './webpack.config.base'
+import webpackConfigBase from './webpack.config.base'
 import devConfig from './dev.config'
 
 const { dist, template, rendererSource: appPath } = devConfig
@@ -37,7 +38,21 @@ const webpackConfig: Configuration = {
     rules: [
       {
         test: /(?<!\.d)\.tsx?$/,
-        loader: [tsLoader, 'eslint-loader'],
+        loader: [
+          {
+            loader: 'ts-loader',
+            options: {
+              transpileOnly: true,
+              getCustomTransformers: () => ({
+                before: [tsImportPluginFactory(/** options */)],
+              }),
+              compilerOptions: {
+                module: 'es2015',
+              },
+            },
+          },
+          'eslint-loader',
+        ],
         exclude: /node_modules/,
       },
       {
@@ -66,6 +81,14 @@ const webpackConfig: Configuration = {
         use: styleLoader,
       },
     ],
+  },
+
+  optimization: {
+    splitChunks: {
+      chunks: 'all',
+      name: 'bundle',
+    },
+    minimizer: [],
   },
 
   plugins: [

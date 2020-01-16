@@ -36,7 +36,7 @@ export default class ErrorPage extends React.Component<PageProps> {
   }
 
   get errorInfo(): ErrorInfo {
-    return this.ERROR_CODE_MAP[this.props.code || '404']
+    return this.ERROR_CODE_MAP['404']
   }
 
   render() {

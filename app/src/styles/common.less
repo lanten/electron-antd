@@ -37,6 +37,11 @@ a {
   }
 }
 
+img {
+  // 禁止图片拖动
+  pointer-events: none;
+}
+
 input,
 textarea {
   -webkit-appearance: none;
@@ -192,55 +197,3 @@ ul {
   .loopBox(@i+1);
 }
 .loopBox(0);
-
-// Tag 标签 通过变量:@colors 遍历, tag-{name}
-.tag {
-  border-radius: 20px;
-  color: @color_white;
-  padding: 0 10px;
-  line-height: 1.6em;
-  height: 1.6em;
-  .loopTextColor(@i) when (@i > 0) {
-    @name: extract(@colors, @i);
-    // @val: extract(@color-val, @n);
-    @nameV: 'color_@{name}';
-    &-@{name} {
-      background-color: @@nameV;
-    }
-    .loopTextColor((@i - 1));
-  }
-  .loopTextColor(length(@colors));
-}
-
-.border-bottom {
-  position: relative;
-  &::after {
-    content: '';
-    position: absolute;
-    top: -50%;
-    bottom: -50%;
-    left: -50%;
-    right: -50%;
-    width: 200%;
-    height: 200%;
-    -webkit-transform: scale(0.5);
-    transform: scale(0.5);
-    border-bottom: 1px solid @color_border;
-    box-sizing: border-box;
-  }
-}
-
-// .app-content-layout {
-//   &::before {
-//     content: '';
-//     display: block;
-//     height: @height_navbar;
-//   }
-// }
-
-div.app-content {
-  box-sizing: border-box;
-  overflow-x: hidden;
-  padding: @padding_layout;
-  position: relative;
-}

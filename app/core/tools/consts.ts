@@ -1,9 +1,11 @@
-import { BrowserWindowConstructorOptions } from 'electron'
+import { app, BrowserWindowConstructorOptions } from 'electron'
 import { asAssetsPath } from './paths'
-import { app } from 'electron'
+
+import APP_SIDE_MENUS_JSON from './side-menus.json'
 
 /** 应用名称 */
 export const APP_NAME = app.name
+
 /** 应用标题 */
 export const APP_TITLE = 'Electron Antd'
 
@@ -16,6 +18,9 @@ export const TRAY_ICON_LIGHT = asAssetsPath('tray-icon/tray-icon-light.png')
 /** 暗色风格托盘图标 (仅 macOS) */
 export const TRAY_ICON_DARK = asAssetsPath('tray-icon/tray-icon-dark.png')
 
+/** 侧边菜单配置 */
+export const APP_SIDE_MENUS = APP_SIDE_MENUS_JSON
+
 /** 创建新窗口时默认加载的选项 */
 export const DEFAULT_WINDOW_CONFIG: BrowserWindowConstructorOptions = {
   icon: APP_ICON,
@@ -27,7 +32,10 @@ export const DEFAULT_WINDOW_CONFIG: BrowserWindowConstructorOptions = {
   hasShadow: true,
   webPreferences: {
     nodeIntegration: true,
+    scrollBounce: true,
   },
+  // titleBarStyle: 'hidden', // 隐藏标题栏, 但显示窗口控制按钮
+  // frame: process.platform === 'darwin' ? true : false, // 无边框窗口
   // frame: false, // 无边框窗口
   // skipTaskbar: false, // 是否在任务栏中隐藏窗口
   // backgroundColor: '#fff',

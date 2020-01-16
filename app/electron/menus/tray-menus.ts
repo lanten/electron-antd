@@ -1,4 +1,6 @@
-export const trayMenus = [
+import { MenuItemConstructorOptions } from 'electron'
+
+export const trayMenus: MenuItemConstructorOptions[] = [
   { label: 'home', click: () => $tools.createWindow('home') },
 
   { type: 'separator' },

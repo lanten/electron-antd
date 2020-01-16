@@ -14,7 +14,7 @@ const files = {
       ``,
       `import './${name}.less'`,
       ``,
-      `export default class ${nameH} extends React.Component<PageProps> {`,
+      `export class ${nameH} extends React.Component<PageProps> {`,
       `  render() {`,
       `    return (`,
       `      <div className="${name}">`,
@@ -47,8 +47,7 @@ const files = {
   },
 
   'index.ts': name => {
-    const nameH = toCamel(name)
-    return [`import ${nameH} from './${name}'`, `export default ${nameH}`, ``]
+    return [`export * from './${name}'`, ``]
   },
 
   less: name => {

@@ -1,0 +1,22 @@
+@import '~@/src/styles/_var.less';
+.app-layout {
+  overflow: hidden;
+
+  &.darwin {
+    // mac 专用样式
+  }
+
+  .app-content-wrap {
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  .app-content {
+    box-sizing: border-box;
+    overflow: auto;
+    padding: @padding_layout;
+    background-color: @color_background;
+    position: relative;
+    height: calc(~'100vh - @{titlebar_height}');
+  }
+}

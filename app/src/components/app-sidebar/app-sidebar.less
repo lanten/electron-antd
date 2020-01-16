@@ -1,0 +1,21 @@
+@import '~@/src/styles/_var.less';
+
+.app-sidebar {
+  width: @sidebar_width;
+  background-color: @sidebar_background;
+  color: @color_light;
+  user-select: none;
+  .side-menu {
+    margin-top: @padding;
+    .side-menu-item {
+      width: 100%;
+      text-align: center;
+      padding: @padding;
+      color: @color_light;
+      &:hover,
+      &.active {
+        color: @color_white;
+      }
+    }
+  }
+}

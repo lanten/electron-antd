@@ -6,15 +6,5 @@
  */
 export function beforeRouter(props: PageProps, next: Function): boolean | void | Promise<boolean | void> {
   console.log('routerHook', props)
-  const { permissionsCode, history } = props
-
-  let nextFlg = true
-
-  // 校验用户权限
-  if (permissionsCode) {
-    console.log(history)
-    nextFlg = false
-  }
-
-  if (nextFlg) next()
+  next()
 }

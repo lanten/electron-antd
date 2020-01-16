@@ -15,8 +15,8 @@ export interface CreateWindowOptions {
   windowOptions?: BrowserWindowConstructorOptions
   /** 显示标题栏 默认 true */
   showTitlebar?: boolean
-  /** 显示工具栏 默认 false */
-  showToolBar?: boolean
+  /** 显示侧边栏 默认 false */
+  showSidebar?: boolean
 }
 
 /** 已创建的窗口列表 */
@@ -50,7 +50,7 @@ export function getWindowUrl(key: RouterKey, options: CreateWindowOptions = {}):
  * @param options
  */
 export function createWindow(key: RouterKey, options: CreateWindowOptions = {}): BrowserWindow {
-  const { windowOptions = {}, showTitlebar = true, showToolBar = false } = options
+  const { windowOptions = {}, showTitlebar = true, showSidebar = false } = options
 
   const routeConf: RouteConfig | AnyObj = routes.get(key) || {}
 
@@ -68,7 +68,7 @@ export function createWindow(key: RouterKey, options: CreateWindowOptions = {}):
 
   win.webContents.executeJavaScript(`
     window.showTitlebar = ${showTitlebar};
-    window.showToolBar = ${showToolBar};
+    window.showSidebar = ${showSidebar};
   `)
 
   win.loadURL(url)

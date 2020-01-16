@@ -50,13 +50,6 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
     const { count: reduxCount, count2, countAlias } = this.props
     return (
       <div>
-        <Card title="Image Test" className="mb-16">
-          <div className="flex center-v">
-            <img height="64" src={$tools.APP_ICON} />
-            <img className="ml-16" src={$tools.TRAY_ICON_DARK} />
-          </div>
-        </Card>
-
         <Card title="Redux Test" className="mb-16">
           <p>state count : {count}</p>
           <p>redux count : {reduxCount}</p>

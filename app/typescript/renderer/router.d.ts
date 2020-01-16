@@ -7,12 +7,6 @@ declare global {
    * 自定义路由参数
    */
   interface RouteParams {
-    /** 是否显示侧边菜单 */
-    sideMenu?: boolean
-    /** 错误码 */
-    code?: number
-    /** 需要验证权限代码 */
-    permissionsCode?: string
     /** 自定义参数, 视情况而定 */
     type?: string
     /** 以 createWindow 打开时, 加载的 BrowserWindow 选项 */

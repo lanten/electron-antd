@@ -35,5 +35,3 @@ export function asAssetsPath(pathStr: string) {
 export function asAbsolutePath(pathStr: string) {
   return path.resolve(APP_PATH, pathStr)
 }
-
-console.log(LOGS_PATH)

@@ -1,0 +1,20 @@
+[
+  {
+    "name": "home",
+    "path": "#/",
+    "title": "Home",
+    "icon": "home"
+  },
+  {
+    "name": "page-params",
+    "path": "#/page-params/ok",
+    "title": "Page Params",
+    "icon": "deployment-unit"
+  },
+  {
+    "name": "logs",
+    "path": "#/404",
+    "title": "Logs",
+    "icon": "code"
+  }
+]

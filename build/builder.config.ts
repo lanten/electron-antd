@@ -21,7 +21,7 @@ const config: Configuration = {
   productName,
   buildVersion,
   appId,
-  files: ['dist/', 'assets', 'node_modules/', 'package.json'],
+  files: ['dist', 'assets', 'package.json'],
   asar: false,
   directories: {
     buildResources: 'assets',

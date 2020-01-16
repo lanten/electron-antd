@@ -33,8 +33,7 @@ export function errorAction(err: any, sendData: any, options: RequestOptions) {
         n.show()
       } else {
         $tools.createWindow('alert-modal', {
-          modal: true,
-          parent: BrowserWindow.getFocusedWindow() || undefined,
+          windowOptions: { modal: true, parent: BrowserWindow.getFocusedWindow() || undefined },
         })
       }
       break

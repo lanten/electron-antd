@@ -1,5 +1,5 @@
 import chalk from 'chalk'
-import { fixedStringLength } from '../../app/core/tools/utils'
+import { fixedStringLength } from './'
 
 const config = {
   INFO: { color: 'bgCyan' },

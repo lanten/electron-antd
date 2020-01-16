@@ -5,6 +5,20 @@ import routes, { RouterKey } from '@/src/auto-routes'
 
 const { NODE_ENV, port, host } = process.env
 
+/** 创建新窗口相关选项 */
+export interface CreateWindowOptions {
+  /** 路由启动参数 */
+  params?: any
+  /** URL 启动参数 */
+  query?: any
+  /** BrowserWindow 选项 */
+  windowOptions?: BrowserWindowConstructorOptions
+  /** 显示标题栏 默认 true */
+  showTitlebar?: boolean
+  /** 显示工具栏 默认 false */
+  showToolBar?: boolean
+}
+
 /** 已创建的窗口列表 */
 export const windowList: Map<RouterKey, BrowserWindow> = new Map()
 
@@ -12,12 +26,21 @@ export const windowList: Map<RouterKey, BrowserWindow> = new Map()
  * 通过 routes 中的 key(name) 得到 url
  * @param key
  */
-export function getWindowUrl(key: RouterKey): string {
-  const routePath = routes.get(key)?.path
+export function getWindowUrl(key: RouterKey, options: CreateWindowOptions = {}): string {
+  let routePath = routes.get(key)?.path
+
+  if (typeof routePath === 'string' && options.params) {
+    routePath = routePath.replace(/\:([^\/]+)/g, (_, $1) => {
+      return options.params[$1]
+    })
+  }
+
+  const query = options.query ? $tools.toSearch(options.query) : ''
+
   if (NODE_ENV === 'development') {
-    return `http://${host}:${port}#${routePath}`
+    return `http://${host}:${port}#${routePath}${query}`
   } else {
-    return `file://${path.join(__dirname, '../renderer/index.html')}#${routePath}`
+    return `file://${path.join(__dirname, '../renderer/index.html')}#${routePath}${query}`
   }
 }
 
@@ -26,7 +49,9 @@ export function getWindowUrl(key: RouterKey): string {
  * @param key
  * @param options
  */
-export function createWindow(key: RouterKey, options: BrowserWindowConstructorOptions = {}): BrowserWindow {
+export function createWindow(key: RouterKey, options: CreateWindowOptions = {}): BrowserWindow {
+  const { windowOptions = {}, showTitlebar = true, showToolBar = false } = options
+
   const routeConf: RouteConfig | AnyObj = routes.get(key) || {}
 
   const activeWin = activeWindow(key)
@@ -35,11 +60,17 @@ export function createWindow(key: RouterKey, options: BrowserWindowConstructorOp
   const win = new BrowserWindow({
     ...$tools.DEFAULT_WINDOW_CONFIG, // 默认新窗口选项
     ...routeConf.window, // routes 中的配置的window选项
-    ...options, // 调用方法时传入的选项
+    ...windowOptions, // 调用方法时传入的选项
   })
 
-  const url = getWindowUrl(key)
+  const url = getWindowUrl(key, options)
   windowList.set(key, win)
+
+  win.webContents.executeJavaScript(`
+    window.showTitlebar = ${showTitlebar};
+    window.showToolBar = ${showToolBar};
+  `)
+
   win.loadURL(url)
 
   if (routeConf.saveWindowBounds) {

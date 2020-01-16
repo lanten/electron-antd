@@ -1,6 +1,6 @@
 import React from 'react'
 import { remote } from 'electron'
-import { HashRouter as Router, Route, Switch, Redirect } from 'react-router-dom'
+import { HashRouter as Router, Route, Switch, Redirect, RouteComponentProps } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import { asyncImport } from '../async-import'
 import { beforeRouter } from './router-hooks'
@@ -81,12 +81,19 @@ export class AppRouter extends React.Component<AppRouterProps, AppRouterState> {
     }
 
     if (redirect) {
-      routeProps.render = (props: any) => <Redirect to={{ pathname: redirect }} {...props} {...params} />
+      routeProps.render = (props: RouteComponentProps) => <Redirect {...redirect} {...props} />
     } else if (resource) {
       const Comp = asyncImport(pageResource[resource], beforeRouter.bind(this))
-      routeProps.render = (props: any) => (
-        <Comp {...props} {...params} currentWindow={currentWindow} closeWindow={this.closeWindow} />
-      )
+      routeProps.render = (props: RouteComponentProps) => {
+        const nextProps = {
+          currentWindow,
+          closeWindow: this.closeWindow,
+          query: $tools.getQuery(props.location.search),
+          ...props,
+          ...params,
+        }
+        return <Comp {...nextProps} />
+      }
     } else {
       throw new Error('Route config error: resource or redirect must be set one.')
     }

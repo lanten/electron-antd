@@ -1,4 +1,4 @@
-import { RouteProps, RouteComponentProps } from 'react-router-dom'
+import { RouteProps, RouteComponentProps, RedirectProps } from 'react-router-dom'
 import { BrowserWindow, BrowserWindowConstructorOptions } from 'electron'
 import pageResource from '@/src/page-resource'
 
@@ -19,6 +19,10 @@ declare global {
     window?: BrowserWindowConstructorOptions
   }
 
+  interface RouteQuery<Q = {}> {
+    query?: Q
+  }
+
   /**
    * 路由配置规范
    */
@@ -28,7 +32,7 @@ declare global {
     /** 页面资源 key */
     resource?: keyof typeof pageResource
     /** 重定向 */
-    redirect?: string
+    redirect?: RedirectProps
     /** 默认为 true */
     exact?: boolean
 
@@ -41,7 +45,7 @@ declare global {
   /**
    * 页面默认 props
    */
-  interface PageProps<Params = {}> extends RouteComponentProps<Params>, RouteParams {
+  interface PageProps<P = {}, Q = {}> extends RouteComponentProps<P>, RouteQuery<Q>, RouteParams {
     closeWindow: Function
     currentWindow: BrowserWindow
   }

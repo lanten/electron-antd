@@ -17,4 +17,4 @@ function addRouteConfig(conf: RouteConfig) {
 export default routes
 
 /** createWindow 时使用的 key, 必须手动设置, 与路由的 name 对应 */
-export type RouterKey = 'home' | 'demo' | 'alert-modal' | 'no-match'
+export type RouterKey = 'alert-modal' | 'no-match' | 'home' | 'demo' | 'page-params'

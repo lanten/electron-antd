@@ -28,11 +28,5 @@
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "material-icon-theme.activeIconPack": "react_redux",
-  "swaggerToTypes.swaggerJsonUrl": [
-    {
-      "title": "API List",
-      "url": "http://xxx.com/v2/api-docs"
-    }
-  ],
-  "swaggerToTypes.savePath": "types/api-interface"
+  "create.defaultFileTemplate": "tsx"
 }

@@ -103,10 +103,15 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
               add (redux) (count2)
             </Button>
           </div>
+
+          <div className="flex text-light mt-16">
+            <p>Redux runs in the main process, which means it can be shared across all renderer processes</p>
+            <a onClick={() => $tools.createWindow('demo')}>&nbsp;[open new window]</a>
+          </div>
         </Card>
 
-        <Spin spinning={loading}>
-          <Card title="Request Test" className="mb-16">
+        <Card title="Request Test" className="mb-16">
+          <Spin spinning={loading}>
             <div className="mb-16">
               <Button type="primary" onClick={this.requestTest.bind(this)}>
                 Request
@@ -122,8 +127,8 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
             </div>
 
             <Input.TextArea value={JSON.stringify(resData)} autoSize />
-          </Card>
-        </Spin>
+          </Spin>
+        </Card>
       </div>
     )
   }

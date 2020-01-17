@@ -11,12 +11,18 @@
     overflow: hidden;
   }
 
+  &.has-titlebar {
+    .app-content {
+      height: calc(~'100vh - @{titlebar_height}');
+    }
+  }
+
   .app-content {
     box-sizing: border-box;
     overflow: auto;
     padding: @padding_layout;
     background-color: @color_background;
     position: relative;
-    height: calc(~'100vh - @{titlebar_height}');
+    height: 100vh;
   }
 }

@@ -6,11 +6,15 @@ import { AppRouter, AppLayout } from '@/src/components'
 
 import routes from './auto-routes'
 
-export default class App extends React.Component {
+interface AppProps {
+  createConfig: CreateConfig
+}
+
+export default class App extends React.Component<AppProps> {
   render() {
     return (
       <ConfigProvider locale={zhCN}>
-        <AppLayout>
+        <AppLayout createConfig={this.props.createConfig}>
           <AppRouter routes={routes} store={$store} />
         </AppLayout>
       </ConfigProvider>

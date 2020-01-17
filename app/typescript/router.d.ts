@@ -12,20 +12,24 @@ declare global {
     type?: string
     /** 以 createWindow 打开时, 加载的 BrowserWindow 选项 */
     windowOptions?: BrowserWindowConstructorOptions
-    /** 口启动参数 */
-    initialConfig?: InitialConfig
+    /** 新窗口启动参数 */
+    createConfig?: CreateConfig
   }
 
   /** 新窗口启动参数 */
-  interface InitialConfig {
+  interface CreateConfig {
     /** 显示标题栏 默认 true */
     showTitlebar?: boolean
     /** 显示侧边栏 默认 false */
     showSidebar?: boolean
     /** 以新窗口打开时是否启动 DevTools */
     openDevTools?: boolean
-    /** 记住窗口关闭时的位置, 窗口打开时自动加载 */
+    /** 记住窗口关闭时的位置和尺寸, 窗口打开时自动加载 */
     saveWindowBounds?: boolean
+    /** 延迟执行 win.show() 单位：ms 默认：10 (适当的延迟避免 DOM 渲染完成前白屏或闪烁) */
+    delayToShow?: number
+    /** 创建完成后自动显示 默认：true */
+    autoShow?: boolean
   }
 
   interface RouteQuery<Q = {}> {

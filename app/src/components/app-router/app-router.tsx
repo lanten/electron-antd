@@ -2,8 +2,8 @@ import React from 'react'
 import { remote } from 'electron'
 import { HashRouter as Router, Route, Switch, Redirect, RouteComponentProps } from 'react-router-dom'
 import { Provider } from 'react-redux'
-// import { asyncImport } from '../async-import'
-// import { beforeRouter } from './router-hooks'
+import { asyncImport } from '../async-import'
+import { beforeRouter } from './router-hooks'
 import * as pageResource from '@/src/page-resource'
 
 interface AppRouterProps {
@@ -61,7 +61,7 @@ export class AppRouter extends React.Component<AppRouterProps, AppRouterState> {
 
     routes.forEach((conf, key) => {
       const routeEl = this.creatRoute(conf, key)
-      if (!routeEl) return null
+      if (!routeEl) return
       if (conf.path) {
         res.push(routeEl)
       } else {
@@ -74,14 +74,15 @@ export class AppRouter extends React.Component<AppRouterProps, AppRouterState> {
 
   creatRoute = (routeConfig: RouteConfig, key: string) => {
     const { path, exact = true, redirect, ...params } = routeConfig
-
     const routeProps: any = { key, path, exact }
 
     if (redirect) {
       routeProps.render = (props: RouteComponentProps) => <Redirect {...redirect} {...props} />
     } else {
-      const Comp: any = pageResource[key]
-      if (!Comp) return null
+      const resource = pageResource[key]
+      if (!resource) return
+
+      const Comp = resource.constructor === Promise ? asyncImport(resource, beforeRouter.bind(this)) : resource
 
       routeProps.render = (props: RouteComponentProps) => {
         const nextProps = {

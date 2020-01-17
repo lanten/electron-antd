@@ -14,7 +14,7 @@ export interface CreateWindowOptions {
   /** BrowserWindow 选项 */
   windowOptions?: BrowserWindowConstructorOptions
   /** 窗口启动参数 */
-  initialConfig?: InitialConfig
+  createConfig?: CreateConfig
 }
 
 /** 已创建的窗口列表 */
@@ -47,57 +47,70 @@ export function getWindowUrl(key: RouterKey, options: CreateWindowOptions = {}):
  * @param key
  * @param options
  */
-export function createWindow(key: RouterKey, options: CreateWindowOptions = {}): BrowserWindow {
-  const routeConf: RouteConfig | AnyObj = routes.get(key) || {}
+export function createWindow(key: RouterKey, options: CreateWindowOptions = {}): Promise<BrowserWindow> {
+  return new Promise(resolve => {
+    const routeConf: RouteConfig | AnyObj = routes.get(key) || {}
 
-  const windowOptions = {
-    ...$tools.DEFAULT_WINDOW_CONFIG, // 默认新窗口选项
-    ...routeConf.windowOptions, // routes 中的配置的window选项
-    ...options.windowOptions, // 调用方法时传入的选项
-  }
-
-  const initialConfig = {
-    ...routeConf.initialConfig,
-    ...options.initialConfig,
-  }
-
-  const activeWin = activeWindow(key)
-  if (activeWin) return activeWin
-
-  const win = new BrowserWindow(windowOptions)
-
-  const url = getWindowUrl(key, options)
-  windowList.set(key, win)
-
-  win.loadURL(url)
-
-  if (routeConf.initialConfig) {
-    const lastBounds = $tools.settings.windowBounds.get(key)
-    if (lastBounds) win.setBounds(lastBounds)
-  }
-
-  win.webContents.on('dom-ready', () => {
-    win.webContents.send('dom-ready', initialConfig)
-  })
-
-  win.once('ready-to-show', () => {
-    win.show()
-    if (initialConfig.openDevTools) win.webContents.openDevTools()
-  })
-
-  win.once('show', () => {
-    log.info(`Window <${key}:${win.id}> url: ${url} is opened.`)
-  })
-
-  win.on('close', () => {
-    if (initialConfig.saveWindowBounds && win) {
-      $tools.settings.windowBounds.set(key, win.getBounds())
+    const windowOptions: BrowserWindowConstructorOptions = {
+      ...$tools.DEFAULT_WINDOW_OPTIONS, // 默认新窗口选项
+      ...routeConf.windowOptions, // routes 中的配置的window选项
+      ...options.windowOptions, // 调用方法时传入的选项
     }
-    windowList.delete(key)
-    log.info(`Window <${key}:${win.id}> is closed.`)
-  })
 
-  return win
+    const createConfig: CreateConfig = {
+      ...$tools.DEFAULT_INITIAL_CONFIG,
+      ...routeConf.createConfig,
+      ...options.createConfig,
+    }
+
+    const activeWin = activeWindow(key)
+    if (activeWin) return activeWin
+
+    const win = new BrowserWindow(windowOptions)
+
+    const url = getWindowUrl(key, options)
+    windowList.set(key, win)
+
+    win.loadURL(url)
+
+    if (routeConf.createConfig) {
+      const lastBounds = $tools.settings.windowBounds.get(key)
+      if (lastBounds) win.setBounds(lastBounds)
+    }
+
+    win.webContents.on('dom-ready', () => {
+      win.webContents.send('dom-ready', createConfig)
+    })
+
+    win.webContents.on('did-finish-load', () => {
+      if (createConfig.autoShow) {
+        if (createConfig.delayToShow) {
+          setTimeout(() => {
+            win.show()
+          }, createConfig.delayToShow)
+        } else {
+          win.show()
+        }
+      }
+      resolve(win)
+    })
+
+    win.once('ready-to-show', () => {
+      if (createConfig.openDevTools) win.webContents.openDevTools()
+    })
+
+    win.once('show', () => {
+      log.info(`Window <${key}:${win.id}> url: ${url} is opened.`)
+    })
+
+    win.on('close', () => {
+      if (createConfig.saveWindowBounds && win) {
+        $tools.settings.windowBounds.set(key, win.getBounds())
+      }
+      windowList.delete(key)
+      log.info(`Window <${key}:${win.id}> is closed.`)
+    })
+  })
 }
 
 /**
@@ -119,12 +132,12 @@ declare global {
   namespace Electron {
     interface WebContents {
       /** 自定义事件: DOM 准备就绪 */
-      send(channel: 'dom-ready', initialConfig: InitialConfig): void
+      send(channel: 'dom-ready', createConfig: CreateConfig): void
     }
 
     interface IpcRenderer {
       /** 自定义事件: DOM 准备就绪 */
-      on(channel: 'dom-ready', listener: (event: IpcRendererEvent, initialConfig: InitialConfig) => void): this
+      on(channel: 'dom-ready', listener: (event: IpcRendererEvent, createConfig: CreateConfig) => void): this
     }
   }
 }

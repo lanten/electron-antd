@@ -1,8 +1,6 @@
 import { app, BrowserWindowConstructorOptions } from 'electron'
 import { asAssetsPath } from './paths'
 
-import APP_SIDE_MENUS_JSON from './side-menus.json'
-
 /** 应用名称 */
 export const APP_NAME = app.name
 
@@ -18,11 +16,8 @@ export const TRAY_ICON_LIGHT = asAssetsPath('tray-icon/tray-icon-light.png')
 /** 暗色风格托盘图标 (仅 macOS) */
 export const TRAY_ICON_DARK = asAssetsPath('tray-icon/tray-icon-dark.png')
 
-/** 侧边菜单配置 */
-export const APP_SIDE_MENUS = APP_SIDE_MENUS_JSON
-
 /** 创建新窗口时默认加载的选项 */
-export const DEFAULT_WINDOW_CONFIG: BrowserWindowConstructorOptions = {
+export const DEFAULT_WINDOW_OPTIONS: BrowserWindowConstructorOptions = {
   icon: APP_ICON,
   minWidth: 200,
   minHeight: 200,
@@ -42,4 +37,11 @@ export const DEFAULT_WINDOW_CONFIG: BrowserWindowConstructorOptions = {
   // transparent: true, // 窗口是否透明
   // titleBarStyle: 'default',
   vibrancy: 'fullscreen-ui', // 毛玻璃效果
+}
+
+export const DEFAULT_INITIAL_CONFIG: CreateConfig = {
+  showSidebar: false,
+  showTitlebar: true,
+  autoShow: true,
+  delayToShow: 10,
 }

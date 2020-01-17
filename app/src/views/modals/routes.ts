@@ -6,6 +6,10 @@ const routes: RouteConfig[] = [
       title: 'Alert',
       width: 400,
       height: 240,
+      resizable: false,
+    },
+    createConfig: {
+      showTitlebar: false,
     },
   },
 ]

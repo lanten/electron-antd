@@ -1,9 +1,10 @@
 import React from 'react'
 import { Icon, Tooltip } from 'antd'
 
+import AppSideMenus from './side-menus.json'
 import './app-sidebar.less'
 
-type SideMenuItem = typeof $tools.APP_SIDE_MENUS[0]
+type SideMenuItem = typeof AppSideMenus[0]
 
 export class AppSidebar extends React.Component {
   render() {
@@ -13,7 +14,7 @@ export class AppSidebar extends React.Component {
           <img width="40" src={$tools.APP_ICON} />
         </div>
 
-        <div className="flex column side-menu">{$tools.APP_SIDE_MENUS.map(this.renderMenuItem)}</div>
+        <div className="flex column side-menu">{AppSideMenus.map(this.renderMenuItem)}</div>
       </div>
     )
   }

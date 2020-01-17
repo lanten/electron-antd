@@ -6,7 +6,7 @@ import { Notification, BrowserWindow } from 'electron'
  * @param sendData
  * @param options
  */
-export function errorAction(err: any, sendData: any, options: RequestOptions) {
+export async function errorAction(err: any, sendData: any, options: RequestOptions) {
   const { code, message } = err
   const { errorType } = options
 
@@ -32,7 +32,7 @@ export function errorAction(err: any, sendData: any, options: RequestOptions) {
         })
         n.show()
       } else {
-        $tools.createWindow('AlertModal', {
+        await $tools.createWindow('AlertModal', {
           windowOptions: { modal: true, parent: BrowserWindow.getFocusedWindow() || undefined },
         })
       }

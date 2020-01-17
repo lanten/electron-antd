@@ -8,7 +8,6 @@ import '@/src/styles/index.less'
 
 initRenderer()
 
-ipcRenderer.on('dom-ready', (event, initialConfig) => {
-  console.log({ event, initialConfig, date: Date.now() })
-  reactDom.render(<App />, document.getElementById('app'))
+ipcRenderer.on('dom-ready', (_, createConfig) => {
+  reactDom.render(<App createConfig={createConfig} />, document.getElementById('app'))
 })

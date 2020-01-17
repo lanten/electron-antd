@@ -8,7 +8,8 @@ const routes: RouteConfig[] = [
       width: 1200,
       height: 800,
     },
-    initialConfig: {
+    createConfig: {
+      showSidebar: true,
       saveWindowBounds: true,
       openDevTools: true,
     },

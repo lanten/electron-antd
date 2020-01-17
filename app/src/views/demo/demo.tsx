@@ -4,16 +4,15 @@ import { Button, Input, Spin, Card } from 'antd'
 import { withStore } from '@/src/components'
 
 interface DemoProps extends PageProps, StoreProps {
-  id?: number
   count: StoreStates['count']
   count2: StoreStates['count2']
   countAlias: StoreStates['count']
 }
 
 declare interface DemoState {
-  count: number
   resData: queryTestInfoUsingGET.Response | {}
   loading: boolean
+  createWindowLoading: boolean
 }
 
 /**
@@ -24,16 +23,11 @@ declare interface DemoState {
 
 @withStore(['count', 'count2', { countAlias: 'count' }])
 export default class Demo extends React.Component<DemoProps, DemoState> {
-  // props 默认值
-  static defaultProps = {
-    id: 123,
-  }
-
   // state 初始化
   state: DemoState = {
-    count: 1,
     resData: {},
     loading: false,
+    createWindowLoading: false,
   }
 
   // 构造函数
@@ -46,12 +40,11 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
   }
 
   render() {
-    const { count, resData, loading } = this.state
+    const { resData, loading, createWindowLoading } = this.state
     const { count: reduxCount, count2, countAlias } = this.props
     return (
       <div>
         <Card title="Redux Test" className="mb-16">
-          <p>state count : {count}</p>
           <p>redux count : {reduxCount}</p>
           <p>redux count2 : {count2}</p>
           <p>redux countAlias : {countAlias}</p>
@@ -60,20 +53,10 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
             <Button
               type="primary"
               onClick={() => {
-                this.setState({ count: count + 1 })
-              }}
-            >
-              add
-            </Button>
-
-            <Button
-              className="ml-16"
-              type="primary"
-              onClick={() => {
                 this.props.dispatch({ type: 'ACTION_ADD_COUNT', data: reduxCount + 1 })
               }}
             >
-              add (redux)
+              Add
             </Button>
 
             <Button
@@ -83,7 +66,7 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
                 this.props.dispatch({ type: 'ACTION_ADD_COUNT', data: countAlias + 1 })
               }}
             >
-              add (redux) (alias)
+              Add (alias)
             </Button>
 
             <Button
@@ -93,14 +76,17 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
                 this.props.dispatch({ type: 'ACTION_ADD_COUNT2', data: count2 + 1 })
               }}
             >
-              add (redux) (count2)
+              Add (count2)
             </Button>
           </div>
 
-          <div className="flex text-light mt-16">
-            <p>Redux runs in the main process, which means it can be shared across all renderer processes</p>
-            <a onClick={() => $tools.createWindow('Demo')}>&nbsp;[open new window]</a>
-          </div>
+          <p className="text-light mt-16 mb-16">
+            Redux runs in the main process, which means it can be shared across all renderer processes.
+          </p>
+
+          <Button onClick={this.openNewWindow} loading={createWindowLoading}>
+            Open new window
+          </Button>
         </Card>
 
         <Card title="Request Test" className="mb-16">
@@ -124,6 +110,11 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
         </Card>
       </div>
     )
+  }
+
+  openNewWindow = () => {
+    this.setState({ createWindowLoading: true })
+    $tools.createWindow('Demo').finally(() => this.setState({ createWindowLoading: false }))
   }
 
   requestTest() {

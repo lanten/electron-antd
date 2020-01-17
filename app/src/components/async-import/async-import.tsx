@@ -3,6 +3,7 @@ import * as React from 'react'
 interface RouterHook {
   (props: PageProps, next: Function): boolean | void | Promise<boolean | void>
 }
+
 interface State {
   comp: React.ComponentClass | null
 }

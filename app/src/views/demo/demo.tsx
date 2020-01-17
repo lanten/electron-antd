@@ -99,7 +99,7 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
 
           <div className="flex text-light mt-16">
             <p>Redux runs in the main process, which means it can be shared across all renderer processes</p>
-            <a onClick={() => $tools.createWindow('demo')}>&nbsp;[open new window]</a>
+            <a onClick={() => $tools.createWindow('Demo')}>&nbsp;[open new window]</a>
           </div>
         </Card>
 

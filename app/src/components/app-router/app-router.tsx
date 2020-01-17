@@ -2,9 +2,9 @@ import React from 'react'
 import { remote } from 'electron'
 import { HashRouter as Router, Route, Switch, Redirect, RouteComponentProps } from 'react-router-dom'
 import { Provider } from 'react-redux'
-import { asyncImport } from '../async-import'
-import { beforeRouter } from './router-hooks'
-import pageResource from '@/src/page-resource'
+// import { asyncImport } from '../async-import'
+// import { beforeRouter } from './router-hooks'
+import * as pageResource from '@/src/page-resource'
 
 interface AppRouterProps {
   routes: Map<string, RouteConfig>
@@ -61,6 +61,7 @@ export class AppRouter extends React.Component<AppRouterProps, AppRouterState> {
 
     routes.forEach((conf, key) => {
       const routeEl = this.creatRoute(conf, key)
+      if (!routeEl) return null
       if (conf.path) {
         res.push(routeEl)
       } else {
@@ -72,18 +73,16 @@ export class AppRouter extends React.Component<AppRouterProps, AppRouterState> {
   }
 
   creatRoute = (routeConfig: RouteConfig, key: string) => {
-    const { name, path, exact = true, resource, redirect, ...params } = routeConfig
+    const { path, exact = true, redirect, ...params } = routeConfig
 
-    const routeProps: any = {
-      key: name ?? key,
-      path,
-      exact,
-    }
+    const routeProps: any = { key, path, exact }
 
     if (redirect) {
       routeProps.render = (props: RouteComponentProps) => <Redirect {...redirect} {...props} />
-    } else if (resource) {
-      const Comp = asyncImport(pageResource[resource], beforeRouter.bind(this))
+    } else {
+      const Comp: any = pageResource[key]
+      if (!Comp) return null
+
       routeProps.render = (props: RouteComponentProps) => {
         const nextProps = {
           currentWindow,
@@ -94,8 +93,6 @@ export class AppRouter extends React.Component<AppRouterProps, AppRouterState> {
         }
         return <Comp {...nextProps} />
       }
-    } else {
-      throw new Error('Route config error: resource or redirect must be set one.')
     }
 
     return <Route {...routeProps} />

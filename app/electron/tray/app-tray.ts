@@ -26,7 +26,7 @@ export function creatAppTray({ menus = trayMenus, title = APP_NAME, icon }: AppI
   tray.setContextMenu(Menu.buildFromTemplate(menus))
 
   tray.on('double-click', () => {
-    $tools.createWindow('home')
+    $tools.createWindow('Home')
   })
 
   return tray

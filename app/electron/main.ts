@@ -8,12 +8,12 @@ let tray: Tray
 
 app.on('ready', () => {
   tray = creatAppTray()
-  $tools.createWindow('home')
+  $tools.createWindow('Home')
 })
 
 app.on('activate', () => {
   if (process.platform == 'darwin') {
-    $tools.createWindow('home')
+    $tools.createWindow('Home')
   }
 })
 

@@ -1,7 +1,7 @@
 import path from 'path'
 import { BrowserWindow, BrowserWindowConstructorOptions } from 'electron'
 import { log } from '../log'
-import routes, { RouterKey } from '@/src/auto-routes'
+import routes from '@/src/auto-routes'
 
 const { NODE_ENV, port, host } = process.env
 
@@ -13,10 +13,8 @@ export interface CreateWindowOptions {
   query?: any
   /** BrowserWindow 选项 */
   windowOptions?: BrowserWindowConstructorOptions
-  /** 显示标题栏 默认 true */
-  showTitlebar?: boolean
-  /** 显示侧边栏 默认 false */
-  showSidebar?: boolean
+  /** 窗口启动参数 */
+  initialConfig?: InitialConfig
 }
 
 /** 已创建的窗口列表 */
@@ -50,37 +48,41 @@ export function getWindowUrl(key: RouterKey, options: CreateWindowOptions = {}):
  * @param options
  */
 export function createWindow(key: RouterKey, options: CreateWindowOptions = {}): BrowserWindow {
-  const { windowOptions = {}, showTitlebar = true, showSidebar = false } = options
-
   const routeConf: RouteConfig | AnyObj = routes.get(key) || {}
+
+  const windowOptions = {
+    ...$tools.DEFAULT_WINDOW_CONFIG, // 默认新窗口选项
+    ...routeConf.windowOptions, // routes 中的配置的window选项
+    ...options.windowOptions, // 调用方法时传入的选项
+  }
+
+  const initialConfig = {
+    ...routeConf.initialConfig,
+    ...options.initialConfig,
+  }
 
   const activeWin = activeWindow(key)
   if (activeWin) return activeWin
 
-  const win = new BrowserWindow({
-    ...$tools.DEFAULT_WINDOW_CONFIG, // 默认新窗口选项
-    ...routeConf.window, // routes 中的配置的window选项
-    ...windowOptions, // 调用方法时传入的选项
-  })
+  const win = new BrowserWindow(windowOptions)
 
   const url = getWindowUrl(key, options)
   windowList.set(key, win)
 
-  win.webContents.executeJavaScript(`
-    window.showTitlebar = ${showTitlebar};
-    window.showSidebar = ${showSidebar};
-  `)
-
   win.loadURL(url)
 
-  if (routeConf.saveWindowBounds) {
+  if (routeConf.initialConfig) {
     const lastBounds = $tools.settings.windowBounds.get(key)
     if (lastBounds) win.setBounds(lastBounds)
   }
 
+  win.webContents.on('dom-ready', () => {
+    win.webContents.send('dom-ready', initialConfig)
+  })
+
   win.once('ready-to-show', () => {
     win.show()
-    if (routeConf.openDevTools) win.webContents.openDevTools()
+    if (initialConfig.openDevTools) win.webContents.openDevTools()
   })
 
   win.once('show', () => {
@@ -88,7 +90,7 @@ export function createWindow(key: RouterKey, options: CreateWindowOptions = {}):
   })
 
   win.on('close', () => {
-    if (routeConf.saveWindowBounds && win) {
+    if (initialConfig.saveWindowBounds && win) {
       $tools.settings.windowBounds.set(key, win.getBounds())
     }
     windowList.delete(key)
@@ -110,5 +112,19 @@ export function activeWindow(key: RouterKey): BrowserWindow | false {
     return win
   } else {
     return false
+  }
+}
+
+declare global {
+  namespace Electron {
+    interface WebContents {
+      /** 自定义事件: DOM 准备就绪 */
+      send(channel: 'dom-ready', initialConfig: InitialConfig): void
+    }
+
+    interface IpcRenderer {
+      /** 自定义事件: DOM 准备就绪 */
+      on(channel: 'dom-ready', listener: (event: IpcRendererEvent, initialConfig: InitialConfig) => void): this
+    }
   }
 }

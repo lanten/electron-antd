@@ -1,8 +1,7 @@
 const routes: RouteConfig[] = [
   {
-    name: 'no-match',
-    resource: 'no-match',
-    window: {
+    key: 'NoMatch',
+    windowOptions: {
       title: 'Page Error',
     },
   },

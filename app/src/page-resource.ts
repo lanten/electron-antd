@@ -1,6 +1,6 @@
-export default {
-  demo: import('./views/demo/demo'),
-  'page-params': import('./views/demo/page-params'),
-  'alert-modal': import('./views/modals/alert-modal'),
-  'no-match': import('./views/no-match/no-match'),
-}
+export { default as Demo } from './views/demo/demo'
+export { default as PageParams } from './views/demo/page-params'
+export { default as AlertModal } from './views/modals/alert-modal'
+export { default as NoMatch } from './views/no-match/no-match'
+
+export const Home = undefined

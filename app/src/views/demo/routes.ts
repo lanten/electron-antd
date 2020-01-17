@@ -1,13 +1,11 @@
 const routes: RouteConfig[] = [
   {
-    name: 'demo',
+    key: 'Demo',
     path: '/demo',
-    resource: 'demo',
   },
   {
-    name: 'page-params',
+    key: 'PageParams',
     path: '/page-params/:test',
-    resource: 'page-params',
   },
 ]
 

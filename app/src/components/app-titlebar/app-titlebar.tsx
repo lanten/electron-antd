@@ -6,7 +6,7 @@ export class AppTitlebar extends React.Component {
   render() {
     return (
       <header className="pl-16 pr-16 app-titlebar">
-        <p>component app-titlebar is created</p>
+        <p>{window.location.href}</p>
       </header>
     )
   }

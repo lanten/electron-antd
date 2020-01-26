@@ -63,8 +63,14 @@ export function createWindow(key: RouterKey, options: CreateWindowOptions = {}):
       ...options.createConfig,
     }
 
-    const activeWin = activeWindow(key)
-    if (activeWin) return activeWin
+    let activeWin: BrowserWindow | boolean
+    if (createConfig.single) {
+      activeWin = activeWindow(key)
+      if (activeWin) {
+        resolve(activeWin)
+        return activeWin
+      }
+    }
 
     const win = new BrowserWindow(windowOptions)
 

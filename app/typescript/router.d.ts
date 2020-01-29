@@ -30,6 +30,8 @@ declare global {
     delayToShow?: number
     /** 创建完成后自动显示 默认：true */
     autoShow?: boolean
+    /** 禁止重复创建窗口 默认：true */
+    single?: boolean
   }
 
   interface RouteQuery<Q = {}> {

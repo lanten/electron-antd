@@ -1,4 +1,3 @@
-import path from 'path'
 import chalk from 'chalk'
 import webpack from 'webpack'
 

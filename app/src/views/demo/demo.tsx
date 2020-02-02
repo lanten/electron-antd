@@ -1,12 +1,12 @@
 import * as React from 'react';
 import { Button, Input, Spin, Card } from 'antd';
+import { connect } from 'react-redux';
+import { CountAction, CountState } from '@/core/store/models/count';
+import { StateModels } from '@/core/store/interface';
 
-import { withStore } from '@/src/components';
-
-interface DemoProps extends PageProps, StoreProps {
-  count: StoreStates['count'];
-  count2: StoreStates['count2'];
-  countAlias: StoreStates['count'];
+interface DemoProps extends PageProps {
+  countState: CountState;
+  countAction: CountAction;
 }
 
 declare interface DemoState {
@@ -21,8 +21,7 @@ declare interface DemoState {
  * props 和 state 的默认值需要单独声明
  */
 
-@withStore(['count', 'count2', { countAlias: 'count' }])
-export default class Demo extends React.Component<DemoProps, DemoState> {
+class Demo extends React.Component<DemoProps, DemoState> {
   // state 初始化
   state: DemoState = {
     resData: {},
@@ -41,19 +40,19 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
 
   render() {
     const { resData, loading, createWindowLoading } = this.state;
-    const { count: reduxCount, count2, countAlias } = this.props;
+    const { countState } = this.props;
     return (
       <div>
         <Card title="Redux Test" className="mb-16">
-          <p>redux count : {reduxCount}</p>
-          <p>redux count2 : {count2}</p>
-          <p>redux countAlias : {countAlias}</p>
+          <p>redux count : {countState.count}</p>
+          <p>redux count2 : {countState.count}</p>
+          <p>redux countAlias : {countState.count}</p>
 
           <div className="mt-16">
             <Button
               type="primary"
               onClick={() => {
-                this.props.dispatch({ type: 'ACTION_ADD_COUNT', data: reduxCount + 1 });
+                this.props.countAction.increment(1);
               }}>
               Add
             </Button>
@@ -62,18 +61,19 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
               className="ml-16"
               type="primary"
               onClick={() => {
-                this.props.dispatch({ type: 'ACTION_ADD_COUNT', data: countAlias + 1 });
+                this.props.countAction.decrement(1);
               }}>
-              Add (alias)
+              Decrement
             </Button>
 
             <Button
               className="ml-16"
               type="primary"
-              onClick={() => {
-                this.props.dispatch({ type: 'ACTION_ADD_COUNT2', data: count2 + 1 });
+              onClick={async () => {
+                await this.props.countAction.incrementAsync(1);
+                console.log('hello');
               }}>
-              Add (count2)
+              incrementAsync
             </Button>
           </div>
 
@@ -143,4 +143,14 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
       })
       .finally(() => this.setState({ loading: false }));
   }
-} // class Demo end
+}
+
+const mapStateToProps = ({ count }: StateModels) => ({
+  countState: count,
+});
+
+const mapDispatchToProps = (dispatch: any) => ({
+  countAction: dispatch.count,
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Demo);

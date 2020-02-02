@@ -5,7 +5,7 @@ import zhCN from 'antd/es/locale/zh_CN';
 import { AppRouter, AppLayout } from '@/src/components';
 
 import routes from './auto-routes';
-import { store } from '@/core/store';
+import store from '@/core/store';
 
 interface AppProps {
   createConfig: CreateConfig;

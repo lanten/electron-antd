@@ -5,10 +5,11 @@ import { Provider } from 'react-redux';
 import { asyncImport } from '../async-import';
 import { beforeRouter } from './router-hooks';
 import * as pageResource from '@/src/page-resource';
+import { RematchStore } from '@rematch/core';
 
 interface AppRouterProps {
   routes: Map<string, RouteConfig>;
-  store: AppStore;
+  store: RematchStore;
 }
 
 interface AppRouterState {

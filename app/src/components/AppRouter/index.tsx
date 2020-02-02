@@ -2,7 +2,7 @@ import React from 'react';
 import { remote } from 'electron';
 import { HashRouter as Router, Route, Switch, Redirect, RouteComponentProps } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { asyncImport } from '../async-import';
+import { asyncImport } from '../asyncImport';
 import { beforeRouter } from './router-hooks';
 import * as pageResource from '@/src/page-resource';
 import { RematchStore } from '@rematch/core';
@@ -18,7 +18,7 @@ interface AppRouterState {
 
 const currentWindow = remote.getCurrentWindow();
 
-export class AppRouter extends React.Component<AppRouterProps, AppRouterState> {
+class AppRouter extends React.Component<AppRouterProps, AppRouterState> {
   static defaultProps = {
     routes: [],
   };
@@ -106,3 +106,5 @@ export class AppRouter extends React.Component<AppRouterProps, AppRouterState> {
     });
   };
 }
+
+export default AppRouter;

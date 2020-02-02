@@ -25,7 +25,7 @@ const webpackConfig: Configuration = {
   target: 'electron-renderer',
 
   entry: {
-    renderer: path.resolve(appPath, 'index.tsx'),
+    renderer: path.resolve(appPath, 'index.tsx.tsx'),
   },
 
   output: {
@@ -95,7 +95,7 @@ const webpackConfig: Configuration = {
     ...(webpackConfigBase?.plugins || []),
     new htmlWebpackPlugin({
       template: template,
-      filename: 'index.html',
+      filename: 'index.tsx.html',
     }),
     new MiniCssExtractPlugin({
       filename: '[name].css',

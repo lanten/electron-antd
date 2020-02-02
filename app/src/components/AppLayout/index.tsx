@@ -1,9 +1,8 @@
 import React from 'react';
 import $c from 'classnames';
-
-import { AppTitlebar, AppSidebar } from '../';
-
 import './app-layout.less';
+import { AppTitlebar } from '@/src/components/AppTitlebar';
+import AppSidebar from '@/src/components/AppSidebar';
 
 interface AppLayoutProps {
   createConfig: CreateConfig;
@@ -23,4 +22,6 @@ export class AppLayout extends React.Component<AppLayoutProps> {
       </div>
     );
   }
-} // class AppLayout end
+}
+
+export default AppLayout;

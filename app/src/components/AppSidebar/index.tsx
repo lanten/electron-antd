@@ -6,7 +6,7 @@ import './app-sidebar.less';
 
 type SideMenuItem = typeof AppSideMenus[0];
 
-export class AppSidebar extends React.Component {
+class AppSidebar extends React.Component {
   render() {
     return (
       <div className="app-sidebar">
@@ -28,4 +28,6 @@ export class AppSidebar extends React.Component {
       </Tooltip>
     );
   };
-} // class AppSidebar end
+}
+
+export default AppSidebar;

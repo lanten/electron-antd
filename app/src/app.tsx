@@ -1,11 +1,10 @@
 import * as React from 'react';
 import { ConfigProvider } from 'antd';
 import zhCN from 'antd/es/locale/zh_CN';
-
-import { AppRouter, AppLayout } from '@/src/components';
-
 import routes from './auto-routes';
 import store from '@/core/store';
+import AppLayout from '@/src/components/AppLayout';
+import AppRouter from '@/src/components/AppRouter';
 
 interface AppProps {
   createConfig: CreateConfig;

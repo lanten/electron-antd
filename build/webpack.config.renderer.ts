@@ -92,7 +92,7 @@ const webpackConfig: Configuration = {
   },
 
   plugins: [
-    ...(webpackConfigBase?.plugins ?? []),
+    ...(webpackConfigBase?.plugins || []),
     new htmlWebpackPlugin({
       template: template,
       filename: 'index.html',

@@ -23,6 +23,7 @@ export const windowList: Map<RouterKey, BrowserWindow> = new Map();
 /**
  * 通过 routes 中的 key(name) 得到 url
  * @param key
+ * @param options
  */
 export function getWindowUrl(key: RouterKey, options: CreateWindowOptions = {}): string {
   let routePath = routes.get(key)?.path;

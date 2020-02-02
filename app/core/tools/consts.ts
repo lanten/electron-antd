@@ -41,7 +41,7 @@ export const DEFAULT_WINDOW_OPTIONS: BrowserWindowConstructorOptions = {
 
 export const DEFAULT_INITIAL_CONFIG: CreateConfig = {
   showSidebar: false,
-  showTitlebar: true,
+  showTitlebar: false, // 是否显示 导航
   autoShow: true,
   delayToShow: 10,
   single: true,

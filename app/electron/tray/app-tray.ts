@@ -12,7 +12,7 @@ export interface AppIconConfig {
 
 export function creatAppTray({ menus = trayMenus, title = APP_NAME, icon }: AppIconConfig = {}): Tray {
   const iconPath =
-    icon ?? (process.platform === 'darwin' ? (nativeTheme.shouldUseDarkColors ? TRAY_ICON_LIGHT : TRAY_ICON_DARK) : TRAY_ICON_LIGHT);
+    icon || (process.platform === 'darwin' ? (nativeTheme.shouldUseDarkColors ? TRAY_ICON_LIGHT : TRAY_ICON_DARK) : TRAY_ICON_LIGHT);
 
   const image = nativeImage.createFromPath(iconPath);
   image.isMacTemplateImage = true;

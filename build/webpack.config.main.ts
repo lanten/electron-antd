@@ -1,10 +1,10 @@
-import path from 'path'
-import { Configuration } from 'webpack'
+import path from 'path';
+import { Configuration } from 'webpack';
 
-import webpackConfigBase from './webpack.config.base'
-import devConfig from './dev.config'
+import webpackConfigBase from './webpack.config.base';
+import devConfig from './dev.config';
 
-const { dist, mainSource: appPath } = devConfig
+const { dist, mainSource: appPath } = devConfig;
 
 const webpackConfig: Configuration = {
   ...webpackConfigBase,
@@ -29,6 +29,6 @@ const webpackConfig: Configuration = {
       },
     ],
   },
-}
+};
 
-export default webpackConfig
+export default webpackConfig;

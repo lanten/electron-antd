@@ -1,1 +1,1 @@
-export * from './app-tray'
+export * from './app-tray';

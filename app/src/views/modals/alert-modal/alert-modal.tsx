@@ -1,7 +1,7 @@
-import React from 'react'
-import { Button } from 'antd'
+import React from 'react';
+import { Button } from 'antd';
 
-import './alert-modal.less'
+import './alert-modal.less';
 
 export default class AlertModal extends React.Component<PageProps> {
   render() {
@@ -11,12 +11,11 @@ export default class AlertModal extends React.Component<PageProps> {
         <Button
           type="primary"
           onClick={() => {
-            this.props.closeWindow()
-          }}
-        >
+            this.props.closeWindow();
+          }}>
           close
         </Button>
       </div>
-    )
+    );
   }
 } // class AlertModal end

@@ -5,6 +5,6 @@ const routes: RouteConfig[] = [
       title: 'Page Error',
     },
   },
-]
+];
 
-export default routes
+export default routes;

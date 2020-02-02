@@ -1,13 +1,13 @@
-import * as React from 'react'
-import { Button } from 'antd'
+import * as React from 'react';
+import { Button } from 'antd';
 
-import './no-match.less'
+import './no-match.less';
 
 interface ErrorInfo {
-  title: string
-  img: string
-  desc: string
-  content: JSX.Element | string | null
+  title: string;
+  img: string;
+  desc: string;
+  content: JSX.Element | string | null;
 }
 
 export default class ErrorPage extends React.Component<PageProps> {
@@ -33,10 +33,10 @@ export default class ErrorPage extends React.Component<PageProps> {
         </a>
       ),
     },
-  }
+  };
 
   get errorInfo(): ErrorInfo {
-    return this.ERROR_CODE_MAP['404']
+    return this.ERROR_CODE_MAP['404'];
   }
 
   render() {
@@ -51,6 +51,6 @@ export default class ErrorPage extends React.Component<PageProps> {
           </div>
         </div>
       </div>
-    )
+    );
   }
 } // class ErrorPage end

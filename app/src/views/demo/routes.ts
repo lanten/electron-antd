@@ -10,6 +10,6 @@ const routes: RouteConfig[] = [
     key: 'PageParams',
     path: '/page-params/:test',
   },
-]
+];
 
-export default routes
+export default routes;

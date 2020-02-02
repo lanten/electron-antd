@@ -1,31 +1,31 @@
-import { app, Tray } from 'electron'
+import { app, Tray } from 'electron';
 
-import { creatAppTray } from './tray'
+import { creatAppTray } from './tray';
 
-$tools.log.info(`Application <${$tools.APP_NAME}> launched.`)
+$tools.log.info(`Application <${$tools.APP_NAME}> launched.`);
 
-let tray: Tray
+let tray: Tray;
 
 app.on('ready', () => {
-  tray = creatAppTray()
-  $tools.createWindow('Home')
-})
+  tray = creatAppTray();
+  $tools.createWindow('Home');
+});
 
 app.on('activate', () => {
   if (process.platform == 'darwin') {
-    $tools.createWindow('Home')
+    $tools.createWindow('Home');
   }
-})
+});
 
 app.on('window-all-closed', function() {
   // if (process.platform !== 'darwin') {
   //   app.quit()
   // }
-})
+});
 
 app.on('before-quit', () => {
-  $tools.log.info(`Application <${$tools.APP_NAME}> has exited normally.`)
+  $tools.log.info(`Application <${$tools.APP_NAME}> has exited normally.`);
   if (process.platform === 'win32') {
-    tray.destroy()
+    tray.destroy();
   }
-})
+});

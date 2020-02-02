@@ -1,21 +1,18 @@
-import { Store, AnyAction } from 'redux'
+import { Store, AnyAction } from 'redux';
 
 declare global {
-  type StoreActionsKeys = keyof StoreActions
-  type StoreStateKeys = keyof StoreStates
+  type StoreActionsKeys = keyof StoreActions;
+  type StoreStateKeys = keyof StoreStates;
 
-  type ActionFn = <StoreStates, T extends StoreActionsKeys>(
-    state: StoreStates,
-    action: StoreAction<T>
-  ) => { [key: string]: any }
+  type ActionFn = <StoreStates, T extends StoreActionsKeys>(state: StoreStates, action: StoreAction<T>) => { [key: string]: any };
 
   interface AliasStates {
-    [key: string]: StoreStateKeys
+    [key: string]: StoreStateKeys;
   }
 
   interface StoreAction<K extends StoreActionsKeys> extends AnyAction {
-    type: K
-    data: StoreActions[K]
+    type: K;
+    data: StoreActions[K];
   }
 
   interface AppStore extends Store<StoreStates, StoreAction<any>> {}
@@ -27,14 +24,14 @@ declare global {
   // }
 
   interface StoreProps {
-    dispatch: <T extends StoreActionsKeys>(options: StoreAction<T>) => void
+    dispatch: <T extends StoreActionsKeys>(options: StoreAction<T>) => void;
   }
 
-  const $store: AppStore
+  const $store: AppStore;
 
   namespace NodeJS {
     interface Global {
-      __$store: AppStore
+      __$store: AppStore;
     }
   }
 }

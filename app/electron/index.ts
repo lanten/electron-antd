@@ -1,8 +1,8 @@
-import { initMain } from '@/core/main.init'
+import { initMain } from '@/core/main.init';
 
 async function startApp() {
-  await initMain()
-  await import('./main')
+  await initMain();
+  await import('./main');
 }
 
-startApp()
+startApp();

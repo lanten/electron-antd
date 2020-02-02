@@ -3,11 +3,11 @@
  */
 
 // 设为 undefined 将不会创建路由，一般用于重定向页面
-export const Home = undefined
+export const Home = undefined;
 
-export const Demo = import('./views/demo/demo')
-export const PageParams = import('./views/demo/page-params')
+export const Demo = import('./views/demo/demo');
+export const PageParams = import('./views/demo/page-params');
 
 // 同步/异步 混用
-export { default as AlertModal } from './views/modals/alert-modal'
-export { default as NoMatch } from './views/no-match/no-match'
+export { default as AlertModal } from './views/modals/alert-modal';
+export { default as NoMatch } from './views/no-match/no-match';

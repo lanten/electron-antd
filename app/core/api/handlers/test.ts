@@ -7,11 +7,8 @@
  * @param params
  * @param options
  */
-export function queryTestInfo(
-  params?: queryTestInfoUsingGET.Params,
-  options?: RequestOptions
-): Promise<queryTestInfoUsingGET.Response> {
-  return $api.request('/demo/demo-test', params, options)
+export function queryTestInfo(params?: queryTestInfoUsingGET.Params, options?: RequestOptions): Promise<queryTestInfoUsingGET.Response> {
+  return $api.request('/demo/demo-test', params, options);
 }
 
 /**
@@ -21,7 +18,7 @@ export function queryTestInfo(
  */
 export function queryTestInfoError(
   params?: queryTestInfoUsingGET.Params,
-  options?: RequestOptions
+  options?: RequestOptions,
 ): Promise<queryTestInfoUsingGET.Response> {
-  return $api.request('/demo/demo-test-error', params, options)
+  return $api.request('/demo/demo-test-error', params, options);
 }

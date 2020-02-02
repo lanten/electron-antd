@@ -5,6 +5,6 @@
  * @this AppRouter
  */
 export function beforeRouter(props: PageProps, next: Function): boolean | void | Promise<boolean | void> {
-  console.log('routerHook', props)
-  next()
+  console.log('routerHook', props);
+  next();
 }

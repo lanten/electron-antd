@@ -1,13 +1,13 @@
-import * as React from 'react'
-import { ConfigProvider } from 'antd'
-import zhCN from 'antd/es/locale/zh_CN'
+import * as React from 'react';
+import { ConfigProvider } from 'antd';
+import zhCN from 'antd/es/locale/zh_CN';
 
-import { AppRouter, AppLayout } from '@/src/components'
+import { AppRouter, AppLayout } from '@/src/components';
 
-import routes from './auto-routes'
+import routes from './auto-routes';
 
 interface AppProps {
-  createConfig: CreateConfig
+  createConfig: CreateConfig;
 }
 
 export default class App extends React.Component<AppProps> {
@@ -18,6 +18,6 @@ export default class App extends React.Component<AppProps> {
           <AppRouter routes={routes} store={$store} />
         </AppLayout>
       </ConfigProvider>
-    )
+    );
   }
 }

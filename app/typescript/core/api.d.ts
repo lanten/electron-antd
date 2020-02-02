@@ -1,9 +1,9 @@
-import * as api from '@/core/api'
+import * as api from '@/core/api';
 declare global {
-  const $api: typeof api
+  const $api: typeof api;
   namespace NodeJS {
     interface Global {
-      __$api: typeof $api
+      __$api: typeof $api;
     }
   }
 }

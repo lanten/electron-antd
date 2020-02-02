@@ -1,1 +1,1 @@
-export * from './async-import'
+export * from './async-import';

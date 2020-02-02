@@ -1,7 +1,7 @@
-import { windowBounds } from './window-bounds'
+import { windowBounds } from './window-bounds';
 
-export * from './create-settings'
+export * from './create-settings';
 
 export const settings = {
   windowBounds,
-}
+};

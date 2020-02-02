@@ -1,9 +1,13 @@
 {
-  "tabWidth": 2,
-  "printWidth": 112,
-  "proseWrap": "never",
-  "eslintIntegration": true,
   "singleQuote": true,
-  "semi": false,
-  "trailingComma": "es5"
+  "trailingComma": "all",
+  "printWidth": 140,
+  "semi": true,
+  "bracketSpacing": true,
+  "jsxBracketSameLine": true,
+  "arrowParens": "avoid",
+  "requirePragma": false,
+  "proseWrap": "preserve",
+  "htmlWhitespaceSensitivity": "ignore",
+  "tabWidth": 2
 }

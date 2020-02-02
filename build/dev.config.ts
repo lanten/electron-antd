@@ -1,4 +1,4 @@
-import path from 'path'
+import path from 'path';
 
 const devConfig = {
   host: '127.0.0.1',
@@ -39,6 +39,6 @@ const devConfig = {
       },
     },
   },
-}
+};
 
-export default devConfig
+export default devConfig;

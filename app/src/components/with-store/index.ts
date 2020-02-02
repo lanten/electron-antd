@@ -1,1 +1,1 @@
-export * from './with-store'
+export * from './with-store';

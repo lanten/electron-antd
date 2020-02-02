@@ -1,1 +1,1 @@
-export * from './tray-menus'
+export * from './tray-menus';

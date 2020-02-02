@@ -1,56 +1,56 @@
-import path from 'path'
-import electronLog, { ElectronLog } from 'electron-log'
-import { formatDate } from '../utils'
-import { LOGS_PATH } from '../paths'
+import path from 'path';
+import electronLog, { ElectronLog } from 'electron-log';
+import { formatDate } from '../utils';
+import { LOGS_PATH } from '../paths';
 
 /**
  * 创建一个 electron-log 记录器
  * 参考：https://github.com/megahertz/electron-log
  */
 export class SystemLogger {
-  public logger: ElectronLog
-  public logId: string
-  public logFileName: string
+  public logger: ElectronLog;
+  public logId: string;
+  public logFileName: string;
 
   /**
    * @param logId 记录器 ID
    */
   constructor(logId: string) {
-    this.logId = logId
-    this.logFileName = `${formatDate('YYYY-MM')}.log`
-    this.logger = electronLog.create(logId)
+    this.logId = logId;
+    this.logFileName = `${formatDate('YYYY-MM')}.log`;
+    this.logger = electronLog.create(logId);
 
     this.logger.transports.file.resolvePath = () => {
-      return path.resolve(LOGS_PATH, this.logFileName)
-    }
+      return path.resolve(LOGS_PATH, this.logFileName);
+    };
 
-    const isDev = process.env.NODE_ENV === 'development' ? ' [dev]' : ''
+    const isDev = process.env.NODE_ENV === 'development' ? ' [dev]' : '';
 
-    this.logger.transports.file.format = `[{y}-{m}-{d} {h}:{i}:{s}.{ms}] [{level}]${isDev} {text}`
-    this.logger.transports.console.format = '[{level}] {text}'
+    this.logger.transports.file.format = `[{y}-{m}-{d} {h}:{i}:{s}.{ms}] [{level}]${isDev} {text}`;
+    this.logger.transports.console.format = '[{level}] {text}';
   }
 
   log(...params: any[]) {
-    return this.logger.log(...params)
+    return this.logger.log(...params);
   }
 
   info(...params: any[]) {
-    return this.logger.info(...params)
+    return this.logger.info(...params);
   }
 
   warn(...params: any[]) {
-    return this.logger.warn(...params)
+    return this.logger.warn(...params);
   }
 
   error(...params: any[]) {
-    return this.logger.error(...params)
+    return this.logger.error(...params);
   }
 
   debug(...params: any[]) {
-    return this.logger.debug(...params)
+    return this.logger.debug(...params);
   }
 
   verbose(...params: any[]) {
-    return this.logger.verbose(...params)
+    return this.logger.verbose(...params);
   }
 }

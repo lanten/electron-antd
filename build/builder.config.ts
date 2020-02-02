@@ -3,19 +3,19 @@
  * https://www.electron.build/configuration/configuration
  */
 
-import path from 'path'
-import { Configuration, CliOptions } from 'electron-builder'
-import devConfig from './dev.config'
+import path from 'path';
+import { Configuration, CliOptions } from 'electron-builder';
+import devConfig from './dev.config';
 
-const ICON_ICO = path.resolve(__dirname, '../assets/app-icon/icon/icon.ico')
-const ICON_ICNS = path.resolve(__dirname, '../assets/app-icon/icon/icon.icns')
+const ICON_ICO = path.resolve(__dirname, '../assets/app-icon/icon/icon.ico');
+const ICON_ICNS = path.resolve(__dirname, '../assets/app-icon/icon/icon.icns');
 
 const {
   npm_package_name: productName,
   npm_package_buildVersion: buildVersion,
   npm_package_appId: appId,
   npm_package_version: version,
-} = process.env
+} = process.env;
 
 const config: Configuration = {
   productName,
@@ -46,10 +46,10 @@ const config: Configuration = {
     target: ['deb', 'rpm', 'AppImage'],
     category: 'Development',
   },
-}
+};
 
 const packageConfig: CliOptions = {
   config,
-}
+};
 
-export default packageConfig
+export default packageConfig;

@@ -1,20 +1,20 @@
-import webpack, { Configuration } from 'webpack'
+import webpack, { Configuration } from 'webpack';
 
-import devConfig from '../dev.config'
+import devConfig from '../dev.config';
 
-const { env: envConfig } = devConfig
+const { env: envConfig } = devConfig;
 
 interface BuildConfig {
-  env: keyof typeof devConfig.env
-  webpackConfig: Configuration
-  type: 'main' | 'renderer'
+  env: keyof typeof devConfig.env;
+  webpackConfig: Configuration;
+  type: 'main' | 'renderer';
 }
 
 function build({ env, webpackConfig }: BuildConfig): Promise<typeof devConfig.env['prod']> {
   return new Promise((resolve, reject) => {
     webpack(webpackConfig, (err, stats) => {
       if (err) {
-        throw err
+        throw err;
       }
 
       process.stdout.write(
@@ -27,16 +27,16 @@ function build({ env, webpackConfig }: BuildConfig): Promise<typeof devConfig.en
           chunks: false,
           children: false,
           modules: false,
-        }) + '\n\n'
-      )
+        }) + '\n\n',
+      );
 
       if (stats.hasErrors()) {
-        reject(stats)
+        reject(stats);
       } else {
-        resolve(envConfig[env])
+        resolve(envConfig[env]);
       }
-    })
-  })
+    });
+  });
 }
 
-export default build
+export default build;

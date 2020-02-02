@@ -1,1 +1,1 @@
-export * from './app-titlebar'
+export * from './app-titlebar';

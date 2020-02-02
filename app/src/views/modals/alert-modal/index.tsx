@@ -1,2 +1,2 @@
-import AlertModal from './alert-modal'
-export default AlertModal
+import AlertModal from './alert-modal';
+export default AlertModal;

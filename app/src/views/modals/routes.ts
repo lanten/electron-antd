@@ -12,6 +12,6 @@ const routes: RouteConfig[] = [
       showTitlebar: false,
     },
   },
-]
+];
 
-export default routes
+export default routes;

@@ -48,7 +48,7 @@ export class AppRouter extends React.Component<AppRouterProps, AppRouterState> {
         <Router>
           <Switch>
             {this.routeElements}
-            {this.noMatch ?? null}
+            {this.noMatch || null}
           </Switch>
         </Router>
       </Provider>

@@ -5,6 +5,7 @@ import zhCN from 'antd/es/locale/zh_CN';
 import { AppRouter, AppLayout } from '@/src/components';
 
 import routes from './auto-routes';
+import { store } from '@/core/store';
 
 interface AppProps {
   createConfig: CreateConfig;
@@ -15,7 +16,7 @@ export default class App extends React.Component<AppProps> {
     return (
       <ConfigProvider locale={zhCN}>
         <AppLayout createConfig={this.props.createConfig}>
-          <AppRouter routes={routes} store={$store} />
+          <AppRouter routes={routes} store={store} />
         </AppLayout>
       </ConfigProvider>
     );

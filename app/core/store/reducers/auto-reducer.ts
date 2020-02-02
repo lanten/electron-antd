@@ -6,8 +6,10 @@ export const initState = {};
 actions.keys().forEach(item => {
   const actionItem = actions(item);
 
-  if (actionItem.initState) Object.assign(initState, actionItem.initState);
-  delete actionItem.initState;
+  if (actionItem.initState) {
+    Object.assign(initState, actionItem.initState);
+    // delete actionItem.initState;
+  }
 
   for (const key in actionItem) {
     actionsH[key] = actionItem[key];

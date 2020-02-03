@@ -7,7 +7,7 @@ export const Home = undefined
 
 export const Demo = import('./views/demo/demo')
 export const PageParams = import('./views/demo/page-params')
+export const NoMatch = import('./views/no-match/no-match')
 
-// 同步/异步 混用
+// 同步引用，注意这不会出发 beforeRouter
 export { default as AlertModal } from './views/modals/alert-modal'
-export { default as NoMatch } from './views/no-match/no-match'

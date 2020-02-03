@@ -52,5 +52,6 @@ declare global {
   interface PageProps<P = {}, Q = {}> extends RouteComponentProps<P>, RouteQuery<Q>, RouteParams {
     closeWindow: Function
     currentWindow: BrowserWindow
+    name: RouterKey
   }
 }

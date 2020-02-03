@@ -74,7 +74,7 @@ export class AppRouter extends React.Component<AppRouterProps, AppRouterState> {
 
   creatRoute = (routeConfig: RouteConfig, key: string) => {
     const { path, exact = true, redirect, ...params } = routeConfig
-    const routeProps: any = { key, path, exact }
+    const routeProps: any = { key, name: key, path, exact }
 
     if (redirect) {
       routeProps.render = (props: RouteComponentProps) => <Redirect {...redirect} {...props} />
@@ -82,10 +82,11 @@ export class AppRouter extends React.Component<AppRouterProps, AppRouterState> {
       const resource = pageResource[key]
       if (!resource) return
 
-      const Comp = resource.constructor === Promise ? asyncImport(resource, beforeRouter.bind(this)) : resource
+      const Comp = resource.constructor === Promise ? asyncImport(resource, beforeRouter) : resource
 
       routeProps.render = (props: RouteComponentProps) => {
         const nextProps = {
+          name: key,
           currentWindow,
           closeWindow: this.closeWindow,
           query: $tools.getQuery(props.location.search),

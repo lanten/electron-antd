@@ -1,20 +1,20 @@
 [
   {
-    "name": "home",
-    "path": "#/",
+    "key": "Demo",
+    "href": "#/",
     "title": "Home",
     "icon": "home"
   },
   {
-    "name": "page-params",
-    "path": "#/page-params/ok",
+    "key": "PageParams",
+    "href": "#/page-params/ok?obj={ss:['1',2,3]}",
     "title": "Page Params",
-    "icon": "deployment-unit"
+    "icon": "thunderbolt"
   },
   {
-    "name": "logs",
-    "path": "#/404",
-    "title": "Logs",
+    "key": "LogViewer",
+    "href": "#/log-viewer",
+    "title": "Log Viewer",
     "icon": "code"
   }
 ]

@@ -49,17 +49,17 @@ export function getWindowUrl(key: RouterKey, options: CreateWindowOptions = {}):
  */
 export function createWindow(key: RouterKey, options: CreateWindowOptions = {}): Promise<BrowserWindow> {
   return new Promise(resolve => {
-    const routeConf: RouteConfig | AnyObj = routes.get(key) || {}
+    const routeConfig: RouteConfig | AnyObj = routes.get(key) || {}
 
     const windowOptions: BrowserWindowConstructorOptions = {
       ...$tools.DEFAULT_WINDOW_OPTIONS, // 默认新窗口选项
-      ...routeConf.windowOptions, // routes 中的配置的window选项
+      ...routeConfig.windowOptions, // routes 中的配置的window选项
       ...options.windowOptions, // 调用方法时传入的选项
     }
 
     const createConfig: CreateConfig = {
       ...$tools.DEFAULT_INITIAL_CONFIG,
-      ...routeConf.createConfig,
+      ...routeConfig.createConfig,
       ...options.createConfig,
     }
 
@@ -79,7 +79,7 @@ export function createWindow(key: RouterKey, options: CreateWindowOptions = {}):
 
     win.loadURL(url)
 
-    if (routeConf.createConfig) {
+    if (routeConfig.createConfig) {
       const lastBounds = $tools.settings.windowBounds.get(key)
       if (lastBounds) win.setBounds(lastBounds)
     }
@@ -139,11 +139,6 @@ declare global {
     interface WebContents {
       /** 自定义事件: DOM 准备就绪 */
       send(channel: 'dom-ready', createConfig: CreateConfig): void
-    }
-
-    interface IpcRenderer {
-      /** 自定义事件: DOM 准备就绪 */
-      on(channel: 'dom-ready', listener: (event: IpcRendererEvent, createConfig: CreateConfig) => void): this
     }
   }
 }

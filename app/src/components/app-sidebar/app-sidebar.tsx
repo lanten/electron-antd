@@ -1,12 +1,34 @@
 import React from 'react'
 import { Icon, Tooltip } from 'antd'
+import { IconProps } from 'antd/lib/icon'
 
 import AppSideMenus from './side-menus.json'
 import './app-sidebar.less'
 
-type SideMenuItem = typeof AppSideMenus[0]
+interface SideMenuItem {
+  key: string
+  href: string
+  title: string
+  icon: string
+}
 
-export class AppSidebar extends React.Component {
+interface State {
+  activeMenuKey: string
+}
+
+export class AppSidebar extends React.Component<{}, State> {
+  state: State = {
+    activeMenuKey: AppSideMenus[0]?.key,
+  }
+
+  componentDidMount() {
+    // console.log(123)
+    window.addEventListener('router_update', (e: any) => {
+      const routeProps: PageProps = e.detail
+      this.setState({ activeMenuKey: routeProps.name })
+    })
+  }
+
   render() {
     return (
       <div className="app-sidebar">
@@ -19,11 +41,17 @@ export class AppSidebar extends React.Component {
     )
   }
 
-  renderMenuItem = ({ name, icon, path, title }: SideMenuItem) => {
+  renderMenuItem = ({ key, icon, title, href }: SideMenuItem) => {
+    const { activeMenuKey } = this.state
+    const iconProps: IconProps = { type: icon, className: 'fs-24' }
+    if (activeMenuKey === key) {
+      iconProps.theme = 'filled'
+      iconProps.style = { color: '#fff' }
+    }
     return (
-      <Tooltip key={name} overlayClassName="side-menu-item-tooltip" placement="right" title={title}>
-        <a className="side-menu-item" href={path}>
-          <Icon type={icon} className="fs-24" />
+      <Tooltip key={key} overlayClassName="side-menu-item-tooltip" placement="right" title={title}>
+        <a className="side-menu-item" href={href}>
+          <Icon {...iconProps} />
         </a>
       </Tooltip>
     )

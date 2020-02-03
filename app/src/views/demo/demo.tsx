@@ -5,7 +5,6 @@ import { withStore } from '@/src/components'
 
 interface DemoProps extends PageProps, StoreProps {
   count: StoreStates['count']
-  count2: StoreStates['count2']
   countAlias: StoreStates['count']
 }
 
@@ -13,6 +12,7 @@ declare interface DemoState {
   resData: queryTestInfoUsingGET.Response | {}
   loading: boolean
   createWindowLoading: boolean
+  asyncDispatchLoading: boolean
 }
 
 /**
@@ -21,13 +21,14 @@ declare interface DemoState {
  * props 和 state 的默认值需要单独声明
  */
 
-@withStore(['count', 'count2', { countAlias: 'count' }])
+@withStore(['count', { countAlias: 'count' }])
 export default class Demo extends React.Component<DemoProps, DemoState> {
   // state 初始化
   state: DemoState = {
     resData: {},
     loading: false,
     createWindowLoading: false,
+    asyncDispatchLoading: false,
   }
 
   // 构造函数
@@ -40,13 +41,12 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
   }
 
   render() {
-    const { resData, loading, createWindowLoading } = this.state
-    const { count: reduxCount, count2, countAlias } = this.props
+    const { resData, loading, createWindowLoading, asyncDispatchLoading } = this.state
+    const { count: reduxCount, countAlias } = this.props
     return (
       <div>
         <Card title="Redux Test" className="mb-16">
           <p>redux count : {reduxCount}</p>
-          <p>redux count2 : {count2}</p>
           <p>redux countAlias : {countAlias}</p>
 
           <div className="mt-16">
@@ -72,11 +72,12 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
             <Button
               className="ml-16"
               type="primary"
+              loading={asyncDispatchLoading}
               onClick={() => {
-                this.props.dispatch({ type: 'ACTION_ADD_COUNT2', data: count2 + 1 })
+                this.props.dispatch(this.asyncDispatch)
               }}
             >
-              Add (count2)
+              Add (async)
             </Button>
           </div>
 
@@ -110,6 +111,18 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
         </Card>
       </div>
     )
+  }
+
+  asyncDispatch = (dispatch: Dispatch) => {
+    return new Promise(resolve => {
+      this.setState({ asyncDispatchLoading: true })
+      setTimeout(() => {
+        const { count } = this.props
+        dispatch({ type: 'ACTION_ADD_COUNT', data: count + 1 })
+        this.setState({ asyncDispatchLoading: false })
+        resolve()
+      }, 1000)
+    })
   }
 
   openNewWindow = () => {

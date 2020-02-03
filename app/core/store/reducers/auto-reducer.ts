@@ -1,13 +1,16 @@
 const actions = require.context('../actions', true, /^((?!\.d\.ts).)*(\.ts)$/)
 const actionsH: { [key: string]: ActionFn } = {}
 
-export const initState = {}
+export const initialState: any = {}
 
 actions.keys().forEach(item => {
-  const actionItem = actions(item)
+  const actionItem = Object.assign({}, actions(item))
 
-  if (actionItem.initState) Object.assign(initState, actionItem.initState)
-  delete actionItem.initState
+  if (actionItem.initialState) {
+    Object.assign(initialState, actionItem.initialState)
+  }
+
+  delete actionItem.initialState
 
   for (const key in actionItem) {
     actionsH[key] = actionItem[key]
@@ -15,8 +18,8 @@ actions.keys().forEach(item => {
 })
 
 export function reducer<StoreStates, T extends StoreActionsKeys>(state: StoreStates, action: StoreAction<T>) {
-  const { type } = action
-  const actionFn: ActionFn = actionsH[type as string]
+  const actionFn: ActionFn = actionsH[action.type]
   const resState = (actionFn && actionFn(state, action)) || {}
+
   return Object.assign({}, state, resState)
 }

@@ -1,11 +1,4 @@
-## Redux Actions
-
-* 请按照领域拆分文件而非页面
-
-## 示例
-
-```ts
-export const initState = {
+export const initialState = {
   count: 1,
 }
 
@@ -17,4 +10,12 @@ export function ACTION_ADD_COUNT(
   return { count: state.count + 1 }
 }
 
-```
+declare global {
+  interface StoreStates {
+    count: number
+  }
+
+  interface StoreActions {
+    ACTION_ADD_COUNT: number
+  }
+}

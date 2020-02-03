@@ -2,11 +2,27 @@ import React from 'react'
 
 import './app-titlebar.less'
 
-export class AppTitlebar extends React.Component {
+interface State {
+  path: string
+}
+
+export class AppTitlebar extends React.Component<{}, State> {
+  state: State = {
+    path: '',
+  }
+
+  componentDidMount() {
+    window.addEventListener('router_update', (e: any) => {
+      const routeProps: PageProps = e.detail
+      this.setState({ path: routeProps.location.pathname })
+    })
+  }
+
   render() {
+    const { path } = this.state
     return (
       <header className="pl-16 pr-16 app-titlebar">
-        <p>{window.location.href}</p>
+        <p>{path}</p>
       </header>
     )
   }

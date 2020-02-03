@@ -79,10 +79,12 @@ export function createWindow(key: RouterKey, options: CreateWindowOptions = {}):
 
     win.loadURL(url)
 
-    if (routeConfig.createConfig) {
+    if (createConfig.saveWindowBounds) {
       const lastBounds = $tools.settings.windowBounds.get(key)
       if (lastBounds) win.setBounds(lastBounds)
     }
+
+    if (createConfig.created) createConfig.created(win)
 
     win.webContents.on('dom-ready', () => {
       win.webContents.send('dom-ready', createConfig)

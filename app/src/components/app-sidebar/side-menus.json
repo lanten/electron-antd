@@ -16,5 +16,11 @@
     "href": "#/log-viewer",
     "title": "Log Viewer",
     "icon": "code"
+  },
+  {
+    "key": "About",
+    "href": "#/about",
+    "title": "About",
+    "icon": "info-circle"
   }
 ]

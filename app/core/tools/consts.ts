@@ -4,6 +4,9 @@ import { asAssetsPath } from './paths'
 /** 应用名称 */
 export const APP_NAME = app.name
 
+/** 应用版本 */
+export const APP_VERSION = app.getVersion()
+
 /** 应用标题 */
 export const APP_TITLE = 'Electron Antd'
 

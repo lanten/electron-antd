@@ -32,6 +32,8 @@ declare global {
     autoShow?: boolean
     /** 禁止重复创建窗口 默认：true */
     single?: boolean
+    /** 窗口创建完成回调 */
+    created?: (win: BrowserWindow) => void
   }
 
   interface RouteQuery<Q = {}> {

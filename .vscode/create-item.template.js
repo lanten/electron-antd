@@ -14,7 +14,7 @@ const files = {
       ``,
       `import './${name}.less'`,
       ``,
-      `export class ${nameH} extends React.Component<PageProps> {`,
+      `export default class ${nameH} extends React.Component<PageProps> {`,
       `  render() {`,
       `    return (`,
       `      <div className="${name}">`,
@@ -28,15 +28,14 @@ const files = {
   },
 
   routes: name => {
+    const nameH = toCamel(name)
     return [
       `const routes: RouteConfig[] = [`,
       `  {`,
-      `    name: '${name}',`,
+      `    key: '${nameH}',`,
       `    path: '/${name}',`,
-      `    resource: '${name}',`,
-      `    saveWindowBounds: true,`,
-      `    window: {`,
-      `      title: 'New Page',`,
+      `    windowOptions: {`,
+      `      title: '${nameH}',`,
       `    },`,
       `  },`,
       `]`,

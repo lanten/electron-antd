@@ -6,16 +6,22 @@
     "icon": "home"
   },
   {
+    "key": "LogViewer",
+    "href": "#/log-viewer",
+    "title": "Log Viewer",
+    "icon": "code"
+  },
+  {
     "key": "PageParams",
     "href": "#/page-params/ok?obj={ss:['1',2,3]}",
     "title": "Page Params",
     "icon": "thunderbolt"
   },
   {
-    "key": "LogViewer",
-    "href": "#/log-viewer",
-    "title": "Log Viewer",
-    "icon": "code"
+    "key": "any",
+    "href": "#/any",
+    "title": "No Match",
+    "icon": "stop"
   },
   {
     "key": "About",

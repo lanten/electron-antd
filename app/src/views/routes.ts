@@ -7,11 +7,13 @@ const routes: RouteConfig[] = [
       title: 'App Home (redirect to demo)',
       width: 1200,
       height: 800,
+      minWidth: 800,
+      minHeight: 600,
     },
     createConfig: {
       showSidebar: true,
       saveWindowBounds: true,
-      openDevTools: true,
+      // openDevTools: true,
     },
   },
 ]

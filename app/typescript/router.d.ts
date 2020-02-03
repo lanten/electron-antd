@@ -32,12 +32,14 @@ declare global {
     autoShow?: boolean
     /** 禁止重复创建窗口 默认：true */
     single?: boolean
+    /** 隐藏菜单栏 默认：false */
+    hideMenus?: boolean
     /** 窗口创建完成回调 */
     created?: (win: BrowserWindow) => void
   }
 
   interface RouteQuery<Q = {}> {
-    query?: Q
+    query: Q
   }
 
   /** 路由配置规范 */

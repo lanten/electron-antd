@@ -6,7 +6,7 @@ import './no-match.less'
 export default class ErrorPage extends React.Component<PageProps> {
   render() {
     return (
-      <div className="flex column center no-match">
+      <div className="layout-padding flex column center no-match">
         <Result
           status="404"
           title="404"

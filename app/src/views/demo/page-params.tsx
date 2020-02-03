@@ -11,7 +11,7 @@ export default class PageParams extends React.Component<PageProps> {
 
   render() {
     return (
-      <div className="page-params">
+      <div className="page-params layout-padding">
         <p>Params: {this.pageParams}</p>
         <p>Query: {this.pageQuery}</p>
       </div>

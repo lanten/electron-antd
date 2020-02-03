@@ -1,3 +1,18 @@
+@import '~@/src/styles/_var.less';
 .alert-modal {
+  height: 100%;
+  padding: 0;
+  .footer {
+    padding: 8px 16px;
+    background-color: darken(@color_background, 10);
+  }
 
+  .message-box {
+    // background-color: @color_white;
+    background-color: darken(@color_background, 10);
+    margin-top: 8px;
+    border-radius: @radius;
+    padding: 8px;
+    overflow-y: auto;
+  }
 }

@@ -44,7 +44,7 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
     const { resData, loading, createWindowLoading, asyncDispatchLoading } = this.state
     const { count: reduxCount, countAlias } = this.props
     return (
-      <div>
+      <div className="layout-padding">
         <Card title="Redux Test" className="mb-16">
           <p>redux count : {reduxCount}</p>
           <p>redux countAlias : {countAlias}</p>

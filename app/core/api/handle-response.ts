@@ -24,16 +24,22 @@ export async function errorAction(err: any, sendData: any, options: RequestOptio
       break
 
     default:
+      const title = `Request Error: [${code}]`
       if (errorType === 'notification') {
         const n = new Notification({
           icon: $tools.APP_ICON,
-          title: `Request Error: [${code}]`,
+          title,
           body: message,
         })
         n.show()
       } else {
         await $tools.createWindow('AlertModal', {
-          windowOptions: { modal: true, parent: BrowserWindow.getFocusedWindow() || undefined },
+          windowOptions: { modal: true, parent: BrowserWindow.getFocusedWindow() || undefined, title },
+          query: {
+            type: 'error',
+            title,
+            message,
+          },
         })
       }
       break

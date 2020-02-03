@@ -76,7 +76,6 @@ export function createWindow(key: RouterKey, options: CreateWindowOptions = {}):
 
     const url = getWindowUrl(key, options)
     windowList.set(key, win)
-
     win.loadURL(url)
 
     if (createConfig.saveWindowBounds) {
@@ -84,6 +83,7 @@ export function createWindow(key: RouterKey, options: CreateWindowOptions = {}):
       if (lastBounds) win.setBounds(lastBounds)
     }
 
+    if (createConfig.hideMenus) win.setMenuBarVisibility(false)
     if (createConfig.created) createConfig.created(win)
 
     win.webContents.on('dom-ready', () => {

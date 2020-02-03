@@ -4,12 +4,13 @@ const routes: RouteConfig[] = [
     key: 'AlertModal',
     windowOptions: {
       title: 'Alert',
-      width: 400,
+      width: 460,
       height: 240,
       resizable: false,
     },
     createConfig: {
       showTitlebar: false,
+      hideMenus: true,
     },
   },
 ]

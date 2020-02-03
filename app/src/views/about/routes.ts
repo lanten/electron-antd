@@ -13,9 +13,7 @@ const routes: RouteConfig[] = [
     },
     createConfig: {
       showTitlebar: false,
-      created(win) {
-        win.setMenuBarVisibility(false)
-      },
+      hideMenus: true,
     },
   },
 ]

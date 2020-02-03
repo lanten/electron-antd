@@ -35,7 +35,7 @@ function startMain(): Promise<webpack.Stats> {
     webpackConfigMain.devtool = 'source-map'
     webpackConfigMain.watch = true
     webpackConfigMain.watchOptions = {
-      ignored: ['**/*.tsx', '**/*.jsx'],
+      ignored: ['**/*.tsx', '**/*.jsx', '**/*.less', '**/*.css'],
     }
     webpack(webpackConfigMain, (err, stats) => {
       if (err) {

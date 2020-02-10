@@ -1,10 +1,9 @@
 /**
  * 格式化日期
+ * @param d
  * @param format 'YYYY-MM-DD H:I:S.MS'
  */
-export function formatDate(format = 'YYYY-MM-DD H:I:S.MS') {
-  const date = new Date()
-
+export function formatDate(date: Date = new Date(), format = 'YYYY-MM-DD H:I:S.MS') {
   const obj = {
     YYYY: fixedStringLength(date.getFullYear(), 4),
     MM: fixedStringLength(date.getMonth() + 1, 2),

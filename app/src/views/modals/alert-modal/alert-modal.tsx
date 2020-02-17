@@ -35,7 +35,7 @@ export default class AlertModal extends React.Component<PageProps<{}, AlertModal
           <div className="mr-16 mt-8">{this.typesConfig.icon}</div>
           <div className="flex-1 flex column">
             <h1 className="fs-24 text-title">{title}</h1>
-            <p className="fs-14 text-light flex-1 message-box">{message}</p>
+            <p className="fs-14 text-gray flex-1 message-box">{message}</p>
           </div>
         </div>
 

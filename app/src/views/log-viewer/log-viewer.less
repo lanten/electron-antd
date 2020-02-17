@@ -1,3 +1,29 @@
+@import '~@/src/styles/_var.less';
 .log-viewer {
+  height: 100%;
+  background-color: fade(@color_dark, 75);
+  .log-list {
+    overflow-y: auto;
+    background-color: fade(@color_white, 5);
+    user-select: none;
+    li {
+      color: fade(@color_white, 75);
+      padding: 2px 8px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      &:hover {
+        background-color: fade(@color_white, 15);
+      }
+      &.active {
+        background-color: @color_primary;
+      }
+    }
+  }
 
+  .log-detail {
+    padding: @padding / 2;
+    color: fade(@color_white, 75);
+    overflow-x: hidden;
+    overflow-y: auto;
+  }
 }

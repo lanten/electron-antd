@@ -81,7 +81,7 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
             </Button>
           </div>
 
-          <p className="text-light mt-16 mb-16">
+          <p className="text-gray mt-16 mb-16">
             Redux runs in the main process, which means it can be shared across all renderer processes.
           </p>
 

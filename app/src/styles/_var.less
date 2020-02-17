@@ -1,7 +1,8 @@
 // colors
 @color_blue: #30b6f2;
 @color_green: #0acc6a;
-@color_yellow: #ff9900;
+@color_yellow: #f1a737;
+@color_orange: #e0783b;
 @color_red: #ff5257;
 
 @color_primary: #3e82db;
@@ -14,28 +15,29 @@
 @color_error: @color_red;
 
 @color_black: #333;
+@color_dark: #111113;
 @color_title: #17233d;
 @color_default: #212224;
-@color_light: #808695;
+@color_light: #f2f3f5;
 @color_disabled: #c5c8ce;
 @color_white: #ffffff;
-@color_gray: #f2f3f5;
+@color_gray: #808695;
 
 // 颜色集 用于遍历, 值为所定义的颜色变量后半部分 : @color_{value}
-@colors: primary, info, success, warn, error, title, default, light, disabled;
+@colors: primary, info, success, warn, error, orange, title, default, gray, light, white, disabled;
 
 @color_border: #dcdcdc;
 @color_border_light: #e8eaec;
 @border_light_bottom: 1px solid @color_border_light;
 
-@color_background: fade(@color_black, 4);
+@color_background: fade(@color_white, 8);
 @color_placeholder: #c5cad5;
 
 @titlebar_height: 24px;
 @titlebar_background: fade(@color_black, 10);
 
 @sidebar_width: 68px;
-@sidebar_background: fade(#000, 75);
+@sidebar_background: fade(@color_dark, 75);
 
 @padding: 16px;
 @padding_lg: 24px;

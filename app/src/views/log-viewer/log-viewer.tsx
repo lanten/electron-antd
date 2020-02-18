@@ -91,13 +91,14 @@ export default class LogViewer extends React.Component<Props, State> {
 
   /** 打开并监听日志文件 */
   openLogFile(file: LogFile) {
-    this.setState({ activeFile: file, logDetail: [] })
-    this.logReader.openLogFile(file, detail => {
-      this.setState({ logDetail: this.state.logDetail.concat(detail) }, () => {
-        const { current: detailDom } = this.logDetailRef
-        if (detailDom) {
-          detailDom.scrollTop = detailDom.scrollHeight
-        }
+    this.setState({ activeFile: file, logDetail: [] }, () => {
+      this.logReader.openLogFile(file, detail => {
+        this.setState({ logDetail: this.state.logDetail.concat(detail) }, () => {
+          const { current: detailDom } = this.logDetailRef
+          if (detailDom) {
+            detailDom.scrollTop = detailDom.scrollHeight
+          }
+        })
       })
     })
   }

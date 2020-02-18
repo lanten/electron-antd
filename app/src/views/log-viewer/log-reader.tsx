@@ -75,13 +75,16 @@ export class LogReader {
         .split(/\n/)
         .forEach(str => {
           if (!str) return
-          if (str[0] === ' ') {
+          if (str[0] !== '[') {
             res.push({ date: '', type: '', env: '', message: str })
           } else {
-            str.replace(/^\[(.+)\] \[(.+)\] \[(.+)\] (.*)$/, (_, date, type, env, message) => {
-              res.push({ date, type, env, message })
-              return ''
-            })
+            str.replace(
+              /^\[([^\]]*)\]\s*\[([^\]]*)\]\s*\[([^\]]*)\]\s*(.*)$/,
+              (_, date, type, env, message) => {
+                res.push({ date, type, env, message })
+                return ''
+              }
+            )
           }
         })
       this.oldLogDetail = detailStr

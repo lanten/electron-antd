@@ -71,7 +71,7 @@ export default class LogViewer extends React.Component<Props, State> {
       <p key={i} className="text-gray">
         {v.date ? (
           <span>
-            [<span className="text-orange">{v.date}</span>]
+            [<span className="text-purple">{v.date}</span>]
           </span>
         ) : null}
         {v.type ? (
@@ -91,7 +91,7 @@ export default class LogViewer extends React.Component<Props, State> {
 
   /** 打开并监听日志文件 */
   openLogFile(file: LogFile) {
-    this.setState({ activeFile: file })
+    this.setState({ activeFile: file, logDetail: [] })
     this.logReader.openLogFile(file, detail => {
       this.setState({ logDetail: this.state.logDetail.concat(detail) }, () => {
         const { current: detailDom } = this.logDetailRef

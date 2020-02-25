@@ -1,25 +1,27 @@
 import { MenuItemConstructorOptions } from 'electron'
 
 export const trayMenus: MenuItemConstructorOptions[] = [
-  { label: 'home', click: () => $tools.createWindow('Home') },
-
-  { type: 'separator' },
-
+  { label: 'Home', click: () => $tools.createWindow('Home') },
   {
-    label: 'page-params',
+    label: 'Page Params',
     click: () =>
       $tools.createWindow('PageParams', {
         params: { test: 'test-params' },
         query: { testObj: { aa: ['bb', 'cc'] } },
       }),
   },
-  { label: 'demo', click: () => $tools.createWindow('Demo') },
+  { label: 'Demo', click: () => $tools.createWindow('Demo') },
+
+  {
+    label: 'Help',
+    submenu: [
+      { label: 'Log Viewer', click: () => $tools.createWindow('LogViewer') },
+      { type: 'separator' },
+      { label: 'About', click: () => $tools.createWindow('About') },
+    ],
+  },
 
   { type: 'separator' },
 
-  { label: 'about', click: () => $tools.createWindow('About') },
-
-  { type: 'separator' },
-
-  { label: 'quit', role: 'quit' },
+  { label: 'Quit', role: 'quit' },
 ]

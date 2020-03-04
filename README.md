@@ -47,9 +47,6 @@ npm run build
 Please check the `release` folder after the build is complete.
 
 
-## Old version
-- The `browser-sync` version archive to [branch v1.0](https://github.com/lanten/electron-antd/tree/v1.0)
-- The `js-babel` version archive to [babel](https://github.com/lanten/electron-antd/tree/babel)
 
 ## License
 [MIT](./LICENSE)

@@ -1,6 +1,6 @@
 import React from 'react'
-import { Icon, Tooltip } from 'antd'
-import { IconProps } from 'antd/lib/icon'
+import { Tooltip } from 'antd'
+import { SmileOutlined } from '@ant-design/icons'
 
 import AppSideMenus from './side-menus.json'
 import './app-sidebar.less'

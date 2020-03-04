@@ -101,12 +101,13 @@ const webpackConfig: Configuration = {
       filename: '[name].css',
       chunkFilename: '[name].css',
     }),
-  ],
+  ] as webpack.Plugin[],
 }
 
 if (NODE_ENV === 'development') {
   webpackConfig.plugins?.push(new webpack.HotModuleReplacementPlugin(), new webpack.NoEmitOnErrorsPlugin())
 } else if (NODE_ENV === 'production') {
+  // @ts-ignore
   webpackConfig.plugins?.push(new OptimizeCSSAssetsPlugin())
 }
 

@@ -1,7 +1,7 @@
 import chalk from 'chalk'
 import webpack from 'webpack'
 
-import WebpackDevServer from 'webpack-dev-server'
+import WebpackDevServer, { Configuration } from 'webpack-dev-server'
 
 import { exConsole } from '../utils'
 import ElectronProcess from './electron-process'
@@ -74,7 +74,7 @@ function startRenderer(): Promise<webpack.Stats> {
     } else {
       webpackConfigRenderer.entry = [...hotClient, webpackConfigRenderer.entry] as string[]
     }
-    WebpackDevServer.addDevServerEntrypoints(webpackConfigRenderer, devServerOptions)
+    WebpackDevServer.addDevServerEntrypoints(webpackConfigRenderer as Configuration, devServerOptions)
 
     webpackConfigRenderer.devtool = 'source-map'
 
@@ -84,9 +84,10 @@ function startRenderer(): Promise<webpack.Stats> {
       resolve(stats)
     })
 
+    // @ts-ignore
     const server = new WebpackDevServer(rendererCompiler, devServerOptions)
 
-    server.listen(port, host, err => {
+    server.listen(port, host, (err: Error) => {
       if (err) {
         exConsole.error(err)
       }

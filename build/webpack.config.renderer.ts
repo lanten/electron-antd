@@ -80,6 +80,13 @@ const webpackConfig: Configuration = {
         test: /\.css$/,
         use: styleLoader,
       },
+      {
+        test: /\.(png|jpe?g|gif|svg|swf|woff2?|eot|ttf|otf)(\?.*)?$/,
+        loader: 'file-loader',
+        query: {
+          name: '[name].[ext]',
+        },
+      },
     ],
   },
 
@@ -101,12 +108,13 @@ const webpackConfig: Configuration = {
       filename: '[name].css',
       chunkFilename: '[name].css',
     }),
-  ],
+  ] as webpack.Plugin[],
 }
 
 if (NODE_ENV === 'development') {
   webpackConfig.plugins?.push(new webpack.HotModuleReplacementPlugin(), new webpack.NoEmitOnErrorsPlugin())
 } else if (NODE_ENV === 'production') {
+  // @ts-ignore
   webpackConfig.plugins?.push(new OptimizeCSSAssetsPlugin())
 }
 

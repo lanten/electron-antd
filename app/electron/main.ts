@@ -6,6 +6,8 @@ $tools.log.info(`Application <${$tools.APP_NAME}> launched.`)
 
 let tray: Tray
 
+app.allowRendererProcessReuse = true
+
 app.on('ready', () => {
   tray = creatAppTray()
   $tools.createWindow('Home')

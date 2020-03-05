@@ -1,6 +1,5 @@
 import React from 'react'
 import { Tooltip } from 'antd'
-import { SmileOutlined } from '@ant-design/icons'
 
 import AppSideMenus from './side-menus.json'
 import './app-sidebar.less'
@@ -42,16 +41,19 @@ export class AppSidebar extends React.Component<{}, State> {
 
   renderMenuItem = ({ key, icon, title, href }: SideMenuItem) => {
     const { activeMenuKey } = this.state
-    const iconProps: IconProps = { type: icon, className: 'fs-24' }
-    if (activeMenuKey === key) {
-      iconProps.theme = 'filled'
-      iconProps.style = { color: '#fff' }
-    }
+    const isActive = activeMenuKey === key
+    // const iconProps: IconProps = { type: icon, className: 'fs-24' }
+    // if (activeMenuKey === key) {
+    //   iconProps.theme = 'filled'
+    //   iconProps.style = { color: '#fff' }
+    // }
     return (
       <Tooltip key={key} overlayClassName="side-menu-item-tooltip" placement="right" title={title}>
-        <a className="side-menu-item" href={href}>
-          <Icon {...iconProps} />
-        </a>
+        <a
+          className={`side-menu-item fs-24 ri-${icon}-${isActive ? 'fill' : 'line'}`}
+          style={{ color: isActive ? '#fff' : '' }}
+          href={href}
+        ></a>
       </Tooltip>
     )
   }

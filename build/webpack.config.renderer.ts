@@ -80,6 +80,13 @@ const webpackConfig: Configuration = {
         test: /\.css$/,
         use: styleLoader,
       },
+      {
+        test: /\.(png|jpe?g|gif|svg|swf|woff2?|eot|ttf|otf)(\?.*)?$/,
+        loader: 'file-loader',
+        query: {
+          name: '[name].[ext]',
+        },
+      },
     ],
   },
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Button, Icon } from 'antd'
+import { Button } from 'antd'
 
 import './alert-modal.less'
 
@@ -11,13 +11,13 @@ interface AlertModalQuery {
 
 const TYPES_CONFIG = {
   info: {
-    icon: <Icon type="exclamation-circle" theme="filled" className="fs-48 text-info" />,
+    icon: <i className="fs-48 text-info ri-information-fill" />,
   },
   warn: {
-    icon: <Icon type="warning" theme="filled" className="fs-48 text-warn" />,
+    icon: <i className="fs-48 text-warn ri-alert-fill" />,
   },
   error: {
-    icon: <Icon type="close-circle" theme="filled" className="fs-48 text-error" />,
+    icon: <i className="fs-48 text-error ri-close-circle-fill" />,
   },
 }
 

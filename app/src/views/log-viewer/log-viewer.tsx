@@ -36,10 +36,6 @@ export default class LogViewer extends React.Component<Props, State> {
   componentDidMount() {
     const { logFiles } = this.state
     this.openLogFile(logFiles[0])
-
-    // setInterval(() => {
-    //   $tools.log.warn(`test ${Date.now()}`)
-    // }, 1000)
   }
 
   render() {
@@ -51,7 +47,7 @@ export default class LogViewer extends React.Component<Props, State> {
             <li
               key={v.name}
               className={$c({ active: v.name === activeFile.name })}
-              onClick={() => this.openLogFile(v)}
+              onClick={() => activeFile.name !== v.name && this.openLogFile(v)}
             >
               {v.name}
             </li>
@@ -69,21 +65,21 @@ export default class LogViewer extends React.Component<Props, State> {
     const color = this.TYPE_COLORS[v.type]
     return (
       <p key={i} className="text-gray">
-        {v.date ? (
+        {v.date && (
           <span>
             [<span className="text-purple">{v.date}</span>]
           </span>
-        ) : null}
-        {v.type ? (
+        )}
+        {v.type && (
           <span>
             [<span className={color}>{v.type}</span>]
           </span>
-        ) : null}
-        {v.env ? (
+        )}
+        {v.env && (
           <span>
             [<span className="text-gray">{v.env}</span>]
           </span>
-        ) : null}
+        )}
         <span className="text-light"> &nbsp;{v.message}</span>
       </p>
     )

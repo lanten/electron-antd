@@ -1,3 +1,4 @@
+[中文说明](./README.zh-cn.md)
 ## Quick start
 install
 ```bash
@@ -20,6 +21,7 @@ npm run dev
 - react-router
 - redux
 - ant-design
+- remixicon
 - less
 - typescript
 - eslint

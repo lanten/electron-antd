@@ -44,7 +44,7 @@ export async function request(apiPath: string, params?: RequestParams, optionsSo
     sendData.params = params
   } else if (formData) {
     const formData = new FormData()
-    Object.keys(paramsData).forEach(key => {
+    Object.keys(paramsData).forEach((key) => {
       formData.append(key, paramsData[key])
     })
     sendData.data = formData
@@ -53,7 +53,7 @@ export async function request(apiPath: string, params?: RequestParams, optionsSo
   }
 
   return axios(sendData)
-    .then(res => {
+    .then((res) => {
       const data: any = res.data
 
       if (!checkStatus || data.code == 200) {
@@ -62,7 +62,7 @@ export async function request(apiPath: string, params?: RequestParams, optionsSo
         return Promise.reject(data)
       }
     })
-    .catch(async err => {
+    .catch(async (err) => {
       await errorAction(err, sendData, options)
       return Promise.reject({ ...err, path: apiPath, sendData, resData: err })
     })

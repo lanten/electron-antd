@@ -114,7 +114,7 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
   }
 
   asyncDispatch = (dispatch: Dispatch) => {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       this.setState({ asyncDispatchLoading: true })
       setTimeout(() => {
         const { count } = this.props
@@ -134,7 +134,7 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
     this.setState({ loading: true })
     $api
       .queryTestInfo({})
-      .then(resData => {
+      .then((resData) => {
         this.setState({ resData })
       })
       .finally(() => this.setState({ loading: false }))
@@ -144,7 +144,7 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
     this.setState({ loading: true })
     $api
       .queryTestInfoError({})
-      .catch(resData => {
+      .catch((resData) => {
         this.setState({ resData })
       })
       .finally(() => this.setState({ loading: false }))
@@ -154,7 +154,7 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
     this.setState({ loading: true })
     $api
       .queryTestInfoError({}, { errorType: 'modal' })
-      .catch(resData => {
+      .catch((resData) => {
         this.setState({ resData })
       })
       .finally(() => this.setState({ loading: false }))

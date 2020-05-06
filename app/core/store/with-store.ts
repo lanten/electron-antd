@@ -21,7 +21,7 @@ export function mapStates(options: MapStateList): MapStateToPropsParam<{}, {}, S
   return (states: StoreStates) => {
     const resState = {}
     if (options instanceof Array) {
-      options.forEach(val => {
+      options.forEach((val) => {
         if (typeof val === 'string') {
           resState[val] = states[val]
         } else {

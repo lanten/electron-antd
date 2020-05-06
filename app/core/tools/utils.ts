@@ -52,7 +52,7 @@ export function getQuery(search: string): AnyObj {
   search
     .substr(1)
     .split('&')
-    .forEach(str => {
+    .forEach((str) => {
       const strArr = str.split('=')
       const key = strArr[0]
 
@@ -71,7 +71,7 @@ export function getQuery(search: string): AnyObj {
 
 /** 转换成 url search */
 export function toSearch(obj: AnyObj): string {
-  const arr = Object.keys(obj).map(key => {
+  const arr = Object.keys(obj).map((key) => {
     let val = obj[key]
 
     if (typeof val !== 'string') {

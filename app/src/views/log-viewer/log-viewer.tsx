@@ -43,7 +43,7 @@ export default class LogViewer extends React.Component<Props, State> {
     return (
       <div className="flex log-viewer">
         <ul className="log-list">
-          {logFiles.map(v => (
+          {logFiles.map((v) => (
             <li
               key={v.name}
               className={$c({ active: v.name === activeFile.name })}
@@ -88,7 +88,7 @@ export default class LogViewer extends React.Component<Props, State> {
   /** 打开并监听日志文件 */
   openLogFile(file: LogFile) {
     this.setState({ activeFile: file, logDetail: [] }, () => {
-      this.logReader.openLogFile(file, detail => {
+      this.logReader.openLogFile(file, (detail) => {
         this.setState({ logDetail: this.state.logDetail.concat(detail) }, () => {
           const { current: detailDom } = this.logDetailRef
           if (detailDom) {

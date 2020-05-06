@@ -1,5 +1,4 @@
 import chalk from 'chalk'
-import { fixedStringLength } from './'
 
 const config = {
   INFO: { color: 'bgCyan' },
@@ -62,10 +61,10 @@ export class Console {
     const date = new Date()
 
     const obj = {
-      H: fixedStringLength(date.getHours(), 2),
-      I: fixedStringLength(date.getMinutes(), 2),
-      S: fixedStringLength(date.getSeconds(), 2),
-      MS: fixedStringLength(date.getMilliseconds(), 3),
+      H: date.getHours().toString().padStart(2, '0'),
+      I: date.getMinutes().toString().padStart(2, '0'),
+      S: date.getSeconds().toString().padStart(2, '0'),
+      MS: date.getMilliseconds().toString().padStart(3, '0'),
     }
 
     return `${chalk.hex('#f78c6c')(`${obj.H}:${obj.I}:${obj.S}`)}.${chalk.hex('#b2ccd6')(obj.MS)}`

@@ -31,7 +31,7 @@ const electronProcess = new ElectronProcess()
  * 启动主进程编译服务
  */
 function startMain(): Promise<webpack.Stats> {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     webpackConfigMain.devtool = 'source-map'
     webpackConfigMain.watch = true
     webpackConfigMain.watchOptions = {
@@ -56,13 +56,13 @@ function startMain(): Promise<webpack.Stats> {
  * 启动渲染进程编译服务
  */
 function startRenderer(): Promise<webpack.Stats> {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     process.env.port = String(devConfig.port)
     process.env.host = devConfig.host
 
     const hotClient = ['webpack-dev-server/client', 'webpack/hot/only-dev-server']
     if (typeof webpackConfigRenderer.entry === 'object') {
-      Object.keys(webpackConfigRenderer.entry).forEach(name => {
+      Object.keys(webpackConfigRenderer.entry).forEach((name) => {
         if (!webpackConfigRenderer.entry) throw new Error('webpackConfigRenderer.entry')
         const value = webpackConfigRenderer.entry[name]
         if (Array.isArray(value)) {
@@ -79,7 +79,7 @@ function startRenderer(): Promise<webpack.Stats> {
     webpackConfigRenderer.devtool = 'source-map'
 
     const rendererCompiler = webpack(webpackConfigRenderer)
-    rendererCompiler.hooks.done.tap('done', stats => {
+    rendererCompiler.hooks.done.tap('done', (stats) => {
       exConsole.success(`Server renderer start at ${chalk.magenta.underline(`http://${host}:${port}`)}`)
       resolve(stats)
     })

@@ -47,13 +47,13 @@ export default class ElectronProcess {
     if (this.process) {
       exConsole.success(`Electron main process has ${this.isRestart ? 'restarted' : 'started'}.`)
 
-      this.process.stdout.on('data', data => {
+      this.process.stdout.on('data', (data) => {
         let message: string = data.toString()
 
         if (message.length < 10 && (!message || !message.replace(/\s/g, ''))) message = chalk.gray('null')
         exConsole.info(message)
       })
-      this.process.stderr.on('data', data => {
+      this.process.stderr.on('data', (data) => {
         exConsole.error(data)
       })
       this.process.on('close', () => {

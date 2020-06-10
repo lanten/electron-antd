@@ -6,7 +6,7 @@ interface State {
   path: string
 }
 
-export class AppTitlebar extends React.Component<{}, State> {
+export class AppTitlebar extends React.Component<unknown, State> {
   state: State = {
     path: '',
   }

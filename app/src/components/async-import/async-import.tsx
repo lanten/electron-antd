@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 interface RouterHook {
-  (props: PageProps, next: Function): boolean | void | Promise<boolean | void>
+  (props: PageProps, next: () => void): boolean | void | Promise<boolean | void>
 }
 
 interface State {

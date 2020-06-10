@@ -1,10 +1,4 @@
-import {
-  connect as originalConnect,
-  MapStateToPropsParam,
-  MapDispatchToPropsParam,
-  MergeProps,
-  Options,
-} from 'react-redux'
+import { connect, MapStateToPropsParam } from 'react-redux'
 
 export type MapStateList = (StoreStateKeys | AliasStates)[] | AliasStates
 
@@ -17,7 +11,7 @@ export function withStore(options: MapStateList): any {
   return connect(mapStates(options), (dispatch: any) => new Object({ dispatch }))
 }
 
-export function mapStates(options: MapStateList): MapStateToPropsParam<{}, {}, StoreStates> {
+export function mapStates(options: MapStateList): MapStateToPropsParam<unknown, unknown, StoreStates> {
   return (states: StoreStates) => {
     const resState = {}
     if (options instanceof Array) {
@@ -45,30 +39,3 @@ function mapAliasStates(alias: AliasStates, states: StoreStates) {
 
   return resState
 }
-
-/**
- * react-redux connect 在 TS 中作为修饰器使用的问题 https://github.com/DefinitelyTyped/DefinitelyTyped/issues/9951
- * 暂时无法解决
- */
-
-export type InferableComponentEnhancerWithProps<TInjectedProps, TNeedsProps> = <
-  TComponent extends React.ComponentType<TInjectedProps & TNeedsProps>
->(
-  component: TComponent
-) => TComponent
-
-export interface TSConnect {
-  <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}>(
-    mapStateToProps?: MapStateToPropsParam<TStateProps, TOwnProps, StoreStates>,
-    mapDispatchToProps?: MapDispatchToPropsParam<TDispatchProps, TOwnProps>
-  ): InferableComponentEnhancerWithProps<TStateProps & TDispatchProps, TOwnProps>
-
-  <TStateProps = {}, TDispatchProps = {}, TOwnProps = {}, TMergedProps = {}>(
-    mapStateToProps?: MapStateToPropsParam<TStateProps, TOwnProps, StoreStates>,
-    mapDispatchToProps?: MapDispatchToPropsParam<TDispatchProps, TOwnProps>,
-    mergeProps?: MergeProps<TStateProps, TDispatchProps, TOwnProps, TMergedProps>,
-    options?: Options<TStateProps, TOwnProps, TMergedProps>
-  ): InferableComponentEnhancerWithProps<TMergedProps, TOwnProps>
-}
-
-export const connect = originalConnect as TSConnect

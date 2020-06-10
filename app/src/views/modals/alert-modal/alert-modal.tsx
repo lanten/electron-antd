@@ -21,7 +21,7 @@ const TYPES_CONFIG = {
   },
 }
 
-export default class AlertModal extends React.Component<PageProps<{}, AlertModalQuery>> {
+export default class AlertModal extends React.Component<PageProps<unknown, AlertModalQuery>> {
   get typesConfig() {
     const { type } = this.props.query
     return TYPES_CONFIG[type || 'info']

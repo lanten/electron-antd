@@ -71,7 +71,9 @@ const webpackConfig: Configuration = {
           {
             loader: 'less-loader',
             options: {
-              javascriptEnabled: true,
+              lessOptions: {
+                javascriptEnabled: true,
+              },
             },
           },
         ],

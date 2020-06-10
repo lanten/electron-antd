@@ -15,7 +15,7 @@ interface State {
   activeMenuKey: string
 }
 
-export class AppSidebar extends React.Component<{}, State> {
+export class AppSidebar extends React.Component<unknown, State> {
   state: State = {
     activeMenuKey: AppSideMenus[0]?.key,
   }

@@ -9,7 +9,7 @@ interface DemoProps extends PageProps, StoreProps {
 }
 
 declare interface DemoState {
-  resData: queryTestInfoUsingGET.Response | {}
+  resData: Partial<queryTestInfoUsingGET.Response>
   loading: boolean
   createWindowLoading: boolean
   asyncDispatchLoading: boolean

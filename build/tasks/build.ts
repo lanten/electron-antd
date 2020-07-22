@@ -40,15 +40,15 @@ function build() {
   Promise.all([buildMain(), buildRenderer()])
     .then(() => {
       electronBuilder(builderConfig)
-        .then(res => {
+        .then((res) => {
           exConsole.success(`[Released] : ${res}`)
         })
-        .catch(err => {
+        .catch((err) => {
           throw new Error(err)
         })
         .finally(() => process.exit())
     })
-    .catch(err => {
+    .catch((err) => {
       throw new Error(err)
     })
 }

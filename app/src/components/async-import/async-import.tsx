@@ -1,14 +1,17 @@
 import * as React from 'react'
 
 interface RouterHook {
-  (props: PageProps, next: Function): boolean | void | Promise<boolean | void>
+  (props: PageProps, next: () => void): boolean | void | Promise<boolean | void>
 }
 
 interface State {
   comp: React.ComponentClass | null
 }
 
-export function asyncImport(importComponent: Promise<any>, hook?: RouterHook) {
+export function asyncImport(
+  importComponent: Promise<any>,
+  hook?: RouterHook
+): React.ComponentClass<PageProps, State> {
   class AsyncComponent extends React.Component<PageProps, State> {
     constructor(props: PageProps) {
       super(props)

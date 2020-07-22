@@ -3,7 +3,7 @@
 		// "target": "es6",
 		"module": "commonjs",
 		"outDir": "../dist",
-		"baseUrl": "build",
+		"baseUrl": "../build",
 		"sourceMap": false,
 		"rootDir": "../",
 		"strict": true,
@@ -21,7 +21,8 @@
 		],
 	},
 	"include": [
-		"build/**/*.ts",
+		"../app/typescript/global.d.ts",
+		"./**/*.ts",
 	],
 	"exclude": [
 		"node_modules",

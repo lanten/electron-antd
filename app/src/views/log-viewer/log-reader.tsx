@@ -29,7 +29,7 @@ export class LogReader {
     }
 
     const res: LogFile[] = []
-    files.forEach(fileName => {
+    files.forEach((fileName) => {
       const ext = fileName.replace(/.+(\..+)$/, '$1')
       if (ext !== '.log') return
 
@@ -44,7 +44,7 @@ export class LogReader {
   }
 
   /** 打开并监听日志文件 */
-  openLogFile(file: LogFile, listener: (detail: LogDetailLine[]) => void) {
+  openLogFile(file: LogFile, listener: (detail: LogDetailLine[]) => void): void {
     listener(this.getLogDetail(file))
 
     if (this.watcher) {
@@ -73,7 +73,7 @@ export class LogReader {
       detailStr
         .replace(this.oldLogDetail, '')
         .split(/\n/)
-        .forEach(str => {
+        .forEach((str) => {
           if (!str) return
           if (str[0] !== '[') {
             res.push({ date: '', type: '', env: '', message: str })

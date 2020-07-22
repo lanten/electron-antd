@@ -3,7 +3,7 @@ const actionsH: { [key: string]: ActionFn } = {}
 
 export const initialState: any = {}
 
-actions.keys().forEach(item => {
+actions.keys().forEach((item) => {
   const actionItem = Object.assign({}, actions(item))
 
   if (actionItem.initialState) {

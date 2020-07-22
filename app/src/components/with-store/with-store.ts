@@ -10,15 +10,15 @@ export function withStore(
   mapStates?: (states: StoreStates) => any
 ): any {
   if (options instanceof Function) {
-    return connect(mapStates ?? (states => states), dispatch => new Object({ dispatch }))(options)
+    return connect(mapStates ?? ((states) => states), (dispatch) => new Object({ dispatch }))(options)
   } else {
-    return function(Component: React.ComponentClass<any>) {
+    return function (Component: React.ComponentClass<any>) {
       return connect(
         mapStates ??
           ((states: StoreStates) => {
             const resState = {}
             if (options instanceof Array) {
-              options.forEach(val => {
+              options.forEach((val) => {
                 if (typeof val === 'string') {
                   resState[val] = states[val]
                 } else {
@@ -30,7 +30,7 @@ export function withStore(
             }
             return resState
           }),
-        dispatch => new Object({ dispatch })
+        (dispatch) => new Object({ dispatch })
       )(Component)
     }
   }

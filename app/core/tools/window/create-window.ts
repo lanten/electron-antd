@@ -48,7 +48,7 @@ export function getWindowUrl(key: RouterKey, options: CreateWindowOptions = {}):
  * @param options
  */
 export function createWindow(key: RouterKey, options: CreateWindowOptions = {}): Promise<BrowserWindow> {
-  return new Promise(resolve => {
+  return new Promise((resolve) => {
     const routeConfig: RouteConfig | AnyObj = routes.get(key) || {}
 
     const windowOptions: BrowserWindowConstructorOptions = {

@@ -2,10 +2,10 @@
 const views = require.context('./views', true, /routes\.ts$/)
 const routes: Map<string, RouteConfig> = new Map()
 
-views.keys().forEach(path => {
+views.keys().forEach((path) => {
   const conf: RouteConfig | RouteConfig[] = views(path).default
   if (Array.isArray(conf)) {
-    conf.forEach(v => addRouteConfig(v))
+    conf.forEach((v) => addRouteConfig(v))
   } else {
     addRouteConfig(conf)
   }

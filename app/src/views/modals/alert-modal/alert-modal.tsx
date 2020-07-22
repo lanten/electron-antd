@@ -21,13 +21,13 @@ const TYPES_CONFIG = {
   },
 }
 
-export default class AlertModal extends React.Component<PageProps<{}, AlertModalQuery>> {
-  get typesConfig() {
+export default class AlertModal extends React.Component<PageProps<unknown, AlertModalQuery>> {
+  get typesConfig(): typeof TYPES_CONFIG['info'] {
     const { type } = this.props.query
     return TYPES_CONFIG[type || 'info']
   }
 
-  render() {
+  render(): JSX.Element {
     const { title, message } = this.props.query
     return (
       <div className="alert-modal flex column">

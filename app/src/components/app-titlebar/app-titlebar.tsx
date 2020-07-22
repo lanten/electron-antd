@@ -6,19 +6,19 @@ interface State {
   path: string
 }
 
-export class AppTitlebar extends React.Component<{}, State> {
+export class AppTitlebar extends React.Component<unknown, State> {
   state: State = {
     path: '',
   }
 
-  componentDidMount() {
+  componentDidMount(): void {
     window.addEventListener('router_update', (e: any) => {
       const routeProps: PageProps = e.detail
       this.setState({ path: routeProps.location.pathname })
     })
   }
 
-  render() {
+  render(): JSX.Element {
     const { path } = this.state
     return (
       <header className="pl-16 pr-16 app-titlebar">

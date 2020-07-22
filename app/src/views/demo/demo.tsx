@@ -9,7 +9,7 @@ interface DemoProps extends PageProps, StoreProps {
 }
 
 declare interface DemoState {
-  resData: queryTestInfoUsingGET.Response | {}
+  resData: Partial<queryTestInfoUsingGET.Response>
   loading: boolean
   createWindowLoading: boolean
   asyncDispatchLoading: boolean
@@ -36,11 +36,11 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
     super(props)
   }
 
-  componentDidMount() {
+  componentDidMount(): void {
     console.log(this)
   }
 
-  render() {
+  render(): JSX.Element {
     const { resData, loading, createWindowLoading, asyncDispatchLoading } = this.state
     const { count: reduxCount, countAlias } = this.props
     return (
@@ -113,8 +113,8 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
     )
   }
 
-  asyncDispatch = (dispatch: Dispatch) => {
-    return new Promise(resolve => {
+  asyncDispatch = (dispatch: Dispatch): Promise<void> => {
+    return new Promise((resolve) => {
       this.setState({ asyncDispatchLoading: true })
       setTimeout(() => {
         const { count } = this.props
@@ -125,36 +125,36 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
     })
   }
 
-  openNewWindow = () => {
+  openNewWindow = (): void => {
     this.setState({ createWindowLoading: true })
     $tools.createWindow('Demo').finally(() => this.setState({ createWindowLoading: false }))
   }
 
-  requestTest() {
+  requestTest(): void {
     this.setState({ loading: true })
     $api
       .queryTestInfo({})
-      .then(resData => {
+      .then((resData) => {
         this.setState({ resData })
       })
       .finally(() => this.setState({ loading: false }))
   }
 
-  requestTestError() {
+  requestTestError(): void {
     this.setState({ loading: true })
     $api
       .queryTestInfoError({})
-      .catch(resData => {
+      .catch((resData) => {
         this.setState({ resData })
       })
       .finally(() => this.setState({ loading: false }))
   }
 
-  requestTestErrorModal() {
+  requestTestErrorModal(): void {
     this.setState({ loading: true })
     $api
       .queryTestInfoError({}, { errorType: 'modal' })
-      .catch(resData => {
+      .catch((resData) => {
         this.setState({ resData })
       })
       .finally(() => this.setState({ loading: false }))

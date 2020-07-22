@@ -1,15 +1,15 @@
 import React from 'react'
 
 export default class PageParams extends React.Component<PageProps> {
-  get pageParams() {
+  get pageParams(): string {
     return JSON.stringify(this.props.match.params)
   }
 
-  get pageQuery() {
+  get pageQuery(): string {
     return JSON.stringify(this.props.query)
   }
 
-  render() {
+  render(): JSX.Element {
     return (
       <div className="page-params layout-padding">
         <p>Params: {this.pageParams}</p>

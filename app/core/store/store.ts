@@ -2,7 +2,7 @@ import { createStore, applyMiddleware } from 'redux'
 import thunk from 'redux-thunk'
 import { reducer, initialState } from './reducers/auto-reducer'
 
-export const store = createStore<StoreStates, StoreAction<StoreActionsKeys>, {}, {}>(
+export const store = createStore<StoreStates, StoreAction<StoreActionsKeys>, unknown, unknown>(
   reducer,
   initialState,
   applyMiddleware(thunk)

@@ -13,7 +13,7 @@ export default class ElectronProcess {
   /**
    * 启动 Electron 主进程
    */
-  start() {
+  start(): void {
     if (this.isRestart) {
       exConsole.info('Electron main process is restarting...')
       if (this.process && this.process.pid) {
@@ -47,13 +47,13 @@ export default class ElectronProcess {
     if (this.process) {
       exConsole.success(`Electron main process has ${this.isRestart ? 'restarted' : 'started'}.`)
 
-      this.process.stdout.on('data', data => {
+      this.process.stdout.on('data', (data) => {
         let message: string = data.toString()
 
         if (message.length < 10 && (!message || !message.replace(/\s/g, ''))) message = chalk.gray('null')
         exConsole.info(message)
       })
-      this.process.stderr.on('data', data => {
+      this.process.stderr.on('data', (data) => {
         exConsole.error(data)
       })
       this.process.on('close', () => {
@@ -72,7 +72,7 @@ export default class ElectronProcess {
    * @param callBack
    * @param t
    */
-  debounce(callBack: Function, t: number) {
+  debounce(callBack: () => void, t: number): void {
     this.TM = Date.now()
     setTimeout(() => {
       if (Date.now() - this.TM >= t) {

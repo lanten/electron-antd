@@ -4,7 +4,7 @@ import { shell } from 'electron'
 import './about.less'
 
 export default class About extends React.Component<PageProps> {
-  render() {
+  render(): JSX.Element {
     return (
       <div className="about flex column center" style={{ height: '100%' }}>
         <img src={$tools.APP_ICON} width="88" />

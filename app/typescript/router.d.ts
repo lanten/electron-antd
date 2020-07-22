@@ -38,7 +38,7 @@ declare global {
     created?: (win: BrowserWindow) => void
   }
 
-  interface RouteQuery<Q = {}> {
+  interface RouteQuery<Q = Record<string, unknown>> {
     query: Q
   }
 
@@ -53,8 +53,11 @@ declare global {
   }
 
   /** 页面默认 props */
-  interface PageProps<P = {}, Q = {}> extends RouteComponentProps<P>, RouteQuery<Q>, RouteParams {
-    closeWindow: Function
+  interface PageProps<P = Record<string, unknown>, Q = Record<string, unknown>>
+    extends RouteComponentProps<P>,
+      RouteQuery<Q>,
+      RouteParams {
+    closeWindow: () => void
     currentWindow: BrowserWindow
     name: RouterKey
   }

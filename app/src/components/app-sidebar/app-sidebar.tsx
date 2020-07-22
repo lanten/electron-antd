@@ -20,14 +20,14 @@ export class AppSidebar extends React.Component<unknown, State> {
     activeMenuKey: AppSideMenus[0]?.key,
   }
 
-  componentDidMount() {
+  componentDidMount(): void {
     window.addEventListener('router_update', (e: any) => {
       const routeProps: PageProps = e.detail
       this.setState({ activeMenuKey: routeProps.name })
     })
   }
 
-  render() {
+  render(): JSX.Element {
     return (
       <div className="app-sidebar">
         <div className="mt-24 flex center app-sidebar-header">
@@ -39,7 +39,7 @@ export class AppSidebar extends React.Component<unknown, State> {
     )
   }
 
-  renderMenuItem = ({ key, icon, title, href }: SideMenuItem) => {
+  renderMenuItem = ({ key, icon, title, href }: SideMenuItem): JSX.Element => {
     const { activeMenuKey } = this.state
     const isActive = activeMenuKey === key
     // const iconProps: IconProps = { type: icon, className: 'fs-24' }

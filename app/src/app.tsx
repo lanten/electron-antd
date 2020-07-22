@@ -11,7 +11,7 @@ interface AppProps {
 }
 
 export default class App extends React.Component<AppProps> {
-  render() {
+  render(): JSX.Element {
     return (
       <ConfigProvider locale={zhCN}>
         <AppLayout createConfig={this.props.createConfig}>

@@ -36,11 +36,11 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
     super(props)
   }
 
-  componentDidMount() {
+  componentDidMount(): void {
     console.log(this)
   }
 
-  render() {
+  render(): JSX.Element {
     const { resData, loading, createWindowLoading, asyncDispatchLoading } = this.state
     const { count: reduxCount, countAlias } = this.props
     return (
@@ -113,7 +113,7 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
     )
   }
 
-  asyncDispatch = (dispatch: Dispatch) => {
+  asyncDispatch = (dispatch: Dispatch): Promise<void> => {
     return new Promise((resolve) => {
       this.setState({ asyncDispatchLoading: true })
       setTimeout(() => {
@@ -125,12 +125,12 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
     })
   }
 
-  openNewWindow = () => {
+  openNewWindow = (): void => {
     this.setState({ createWindowLoading: true })
     $tools.createWindow('Demo').finally(() => this.setState({ createWindowLoading: false }))
   }
 
-  requestTest() {
+  requestTest(): void {
     this.setState({ loading: true })
     $api
       .queryTestInfo({})
@@ -140,7 +140,7 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
       .finally(() => this.setState({ loading: false }))
   }
 
-  requestTestError() {
+  requestTestError(): void {
     this.setState({ loading: true })
     $api
       .queryTestInfoError({})
@@ -150,7 +150,7 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
       .finally(() => this.setState({ loading: false }))
   }
 
-  requestTestErrorModal() {
+  requestTestErrorModal(): void {
     this.setState({ loading: true })
     $api
       .queryTestInfoError({}, { errorType: 'modal' })

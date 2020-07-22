@@ -4,7 +4,7 @@ import { Button, Result } from 'antd'
 import './no-match.less'
 
 export default class ErrorPage extends React.Component<PageProps> {
-  render() {
+  render(): JSX.Element {
     return (
       <div className="layout-padding flex column center no-match">
         <Result

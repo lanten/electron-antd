@@ -39,7 +39,7 @@ export class AppRouter extends React.Component<AppRouterProps, AppRouterState> {
     }
   }
 
-  render() {
+  render(): JSX.Element | null {
     const { store } = this.props
     const { readyToClose } = this.state
     if (readyToClose) return null
@@ -55,7 +55,7 @@ export class AppRouter extends React.Component<AppRouterProps, AppRouterState> {
     )
   }
 
-  createRoutes() {
+  createRoutes(): JSX.Element[] {
     const { routes } = this.props
     const res: JSX.Element[] = []
 
@@ -72,7 +72,7 @@ export class AppRouter extends React.Component<AppRouterProps, AppRouterState> {
     return res
   }
 
-  creatRoute = (routeConfig: RouteConfig, key: string) => {
+  creatRoute = (routeConfig: RouteConfig, key: string): JSX.Element | void => {
     const { path, exact = true, redirect, ...params } = routeConfig
     const routeProps: any = { key, name: key, path, exact }
 
@@ -100,7 +100,7 @@ export class AppRouter extends React.Component<AppRouterProps, AppRouterState> {
     return <Route {...routeProps} />
   }
 
-  closeWindow = () => {
+  closeWindow = (): void => {
     this.setState({ readyToClose: true }, () => {
       currentWindow.close()
     })

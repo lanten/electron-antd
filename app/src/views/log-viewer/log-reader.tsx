@@ -44,7 +44,7 @@ export class LogReader {
   }
 
   /** 打开并监听日志文件 */
-  openLogFile(file: LogFile, listener: (detail: LogDetailLine[]) => void) {
+  openLogFile(file: LogFile, listener: (detail: LogDetailLine[]) => void): void {
     listener(this.getLogDetail(file))
 
     if (this.watcher) {

@@ -13,7 +13,7 @@ export default class ElectronProcess {
   /**
    * 启动 Electron 主进程
    */
-  start() {
+  start(): void {
     if (this.isRestart) {
       exConsole.info('Electron main process is restarting...')
       if (this.process && this.process.pid) {
@@ -72,7 +72,7 @@ export default class ElectronProcess {
    * @param callBack
    * @param t
    */
-  debounce(callBack: Function, t: number) {
+  debounce(callBack: () => void, t: number): void {
     this.TM = Date.now()
     setTimeout(() => {
       if (Date.now() - this.TM >= t) {

@@ -6,7 +6,7 @@ import { Notification, BrowserWindow } from 'electron'
  * @param sendData
  * @param options
  */
-export async function errorAction(err: any, sendData: any, options: RequestOptions) {
+export async function errorAction(err: AnyObj, sendData: AnyObj, options: RequestOptions): Promise<any> {
   const { code, message } = err
   const { errorType } = options
 

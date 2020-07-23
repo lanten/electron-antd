@@ -3,7 +3,7 @@
  * @param d
  * @param format 'YYYY-MM-DD H:I:S.MS'
  */
-export function formatDate(date: Date = new Date(), format = 'YYYY-MM-DD H:I:S.MS') {
+export function formatDate(date: Date = new Date(), format = 'YYYY-MM-DD H:I:S.MS'): string {
   const obj = {
     YYYY: date.getFullYear().toString().padStart(4, '0'),
     MM: (date.getMonth() + 1).toString().padStart(2, '0'),

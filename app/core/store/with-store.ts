@@ -8,7 +8,9 @@ export type MapStateList = (StoreStateKeys | AliasStates)[] | AliasStates
  * @param mapStates
  */
 export function withStore(options: MapStateList): any {
-  return connect(mapStates(options), (dispatch: any) => new Object({ dispatch }))
+  return connect(mapStates(options), (dispatch: any) => new Object({ dispatch }), undefined, {
+    forwardRef: true,
+  })
 }
 
 export function mapStates(options: MapStateList): MapStateToPropsParam<unknown, unknown, StoreStates> {

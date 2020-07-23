@@ -1,7 +1,7 @@
 import * as React from 'react'
 import { Button, Input, Spin, Card } from 'antd'
 
-import { withStore } from '@/src/components'
+import { withStore } from '@/core/store'
 
 interface DemoProps extends PageProps, StoreProps {
   count: StoreStates['count']

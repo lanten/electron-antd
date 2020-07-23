@@ -7,7 +7,7 @@ import './app-layout.less'
 
 interface AppLayoutProps {
   createConfig: CreateConfig
-  children: any
+  children: JSX.Element
 }
 
 export class AppLayout extends React.Component<AppLayoutProps> {

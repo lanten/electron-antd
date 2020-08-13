@@ -35,7 +35,6 @@
     ]
   },
   "include": [
-    "app/typescript",
     "app/**/*.ts",
     "app/**/*.tsx"
   ],

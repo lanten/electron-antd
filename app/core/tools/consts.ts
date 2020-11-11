@@ -31,6 +31,7 @@ export const DEFAULT_WINDOW_OPTIONS: BrowserWindowConstructorOptions = {
   webPreferences: {
     nodeIntegration: true,
     scrollBounce: true,
+    enableRemoteModule: true,
   },
   // titleBarStyle: 'hidden', // 隐藏标题栏, 但显示窗口控制按钮
   // frame: process.platform === 'darwin' ? true : false, // 无边框窗口

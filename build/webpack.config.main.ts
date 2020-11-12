@@ -1,5 +1,7 @@
 import path from 'path'
-import { Configuration } from 'webpack'
+import webpack, { Configuration } from 'webpack'
+
+import WebpackBar from 'webpackbar'
 
 import webpackConfigBase from './webpack.config.base'
 import devConfig from './dev.config'
@@ -29,6 +31,12 @@ const webpackConfig: Configuration = {
       },
     ],
   },
+
+  plugins: [
+    ...(webpackConfigBase?.plugins ?? []),
+
+    new WebpackBar({ name: 'Main', color: '#D58142' }),
+  ] as webpack.Plugin[],
 }
 
 export default webpackConfig

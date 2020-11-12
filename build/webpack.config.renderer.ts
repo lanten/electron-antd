@@ -1,6 +1,7 @@
 import path from 'path'
 import webpack, { Configuration } from 'webpack'
 
+import WebpackBar from 'webpackbar'
 import htmlWebpackPlugin from 'html-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin'
@@ -43,7 +44,7 @@ const webpackConfig: Configuration = {
             loader: 'ts-loader',
             options: {
               transpileOnly: true,
-              getCustomTransformers: () => ({
+              getCustomTransformers: (): any => ({
                 before: [tsImportPluginFactory(/** options */)],
               }),
               compilerOptions: {
@@ -110,6 +111,7 @@ const webpackConfig: Configuration = {
       filename: '[name].css',
       chunkFilename: '[name].css',
     }),
+    new WebpackBar({ name: 'Renderer' }),
   ] as webpack.Plugin[],
 }
 

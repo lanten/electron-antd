@@ -1,7 +1,6 @@
 import path from 'path'
 import webpack, { Configuration } from 'webpack'
 
-import WebpackBar from 'webpackbar'
 import TerserPlugin from 'terser-webpack-plugin'
 
 import devConfig from './dev.config'
@@ -41,7 +40,6 @@ const webpackConfig: Configuration = {
         return defines
       })()
     ),
-    new WebpackBar(),
   ] as webpack.Plugin[],
 }
 

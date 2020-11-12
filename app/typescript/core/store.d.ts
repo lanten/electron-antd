@@ -25,6 +25,12 @@ declare global {
     readonly dispatch: Dispatch
   }
 
+  /**
+   * Redux Store
+   *
+   * @来源 app/core/store
+   * @定义 build/webpack.config.base.ts#L39
+   */
   const $store: AppStore
 
   namespace NodeJS {

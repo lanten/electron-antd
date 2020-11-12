@@ -2,7 +2,7 @@
 安装
 ```bash
 yarn
-# 或者
+# 或
 npm install
 ```
 

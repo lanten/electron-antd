@@ -15,12 +15,6 @@ declare interface DemoState {
   asyncDispatchLoading: boolean
 }
 
-/**
- * DemoProps 是组件的 props 类型声明
- * DemoState 是组件的 state 类型声明
- * props 和 state 的默认值需要单独声明
- */
-
 @withStore(['count', { countAlias: 'count' }])
 export default class Demo extends React.Component<DemoProps, DemoState> {
   // state 初始化

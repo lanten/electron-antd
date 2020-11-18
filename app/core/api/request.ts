@@ -20,7 +20,9 @@ const DEFAULT_CONFIG = {
 }
 
 // 默认传递的参数
-const DEFAULT_PARAMS = {}
+const DEFAULT_PARAMS = {
+  // TODO 每一个请求传递的默认参数, 这在某些需要手动传递 token 的场景下很管用
+}
 
 /**
  * 发起一个请求
@@ -28,7 +30,11 @@ const DEFAULT_PARAMS = {}
  * @param params
  * @param optionsSource
  */
-export async function request(apiPath: string, params?: RequestParams, optionsSource?: RequestOptions) {
+export async function request<T extends AnyObj = AnyObj>(
+  apiPath: string,
+  params?: RequestParams,
+  optionsSource?: RequestOptions
+): Promise<T> {
   const options: RequestOptions = Object.assign({}, DEFAULT_CONFIG, optionsSource)
   const { method, protocol, host, baseUrl, headers, responseType, checkStatus, formData } = options
   const sendData: AxiosRequestConfig = {
@@ -54,8 +60,9 @@ export async function request(apiPath: string, params?: RequestParams, optionsSo
 
   return axios(sendData)
     .then((res) => {
-      const data: any = res.data
+      const data: T = res.data
 
+      // TODO 根据后端接口设定成功条件, 例如此处 `data.code == 200`
       if (!checkStatus || data.code == 200) {
         return data
       } else {
@@ -82,6 +89,7 @@ declare global {
    * 网络请求返回值
    */
   interface RequestRes {
+    // TODO 各种返回值格式层出不穷, 请根据实际内容重新定义类型
     /** 状态码,成功返回 200 */
     code: number
     /** 错误消息 */
@@ -115,7 +123,7 @@ declare global {
     /** 自定义请求头 */
     headers?: any
     /** 类型动态设置 */
-    responseType?: 'arraybuffer' | 'blob' | 'document' | 'json' | 'text' | 'stream' | undefined
+    responseType?: 'arraybuffer' | 'blob' | 'document' | 'json' | 'text' | 'stream'
     /** 是否校验请求状态 */
     checkStatus?: boolean
   }

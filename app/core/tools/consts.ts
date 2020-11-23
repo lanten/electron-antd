@@ -29,6 +29,7 @@ export const DEFAULT_WINDOW_OPTIONS: BrowserWindowConstructorOptions = {
   show: false,
   hasShadow: true,
   webPreferences: {
+    contextIsolation: false,
     nodeIntegration: true,
     scrollBounce: true,
     enableRemoteModule: true,

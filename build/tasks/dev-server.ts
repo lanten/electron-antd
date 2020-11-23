@@ -5,7 +5,7 @@ import WebpackDevServer, { Configuration } from 'webpack-dev-server'
 
 import { exConsole } from '../utils'
 import ElectronProcess from './electron-process'
-import devConfig from '../dev.config'
+import buildConfig from '../config'
 import webpackConfigRenderer from '../webpack.config.renderer'
 import webpackConfigMain from '../webpack.config.main'
 
@@ -13,7 +13,7 @@ process.env.NODE_ENV = 'development'
 /** 禁用 electron warning */
 process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = 'true'
 
-const { port, host, proxy } = devConfig
+const { port, host, proxy } = buildConfig
 const devServerOptions: WebpackDevServer.Configuration = {
   host,
   disableHostCheck: true,
@@ -38,9 +38,8 @@ function startMain(): Promise<webpack.Stats> {
       ignored: ['**/*.tsx', '**/*.jsx', '**/*.less', '**/*.css'],
     }
     webpack(webpackConfigMain, (err, stats) => {
-      if (err) {
-        throw err
-      }
+      if (err) throw err
+      if (!stats) throw 'Webpack states error!'
 
       if (stats.hasErrors()) {
         exConsole.error(stats.toString())
@@ -57,8 +56,8 @@ function startMain(): Promise<webpack.Stats> {
  */
 function startRenderer(): Promise<webpack.Stats> {
   return new Promise((resolve) => {
-    process.env.port = String(devConfig.port)
-    process.env.host = devConfig.host
+    process.env.port = String(buildConfig.port)
+    process.env.host = buildConfig.host
 
     const hotClient = ['webpack-dev-server/client', 'webpack/hot/only-dev-server']
     if (typeof webpackConfigRenderer.entry === 'object') {
@@ -97,8 +96,8 @@ function startRenderer(): Promise<webpack.Stats> {
 
 async function startDevServer() {
   exConsole.info(`${process.env.BUILD_ENV} starting...`)
-  startRenderer()
-  startMain()
+  await startRenderer()
+  await startMain()
 }
 
 startDevServer()

@@ -12,6 +12,7 @@
     "allowSyntheticDefaultImports": true,
     "suppressImplicitAnyIndexErrors": true,
     "sourceMap": true,
+    // "skipLibCheck": true,
     "locale": "zh-CN",
     "baseUrl": ".",
     "types": [

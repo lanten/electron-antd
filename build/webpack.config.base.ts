@@ -3,9 +3,9 @@ import webpack, { Configuration } from 'webpack'
 
 import TerserPlugin from 'terser-webpack-plugin'
 
-import devConfig from './dev.config'
+import buildConfig from './config'
 
-const { env } = devConfig
+const { env } = buildConfig
 const { NODE_ENV, BUILD_ENV = 'dev' } = process.env
 const ENV_CONFIG = env[BUILD_ENV]
 
@@ -22,7 +22,7 @@ const webpackConfig: Configuration = {
       '@': path.resolve(__dirname, '../app'),
       '@root': path.resolve(__dirname, '../'),
     },
-    extensions: ['.ts', '.tsx', '.js'],
+    extensions: ['.ts', '.tsx', '.js', '.jsx'],
   },
 
   plugins: [
@@ -40,7 +40,7 @@ const webpackConfig: Configuration = {
         return defines
       })()
     ),
-  ] as webpack.Plugin[],
+  ],
 }
 
 if (NODE_ENV === 'development') {
@@ -51,11 +51,11 @@ if (NODE_ENV === 'development') {
     new TerserPlugin({
       terserOptions: {
         compress: {
-          warnings: true,
-          /* eslint-disable */
-          drop_console: true,
+          // 生产环境移除 log
+          pure_funcs: ['console.log'],
         },
       },
+      extractComments: false, // 不提取任何注释
     })
   )
 }

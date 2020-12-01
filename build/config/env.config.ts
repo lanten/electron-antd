@@ -3,8 +3,8 @@ const env = {
   mock: {
     variables: {
       API_PROTOCOL: 'http://',
-      API_HOST: 'yapi.demo.qunar.com',
-      API_BASE_PATH: '/mock/55986',
+      API_HOST: 'yapi.baidu.com',
+      API_BASE_PATH: '/mock/17714',
     },
   },
 
@@ -12,8 +12,8 @@ const env = {
   dev: {
     variables: {
       API_PROTOCOL: 'http://',
-      API_HOST: 'yapi.demo.qunar.com',
-      API_BASE_PATH: '/mock/55986',
+      API_HOST: 'yapi.baidu.com',
+      API_BASE_PATH: '/mock/17714',
     },
   },
 
@@ -21,8 +21,8 @@ const env = {
   prod: {
     variables: {
       API_PROTOCOL: 'http://',
-      API_HOST: 'yapi.demo.qunar.com',
-      API_BASE_PATH: '/mock/55986',
+      API_HOST: 'yapi.baidu.com',
+      API_BASE_PATH: '/mock/17714',
     },
   },
 }

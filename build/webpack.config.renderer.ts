@@ -96,13 +96,13 @@ const webpackConfig: Configuration = {
     ],
   },
 
-  optimization: {
-    splitChunks: {
-      chunks: 'all',
-      name: 'bundle',
-    },
-    minimizer: [],
-  },
+  // optimization: {
+  //   splitChunks: {
+  //     chunks: 'all',
+  //     name: 'bundle',
+  //   },
+  //   minimizer: [],
+  // },
 
   plugins: [
     ...(webpackConfigBase?.plugins ?? []),

@@ -8,9 +8,9 @@ export class CreateSettings<T extends AnyObj = AnyObj> {
   public settingsPath: string
 
   /**
-   * 创建一个设置项集合 (JSON)
+   * 创建一个设置项集合 (json)
    * @param name 集合名称
-   * @param folderPath 窜访 json 的文件夹
+   * @param folderPath 存放 json 的文件夹
    */
   constructor(public readonly name: string, public readonly folderPath?: string) {
     this.settingsPath = folderPath ?? path.resolve(USER_DATA_PATH, 'settings')
@@ -33,8 +33,11 @@ export class CreateSettings<T extends AnyObj = AnyObj> {
     log.info(`Create settings file <${this.name}> path: ${this.filePath}`)
   }
 
+  /** 获取全部配置 */
   get(): Partial<T>
+  /** 通过 key 获取单个配置 */
   get<K extends keyof T>(key: K): T[K]
+  /** 通过 key 获取单个配置 */
   get(key?: keyof T): unknown {
     let config: Partial<T> = {}
     if (this.hasSettingsFile()) {
@@ -56,6 +59,11 @@ export class CreateSettings<T extends AnyObj = AnyObj> {
     }
   }
 
+  /**
+   * 写入配置项
+   * @param key
+   * @param config
+   */
   set<K extends keyof T>(key: K | Partial<T>, config?: Partial<T> | Partial<T[K]>): boolean {
     const jsonConfig = this.get()
     let confH: Partial<T>

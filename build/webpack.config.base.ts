@@ -48,7 +48,7 @@ if (NODE_ENV === 'development') {
 } else if (NODE_ENV === 'production') {
   webpackConfig.optimization?.minimizer?.push(
     // https://github.com/terser-js/terser
-    new TerserPlugin({
+    (new TerserPlugin({
       terserOptions: {
         compress: {
           // 生产环境移除 log
@@ -56,7 +56,7 @@ if (NODE_ENV === 'development') {
         },
       },
       extractComments: false, // 不提取任何注释
-    })
+    }) as unknown) as webpack.WebpackPluginInstance
   )
 }
 

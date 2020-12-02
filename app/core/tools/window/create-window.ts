@@ -36,10 +36,7 @@ export function getWindowUrl(key: RouterKey, options: CreateWindowOptions = {}):
   const query = options.query ? $tools.toSearch(options.query) : ''
 
   if (NODE_ENV === 'development') {
-    // return `http://${host}:${port}#${routePath}${query}`\
-    const filePath = `file://${path.join(__dirname, '../renderer/index.html')}#${routePath}${query}`
-    console.log(filePath)
-    return filePath
+    return `http://${host}:${port}#${routePath}${query}`
   } else {
     return `file://${path.join(__dirname, '../renderer/index.html')}#${routePath}${query}`
   }

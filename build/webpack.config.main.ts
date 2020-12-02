@@ -34,7 +34,7 @@ const webpackConfig: Configuration = {
 
   plugins: [
     ...(webpackConfigBase?.plugins ?? []),
-    new WebpackBar({ name: 'Main', color: '#799AFE' }),
+    new WebpackBar({ name: 'Main    ', color: '#799AFE' }),
   ] as WebpackPluginInstance[],
 }
 

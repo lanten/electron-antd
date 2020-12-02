@@ -6,7 +6,6 @@ const routes: RouteConfig[] = [
       title: 'LogViewer',
     },
     createConfig: {
-      showTitlebar: false,
       saveWindowBounds: true,
     },
   },

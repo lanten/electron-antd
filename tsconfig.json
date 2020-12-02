@@ -11,7 +11,7 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "suppressImplicitAnyIndexErrors": true,
-    "sourceMap": true,
+    "sourceMap": false,
     "locale": "zh-CN",
     "baseUrl": ".",
     "types": [

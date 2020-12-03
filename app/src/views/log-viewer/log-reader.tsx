@@ -88,6 +88,8 @@ export class LogReader {
           }
         })
       this.oldLogDetail = detailStr
+    } else {
+      this.oldLogDetail = ''
     }
 
     return res

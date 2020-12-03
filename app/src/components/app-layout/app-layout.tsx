@@ -14,7 +14,13 @@ export class AppLayout extends React.Component<AppLayoutProps> {
   render(): JSX.Element {
     const { createConfig } = this.props
     return (
-      <div className={$c('flex app-layout', { 'has-titlebar': createConfig.showTitlebar }, process.platform)}>
+      <div
+        className={$c(
+          'flex app-layout',
+          { 'has-titlebar': createConfig.showTitlebar, 'has-sidebar': createConfig.showSidebar },
+          process.platform
+        )}
+      >
         {createConfig.showSidebar ? <AppSidebar /> : null}
         <div className="flex-1 app-content-wrap">
           {createConfig.showTitlebar ? <AppTitlebar /> : null}

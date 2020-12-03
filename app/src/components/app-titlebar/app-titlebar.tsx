@@ -3,26 +3,28 @@ import React from 'react'
 import './app-titlebar.less'
 
 interface State {
-  path: string
+  routeProps: Partial<PageProps>
 }
 
 export class AppTitlebar extends React.Component<unknown, State> {
   state: State = {
-    path: '',
+    routeProps: {},
   }
 
   componentDidMount(): void {
     window.addEventListener('router_update', (e: any) => {
       const routeProps: PageProps = e.detail
-      this.setState({ path: routeProps.location.pathname })
+      this.setState({ routeProps })
     })
   }
 
   render(): JSX.Element {
-    const { path } = this.state
+    const { routeProps } = this.state
     return (
-      <header className="pl-16 pr-16 app-titlebar">
-        <p>{path}</p>
+      <header className="app-titlebar">
+        <img src={$tools.APP_ICON} height="18" className="mr-4" />
+        <span>{routeProps.currentWindow?.title}</span>
+        <span className="text-orange ml-16">{routeProps.location?.pathname}</span>
       </header>
     )
   }

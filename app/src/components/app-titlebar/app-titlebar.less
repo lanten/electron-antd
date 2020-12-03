@@ -4,4 +4,23 @@
   user-select: none;
   background-color: @titlebar_background;
   height: @titlebar_height;
+  line-height: @titlebar_height;
+  padding: 0 @padding_layout;
+  border-bottom: 1px solid @color_border;
+}
+
+// Mac 下无侧边栏时标题居中对齐
+.darwin {
+  .app-titlebar {
+    text-align: center;
+  }
+
+  // &.has-sidebar {
+  //   .app-titlebar {
+  //     padding-left: @sidebar_width + @padding_layout;
+  //     position: absolute;
+  //     left: 0;
+  //     width: 100%;
+  //   }
+  // }
 }

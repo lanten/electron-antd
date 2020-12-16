@@ -28,8 +28,8 @@ declare global {
   /**
    * Redux Store
    *
-   * @来源 app/core/store
-   * @定义 build/webpack.config.base.ts#L39
+   * @source app/core/store
+   * @define build/webpack.config.base.ts#L39
    */
   const $store: AppStore
 

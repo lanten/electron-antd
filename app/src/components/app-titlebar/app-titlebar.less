@@ -1,17 +1,40 @@
 @import '~@/src/styles/_var.less';
 .app-titlebar {
-  -webkit-app-region: drag;
   user-select: none;
   background-color: @titlebar_background;
   height: @titlebar_height;
   line-height: @titlebar_height;
-  padding: 0 @padding_layout;
+  padding-left: @padding_layout;
   border-bottom: 1px solid @color_border;
+
+  .titlebar-controller {
+    .titlebar-btn {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 0 12px;
+      transition: all 0.2s;
+      color: @color_gray;
+      &:hover {
+        background-color: fade(@color_black, 8);
+      }
+
+      &.titlebar-btn-close {
+        &:hover {
+          background-color: @color_error;
+          color: @color_white;
+        }
+      }
+    }
+  }
 }
 
 // Mac 下无侧边栏时标题居中对齐
 .darwin {
   .app-titlebar {
-    text-align: center;
+    .title-content {
+      text-align: center;
+      justify-content: center;
+    }
   }
 }

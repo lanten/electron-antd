@@ -19,20 +19,22 @@ export class AppTitlebar extends React.Component<unknown, State> {
   }
 
   componentDidMount(): void {
-    window.addEventListener('router_update', (e: any) => {
-      const routeProps: PageProps = e.detail
-      this.setState({ routeProps })
-    })
+    window.addEventListener('router-update', this.onRouterUpdate)
+    this.currentWindow.on('maximize', this.onMaximize)
+    this.currentWindow.on('unmaximize', this.onUnmaximize)
+  }
 
-    this.currentWindow.on('maximize', () => {
-      console.warn('maximize!')
-      this.setState({ maximized: true })
-    })
+  onRouterUpdate = (e: CustomEventMap['router-update']): void => {
+    const routeProps = e.detail
+    this.setState({ routeProps })
+  }
 
-    this.currentWindow.on('unmaximize', () => {
-      console.warn('unmaximize!')
-      this.setState({ maximized: false })
-    })
+  onMaximize = (): void => {
+    this.setState({ maximized: true })
+  }
+
+  onUnmaximize = (): void => {
+    this.setState({ maximized: false })
   }
 
   renderWindowController(): JSX.Element | void {
@@ -79,14 +81,21 @@ export class AppTitlebar extends React.Component<unknown, State> {
     const { routeProps } = this.state
     return (
       <header className="app-titlebar flex center-v">
-        <div className="flex-1 title-content drag flex center-v">
+        <div className="flex-1 title-content drag flex center-v" style={{ width: 0 }}>
           <img src={$tools.APP_ICON} height="18" className="mr-4" />
-          <span>{routeProps.currentWindow?.title}</span>
-          <span className="text-orange ml-16">{routeProps.location?.pathname}</span>
+          <p className="text-ellipsis">{routeProps.currentWindow?.title}</p>
+          <p className="text-orange ml-16 text-ellipsis">{routeProps.location?.pathname}</p>
         </div>
 
         {process.platform !== 'darwin' && this.renderWindowController()}
       </header>
     )
+  }
+
+  componentWillUnmount(): void {
+    // 移除事件监听
+    window.removeEventListener('router-update', this.onRouterUpdate)
+    this.currentWindow.removeListener('maximize', this.onMaximize)
+    this.currentWindow.removeListener('unmaximize', this.onUnmaximize)
   }
 } // class AppTitlebar end

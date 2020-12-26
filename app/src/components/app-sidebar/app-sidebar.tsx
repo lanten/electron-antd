@@ -21,7 +21,7 @@ export class AppSidebar extends React.Component<unknown, State> {
   }
 
   componentDidMount(): void {
-    window.addEventListener('router_update', (e: any) => {
+    window.addEventListener('router-update', (e: any) => {
       const routeProps: PageProps = e.detail
       this.setState({ activeMenuKey: routeProps.name })
     })

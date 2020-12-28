@@ -21,10 +21,12 @@ export class AppSidebar extends React.Component<unknown, State> {
   }
 
   componentDidMount(): void {
-    window.addEventListener('router_update', (e: any) => {
-      const routeProps: PageProps = e.detail
-      this.setState({ activeMenuKey: routeProps.name })
-    })
+    window.addEventListener('router-update', this.onRouterUpdate)
+  }
+
+  onRouterUpdate = (e: CustomEventMap['router-update']): void => {
+    const routeProps: PageProps = e.detail
+    this.setState({ activeMenuKey: routeProps.name })
   }
 
   render(): JSX.Element {
@@ -52,5 +54,9 @@ export class AppSidebar extends React.Component<unknown, State> {
         ></a>
       </Tooltip>
     )
+  }
+
+  componentWillUnmount(): void {
+    window.removeEventListener('router-update', this.onRouterUpdate)
   }
 } // class AppSidebar end

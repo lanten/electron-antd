@@ -13,7 +13,7 @@ const routes: RouteConfig[] = [
       vibrancy: 'fullscreen-ui',
     },
     createConfig: {
-      showTitlebar: false,
+      showTitlebar: true,
       hideMenus: true,
     },
   },

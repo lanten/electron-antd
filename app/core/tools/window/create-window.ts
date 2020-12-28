@@ -135,12 +135,3 @@ export function activeWindow(key: RouterKey): BrowserWindow | false {
     return false
   }
 }
-
-declare global {
-  namespace Electron {
-    interface WebContents {
-      /** 自定义事件: DOM 准备就绪 */
-      send(channel: 'dom-ready', createConfig: CreateConfig): void
-    }
-  }
-}

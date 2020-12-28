@@ -44,7 +44,7 @@ export const DEFAULT_WINDOW_OPTIONS: BrowserWindowConstructorOptions = {
   // vibrancy: 'fullscreen-ui', // 毛玻璃效果
 }
 
-export const DEFAULT_INITIAL_CONFIG: CreateConfig = {
+export const DEFAULT_CREATE_CONFIG: CreateConfig = {
   showSidebar: false,
   showTitlebar: true,
   autoShow: true,

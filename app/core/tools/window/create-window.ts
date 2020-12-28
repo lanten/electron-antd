@@ -58,7 +58,7 @@ export function createWindow(key: RouterKey, options: CreateWindowOptions = {}):
     }
 
     const createConfig: CreateConfig = {
-      ...$tools.DEFAULT_INITIAL_CONFIG,
+      ...$tools.DEFAULT_CREATE_CONFIG,
       ...routeConfig.createConfig,
       ...options.createConfig,
     }
@@ -108,7 +108,7 @@ export function createWindow(key: RouterKey, options: CreateWindowOptions = {}):
     })
 
     win.once('show', () => {
-      log.info(`Window <${key}:${win.id}> url: ${url} is opened.`)
+      log.info(`Window <${key}:${win.id}> url: ${url} opened.`)
     })
 
     win.on('close', () => {
@@ -116,7 +116,7 @@ export function createWindow(key: RouterKey, options: CreateWindowOptions = {}):
         $tools.settings.windowBounds.set(key, win.getBounds())
       }
       windowList.delete(key)
-      log.info(`Window <${key}:${win.id}> is closed.`)
+      log.info(`Window <${key}:${win.id}> closed.`)
     })
   })
 }

@@ -4,30 +4,30 @@ import { build as electronBuilder } from 'electron-builder'
 import { clearDir, exConsole } from '../utils'
 
 import builderConfig from '../builder.config'
-import devConfig from '../dev.config'
+import buildConfig from '../config'
 import webpackConfigMain from '../webpack.config.main'
 import webpackConfigRenderer from '../webpack.config.renderer'
 import buildCommon from './build-common'
 
-const env = process.env.BUILD_ENV as keyof typeof devConfig.env
+const env = process.env.BUILD_ENV as keyof typeof buildConfig.env
 
 async function buildMain() {
   return buildCommon({ env, webpackConfig: webpackConfigMain, type: 'main' }).then(() => {
-    exConsole.success(`[Main Complete] : ${chalk.magenta.underline(path.resolve(devConfig.dist, 'main'))}`)
+    exConsole.success(`[Main Complete] : ${chalk.magenta.underline(path.resolve(buildConfig.dist, 'main'))}`)
   })
 }
 
 async function buildRenderer() {
   return buildCommon({ env, webpackConfig: webpackConfigRenderer, type: 'renderer' }).then(() => {
     exConsole.success(
-      `[Renderer Complete] : ${chalk.magenta.underline(path.resolve(devConfig.dist, 'renderer'))}`
+      `[Renderer Complete] : ${chalk.magenta.underline(path.resolve(buildConfig.dist, 'renderer'))}`
     )
   })
 }
 
 function build() {
-  const { dist } = devConfig
-  exConsole.info(chalk.cyanBright(`[Clear Dir...] : ${chalk.magenta.underline(devConfig.dist)}`))
+  const { dist } = buildConfig
+  exConsole.info(chalk.cyanBright(`[Clear Dir...] : ${chalk.magenta.underline(buildConfig.dist)}`))
 
   try {
     clearDir(dist, false, true)

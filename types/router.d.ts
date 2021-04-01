@@ -57,8 +57,11 @@ declare global {
     extends RouteComponentProps<P>,
       RouteQuery<Q>,
       RouteParams {
+    /** 关闭当前窗口 */
     closeWindow: () => void
+    /** 当前窗口 BrowserWindow 实例 */
     currentWindow: BrowserWindow
+    /** 当前路由 key */
     name: RouterKey
   }
 }

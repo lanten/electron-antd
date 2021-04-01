@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es6",
-    "module": "CommonJS",
+    "module": "esnext",
     "strict": true,
     "jsx": "react",
     "importHelpers": true,
@@ -11,7 +11,7 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "suppressImplicitAnyIndexErrors": true,
-    "sourceMap": true,
+    "sourceMap": false,
     "locale": "zh-CN",
     "baseUrl": ".",
     "types": [
@@ -35,7 +35,7 @@
     ]
   },
   "include": [
-    "app/typescript",
+    "types",
     "app/**/*.ts",
     "app/**/*.tsx"
   ],

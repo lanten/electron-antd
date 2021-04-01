@@ -21,16 +21,18 @@ export class AppSidebar extends React.Component<unknown, State> {
   }
 
   componentDidMount(): void {
-    window.addEventListener('router_update', (e: any) => {
-      const routeProps: PageProps = e.detail
-      this.setState({ activeMenuKey: routeProps.name })
-    })
+    window.addEventListener('router-update', this.onRouterUpdate)
+  }
+
+  onRouterUpdate = (e: CustomEventMap['router-update']): void => {
+    const routeProps: PageProps = e.detail
+    this.setState({ activeMenuKey: routeProps.name })
   }
 
   render(): JSX.Element {
     return (
       <div className="app-sidebar">
-        <div className="mt-24 flex center app-sidebar-header">
+        <div className="flex center app-sidebar-header">
           <img width="40" src={$tools.APP_ICON} />
         </div>
 
@@ -42,11 +44,7 @@ export class AppSidebar extends React.Component<unknown, State> {
   renderMenuItem = ({ key, icon, title, href }: SideMenuItem): JSX.Element => {
     const { activeMenuKey } = this.state
     const isActive = activeMenuKey === key
-    // const iconProps: IconProps = { type: icon, className: 'fs-24' }
-    // if (activeMenuKey === key) {
-    //   iconProps.theme = 'filled'
-    //   iconProps.style = { color: '#fff' }
-    // }
+
     return (
       <Tooltip key={key} overlayClassName="side-menu-item-tooltip" placement="right" title={title}>
         <a
@@ -56,5 +54,9 @@ export class AppSidebar extends React.Component<unknown, State> {
         ></a>
       </Tooltip>
     )
+  }
+
+  componentWillUnmount(): void {
+    window.removeEventListener('router-update', this.onRouterUpdate)
   }
 } // class AppSidebar end

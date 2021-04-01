@@ -1,10 +1,12 @@
 import path from 'path'
-import { Configuration } from 'webpack'
+import { Configuration, WebpackPluginInstance } from 'webpack'
+
+import WebpackBar from 'webpackbar'
 
 import webpackConfigBase from './webpack.config.base'
-import devConfig from './dev.config'
+import buildConfig from './config'
 
-const { dist, mainSource: appPath } = devConfig
+const { dist, mainSource: appPath } = buildConfig
 
 const webpackConfig: Configuration = {
   ...webpackConfigBase,
@@ -24,11 +26,16 @@ const webpackConfig: Configuration = {
     rules: [
       {
         test: /(?<!\.d)\.ts$/,
-        loader: ['ts-loader', 'eslint-loader'],
+        use: ['ts-loader', 'eslint-loader'],
         exclude: /node_modules/,
       },
     ],
   },
+
+  plugins: [
+    ...(webpackConfigBase?.plugins ?? []),
+    new WebpackBar({ name: 'Main    ', color: '#799AFE' }),
+  ] as WebpackPluginInstance[],
 }
 
 export default webpackConfig

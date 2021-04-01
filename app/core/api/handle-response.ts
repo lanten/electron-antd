@@ -1,12 +1,13 @@
 import { Notification, BrowserWindow } from 'electron'
+
 /**
- * 发生接口发生错误时的处理
- * 注意这是运行在主进程中的方法,请不要使用 document api
+ * 网络请求发生错误时的处理
+ * 注意这个函数运行在主进程中, 请不要使用 Document API
  * @param err
  * @param sendData
  * @param options
  */
-export async function errorAction(err: any, sendData: any, options: RequestOptions) {
+export async function errorAction(err: AnyObj, sendData: AnyObj, options: RequestOptions): Promise<void> {
   const { code, message } = err
   const { errorType } = options
 
@@ -34,7 +35,14 @@ export async function errorAction(err: any, sendData: any, options: RequestOptio
         n.show()
       } else {
         await $tools.createWindow('AlertModal', {
-          windowOptions: { modal: true, parent: BrowserWindow.getFocusedWindow() || undefined, title },
+          windowOptions: {
+            modal: true,
+            parent: BrowserWindow.getFocusedWindow() || undefined,
+            title,
+          },
+          createConfig: {
+            delayToShow: 100, // DESC 避免无边框窗口闪烁
+          },
           query: {
             type: 'error',
             title,

@@ -5,7 +5,7 @@
 
 import path from 'path'
 import { Configuration, CliOptions } from 'electron-builder'
-import devConfig from './dev.config'
+import buildConfig from './config'
 
 const ICON_ICO = path.resolve(__dirname, '../assets/app-icon/icon/icon.ico')
 const ICON_ICNS = path.resolve(__dirname, '../assets/app-icon/icon/icon.icns')
@@ -25,7 +25,7 @@ const config: Configuration = {
   asar: false,
   directories: {
     buildResources: 'assets',
-    output: path.join(devConfig.release, `${productName}-release-${version}.${buildVersion}`),
+    output: path.join(buildConfig.release, `${productName}-release-${version}.${buildVersion}`),
   },
   win: {
     icon: ICON_ICO,

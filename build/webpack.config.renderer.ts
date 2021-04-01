@@ -1,15 +1,16 @@
 import path from 'path'
-import webpack, { Configuration } from 'webpack'
+import webpack, { Configuration, WebpackPluginInstance } from 'webpack'
 
+import WebpackBar from 'webpackbar'
 import htmlWebpackPlugin from 'html-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin'
 import tsImportPluginFactory from 'ts-import-plugin'
 
 import webpackConfigBase from './webpack.config.base'
-import devConfig from './dev.config'
+import buildConfig from './config'
 
-const { dist, template, rendererSource: appPath } = devConfig
+const { dist, template, rendererSource: appPath } = buildConfig
 const { NODE_ENV } = process.env
 
 const styleLoader = [{ loader: 'css-loader' }]
@@ -18,6 +19,19 @@ if (NODE_ENV === 'development') {
   styleLoader.unshift({ loader: 'css-hot-loader' }, { loader: 'style-loader' })
 } else {
   styleLoader.unshift({ loader: MiniCssExtractPlugin.loader })
+}
+
+const tsLoader: webpack.RuleSetUseItem = {
+  loader: 'ts-loader',
+  options: {
+    transpileOnly: true,
+    getCustomTransformers: (): any => ({
+      before: [tsImportPluginFactory(/** options */)],
+    }),
+    // compilerOptions: {
+    //   module: 'es2015',
+    // },
+  },
 }
 
 const webpackConfig: Configuration = {
@@ -30,6 +44,7 @@ const webpackConfig: Configuration = {
 
   output: {
     path: path.join(dist, 'renderer'),
+    publicPath: './',
     filename: '[name].js',
     chunkFilename: '[name].js',
   },
@@ -38,21 +53,11 @@ const webpackConfig: Configuration = {
     rules: [
       {
         test: /(?<!\.d)\.tsx?$/,
-        loader: [
-          {
-            loader: 'ts-loader',
-            options: {
-              transpileOnly: true,
-              getCustomTransformers: () => ({
-                before: [tsImportPluginFactory(/** options */)],
-              }),
-              compilerOptions: {
-                module: 'es2015',
-              },
-            },
-          },
-          'eslint-loader',
-        ],
+        use: [tsLoader, { loader: 'eslint-loader' }],
+      },
+      {
+        test: /\.jsx?$/,
+        use: [tsLoader, { loader: 'eslint-loader' }],
         exclude: /node_modules/,
       },
       {
@@ -85,20 +90,20 @@ const webpackConfig: Configuration = {
       {
         test: /\.(png|jpe?g|gif|svg|swf|woff2?|eot|ttf|otf)(\?.*)?$/,
         loader: 'file-loader',
-        query: {
+        options: {
           name: '[name].[ext]',
         },
       },
     ],
   },
 
-  optimization: {
-    splitChunks: {
-      chunks: 'all',
-      name: 'bundle',
-    },
-    minimizer: [],
-  },
+  // optimization: {
+  //   splitChunks: {
+  //     chunks: 'all',
+  //     name: 'bundle',
+  //   },
+  //   minimizer: [],
+  // },
 
   plugins: [
     ...(webpackConfigBase?.plugins ?? []),
@@ -110,7 +115,8 @@ const webpackConfig: Configuration = {
       filename: '[name].css',
       chunkFilename: '[name].css',
     }),
-  ] as webpack.Plugin[],
+    new WebpackBar({ name: 'Renderer' }),
+  ] as WebpackPluginInstance[],
 }
 
 if (NODE_ENV === 'development') {

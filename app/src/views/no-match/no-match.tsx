@@ -10,7 +10,7 @@ export default class ErrorPage extends React.Component<PageProps> {
         <Result
           status="404"
           title="404"
-          subTitle="Sorry, the page you visited does not exist."
+          subTitle={<p className="text-default">Sorry, the page you visited does not exist.</p>}
           extra={
             <Button type="primary" onClick={() => history.go(-1)}>
               Back

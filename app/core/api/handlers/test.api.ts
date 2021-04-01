@@ -11,7 +11,7 @@ export function queryTestInfo(
   params?: queryTestInfoUsingGET.Params,
   options?: RequestOptions
 ): Promise<queryTestInfoUsingGET.Response> {
-  return $api.request('/demo/demo-test', params, options)
+  return $api.request('/api-test/demo-test', params, options)
 }
 
 /**
@@ -23,5 +23,5 @@ export function queryTestInfoError(
   params?: queryTestInfoUsingGET.Params,
   options?: RequestOptions
 ): Promise<queryTestInfoUsingGET.Response> {
-  return $api.request('/demo/demo-test-error', params, options)
+  return $api.request('/api-test/demo-test-error', params, options)
 }

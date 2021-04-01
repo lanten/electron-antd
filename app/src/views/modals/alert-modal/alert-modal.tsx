@@ -31,10 +31,10 @@ export default class AlertModal extends React.Component<PageProps<unknown, Alert
     const { title, message } = this.props.query
     return (
       <div className="alert-modal flex column">
-        <div className="content flex-1 flex p-16">
-          <div className="mr-16 mt-8">{this.typesConfig.icon}</div>
+        <div className="content flex-1 flex pl-16 pr-16 pb-16">
+          <div className="mr-16 mt-8 drag">{this.typesConfig.icon}</div>
           <div className="flex-1 flex column">
-            <h1 className="fs-24 text-title">{title}</h1>
+            <h1 className="fs-24 text-title pt-16 drag">{title}</h1>
             <p className="fs-14 text-gray flex-1 message-box">{message}</p>
           </div>
         </div>

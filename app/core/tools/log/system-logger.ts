@@ -30,27 +30,27 @@ export class SystemLogger {
     this.logger.transports.console.format = '[{level}] {text}'
   }
 
-  log(...params: any[]) {
-    return this.logger.log(...params)
+  log(...params: any[]): void {
+    this.logger.log(...params)
   }
 
-  info(...params: any[]) {
-    return this.logger.info(...params)
+  info(...params: any[]): void {
+    this.logger.info(...params)
   }
 
-  warn(...params: any[]) {
-    return this.logger.warn(...params)
+  warn(...params: any[]): void {
+    this.logger.warn(...params)
   }
 
-  error(...params: any[]) {
-    return this.logger.error(...params)
+  error(...params: any[]): void {
+    this.logger.error(...params)
   }
 
-  debug(...params: any[]) {
-    return this.logger.debug(...params)
+  debug(...params: any[]): void {
+    this.logger.debug(...params)
   }
 
-  verbose(...params: any[]) {
-    return this.logger.verbose(...params)
+  verbose(...params: any[]): void {
+    this.logger.verbose(...params)
   }
 }

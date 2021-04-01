@@ -10,9 +10,10 @@ const routes: RouteConfig[] = [
       fullscreenable: false,
       width: 300,
       height: 240,
+      vibrancy: 'fullscreen-ui',
     },
     createConfig: {
-      showTitlebar: false,
+      showTitlebar: true,
       hideMenus: true,
     },
   },

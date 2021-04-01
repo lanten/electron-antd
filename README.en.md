@@ -1,17 +1,17 @@
-## 快速上手
-安装
+## Quick start
+install
 ```bash
 yarn
-# 或者
+# or
 npm install
 ```
 
-启动调试
+start dev
 ```bash
 npm run dev
 ```
 
-## 概览
+## Overview
 - webpack
 - electron
 - electron-builder
@@ -28,27 +28,26 @@ npm run dev
 
 ## DevTools
 
-开关 DevTools:
+Toggle DevTools:
 
 * OSX: <kbd>Cmd</kbd> <kbd>Alt</kbd> <kbd>I</kbd> or <kbd>F12</kbd>
 * Linux: <kbd>Ctrl</kbd> <kbd>Shift</kbd> <kbd>I</kbd> or <kbd>F12</kbd>
 * Windows: <kbd>Ctrl</kbd> <kbd>Shift</kbd> <kbd>I</kbd> or <kbd>F12</kbd>
 
-## 打包应用
+## Build package
 
-编辑 [builder.config.ts](./build/builder.config.ts) 配置文件.
+Modify [builder.config.ts](./build/builder.config.ts) to edit package info.
 
-配置详情请查看: https://www.electron.build/configuration/configuration
+For a full list of options see: https://www.electron.build/configuration/configuration
 
-执行打包操作.
+Create a package for OSX, Windows and Linux
 ```
 npm run build
 ```
 
-请在打包完成后检查 `release` 目录.
+Please check the `release` folder after the build is complete.
 
-## FAQ
-- 国内 electron 安装缓慢问题,请查看此 [issue](https://github.com/lanten/electron-antd/issues/22) 
+
 
 ## License
 [MIT](./LICENSE)

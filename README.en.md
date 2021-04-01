@@ -1,4 +1,3 @@
-[中文说明](./README.zh-cn.md)
 ## Quick start
 install
 ```bash

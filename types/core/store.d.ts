@@ -1,10 +1,11 @@
 import { AnyAction } from 'redux'
 
 declare global {
-  type StoreActionsKeys = keyof StoreActions
+  type StoreDatasKeys = keyof StoreDatas
   type StoreStateKeys = keyof StoreStates
 
-  type ActionFn = <StoreStates, T extends StoreActionsKeys>(
+  type ActionFn = <StoreStates, T extends StoreDatasKeys>(
+    data: StoreAction<T>['data'],
     state: StoreStates,
     action: StoreAction<T>
   ) => { [key: string]: any }
@@ -13,14 +14,14 @@ declare global {
     [key: string]: StoreStateKeys
   }
 
-  interface StoreAction<K extends StoreActionsKeys> extends AnyAction {
+  interface StoreAction<K extends StoreDatasKeys> extends AnyAction {
     type: K
-    data: StoreActions[K]
+    data: StoreDatas[K]
   }
 
   type AsyncDispatch = (dispatch: StoreProps['dispatch']) => Promise<any>
 
-  type Dispatch = <T extends StoreActionsKeys>(options: StoreAction<T> | AsyncDispatch) => Promise<void> | void
+  type Dispatch = <T extends StoreDatasKeys>(options: StoreAction<T> | AsyncDispatch) => Promise<void> | void
   interface StoreProps {
     readonly dispatch: Dispatch
   }

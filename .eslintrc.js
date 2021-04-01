@@ -12,10 +12,7 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
     'plugin:jsx-control-statements/recommended',
-    'prettier/react',
-    // 使用 eslint config prettier禁用 @typescript eslint/eslint 插件中与 prettier 冲突的 eslint 规则
-    'prettier/@typescript-eslint',
-    // 启用 eslint-plugin-prettier ，并将 prettier 错误显示为 eslint 错误。确保这始终是扩展数组中的最后一个配置。
+    'prettier',
     'plugin:prettier/recommended',
   ],
 

@@ -17,12 +17,12 @@ actions.keys().forEach((item) => {
   }
 })
 
-export function reducer<StoreStates, T extends StoreActionsKeys>(
+export function reducer<StoreStates, T extends StoreDatasKeys>(
   state: StoreStates,
   action: StoreAction<T>
 ): StoreStates & AnyObj {
   const actionFn: ActionFn = actionsH[action.type]
-  const resState = (actionFn && actionFn(state, action)) || {}
+  const resState = (actionFn && actionFn(action.data, state, action)) || {}
 
   return Object.assign({}, state, resState)
 }

@@ -3,11 +3,12 @@ export const initialState = {
 }
 
 export function ACTION_ADD_COUNT(
+  data: StoreDatas['ACTION_ADD_COUNT'],
   state: StoreStates,
   action: StoreAction<'ACTION_ADD_COUNT'>
-): { count: number } {
-  console.log({ state, action })
-  return { count: state.count + 1 }
+): { count: StoreStates['count'] } {
+  console.log({ data, state, action })
+  return { count: data }
 }
 
 declare global {
@@ -15,7 +16,7 @@ declare global {
     count: number
   }
 
-  interface StoreActions {
-    ACTION_ADD_COUNT: number
+  interface StoreDatas {
+    ACTION_ADD_COUNT: StoreStates['count']
   }
 }

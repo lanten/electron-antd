@@ -35,7 +35,7 @@
     ]
   },
   "include": [
-    "types",
+    "typings",
     "app/**/*.ts",
     "app/**/*.tsx"
   ],

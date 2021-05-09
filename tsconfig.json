@@ -15,7 +15,7 @@
     "locale": "zh-CN",
     "baseUrl": ".",
     "lib": ["esnext", "dom"],
-    "types": ["webpack-env", "node"],
+    "types": ["webpack-env", "node", "jest"],
     "paths": {
       "@/*": ["app/*"],
       "@root/*": ["*"]

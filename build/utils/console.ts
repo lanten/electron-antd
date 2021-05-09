@@ -10,13 +10,15 @@ const config = {
 export type LogTypes = keyof typeof config
 
 export class Console {
-  info(message: string) {
+  info(message: string): void {
     this.log('INFO', message)
   }
-  warn(message: string) {
+
+  warn(message: string): void {
     this.log('WARN', chalk.yellow(message))
   }
-  error(message: string | Error, showDetail = false) {
+
+  error(message: string | Error, showDetail = false): void {
     let messageH: string
     if (message instanceof Error) {
       messageH = `${chalk.bold(message.name)}: ${message.message}`
@@ -26,11 +28,12 @@ export class Console {
     }
     this.log('ERROR', chalk.red(messageH))
   }
-  success(message: string) {
+
+  success(message: string): void {
     this.log('SUCCESS', chalk.green(message))
   }
 
-  log(type: LogTypes, message: string | Error) {
+  log(type: LogTypes, message: string | Error): string {
     const conf = config[type]
     const str = `[${this.getDateStr()}] ${chalk.white[conf.color].bold(this.center(type))} ${message}`
 
@@ -38,7 +41,7 @@ export class Console {
     return str
   }
 
-  center(str: string, width = 9) {
+  center(str: string, width = 9): string {
     const lack = width - str.length
 
     if (lack <= 0) return str
@@ -49,7 +52,7 @@ export class Console {
     return `${this.getSpaceStr(offsetLeft)}${str}${this.getSpaceStr(offsetRight)}`
   }
 
-  getSpaceStr(count: number) {
+  getSpaceStr(count: number): string {
     let str = ''
     for (let i = 0; i < count; i++) {
       str += ' '
@@ -57,7 +60,7 @@ export class Console {
     return str
   }
 
-  getDateStr() {
+  getDateStr(): string {
     const date = new Date()
 
     const obj = {

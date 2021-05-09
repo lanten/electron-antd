@@ -14,36 +14,13 @@
     "sourceMap": false,
     "locale": "zh-CN",
     "baseUrl": ".",
-    "types": [
-      "webpack-env",
-      "node"
-    ],
+    "lib": ["esnext", "dom"],
+    "types": ["webpack-env", "node"],
     "paths": {
-      "@/*": [
-        "app/*"
-      ],
-      "@root/*": [
-        "*"
-      ]
-    },
-    "lib": [
-      "esnext",
-      "dom",
-      "dom.iterable",
-      "scripthost",
-      "es5"
-    ]
+      "@/*": ["app/*"],
+      "@root/*": ["*"]
+    }
   },
-  "include": [
-    "types",
-    "app/**/*.ts",
-    "app/**/*.tsx"
-  ],
-  "exclude": [
-    "node_modules",
-    "build",
-    "dist",
-    "release",
-    "assets"
-  ]
+  "include": ["typings", "app"],
+  "exclude": ["node_modules", "build", "dist", "release", "assets"]
 }

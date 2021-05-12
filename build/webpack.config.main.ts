@@ -26,7 +26,7 @@ const webpackConfig: Configuration = {
     rules: [
       {
         test: /(?<!\.d)\.ts$/,
-        use: ['ts-loader', 'eslint-loader'],
+        use: ['babel-loader', 'eslint-loader'],
         exclude: /node_modules/,
       },
     ],

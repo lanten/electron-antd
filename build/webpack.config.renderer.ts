@@ -5,7 +5,7 @@ import WebpackBar from 'webpackbar'
 import htmlWebpackPlugin from 'html-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin'
-import tsImportPluginFactory from 'ts-import-plugin'
+// import tsImportPluginFactory from 'ts-import-plugin'
 
 import webpackConfigBase from './webpack.config.base'
 import buildConfig from './config'
@@ -21,18 +21,18 @@ if (NODE_ENV === 'development') {
   styleLoader.unshift({ loader: MiniCssExtractPlugin.loader })
 }
 
-const tsLoader: webpack.RuleSetUseItem = {
-  loader: 'ts-loader',
-  options: {
-    transpileOnly: true,
-    getCustomTransformers: (): any => ({
-      before: [tsImportPluginFactory(/** options */)],
-    }),
-    // compilerOptions: {
-    //   module: 'es2015',
-    // },
-  },
-}
+// const tsLoader: webpack.RuleSetUseItem = {
+//   loader: 'ts-loader',
+//   options: {
+//     transpileOnly: true,
+//     getCustomTransformers: (): any => ({
+//       before: [tsImportPluginFactory(/** options */)],
+//     }),
+//     // compilerOptions: {
+//     //   module: 'es2015',
+//     // },
+//   },
+// }
 
 const webpackConfig: Configuration = {
   ...webpackConfigBase,
@@ -53,11 +53,11 @@ const webpackConfig: Configuration = {
     rules: [
       {
         test: /(?<!\.d)\.tsx?$/,
-        use: [tsLoader, { loader: 'eslint-loader' }],
+        use: ['babel-loader', 'eslint-loader'],
       },
       {
         test: /\.jsx?$/,
-        use: [tsLoader, { loader: 'eslint-loader' }],
+        use: ['babel-loader', 'eslint-loader'],
         exclude: /node_modules/,
       },
       {

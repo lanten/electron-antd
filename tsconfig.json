@@ -21,7 +21,7 @@
     "types": ["webpack-env", "node", "jest"],
     "paths": {
       "@/*": ["app/*"],
-      "@root/*": ["*"]
+      "~/*": ["*"]
     }
   },
   "include": ["typings", "app"],

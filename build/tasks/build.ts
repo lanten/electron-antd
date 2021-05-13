@@ -3,10 +3,10 @@ import path from 'path'
 import { build as electronBuilder } from 'electron-builder'
 import { clearDir, exConsole } from '../utils'
 
-import builderConfig from '../builder.config'
-import buildConfig from '../config'
-import webpackConfigMain from '../webpack.config.main'
-import webpackConfigRenderer from '../webpack.config.renderer'
+import builderConfig from '../config/builder.config'
+import buildConfig from '../config/dev.config'
+import webpackConfigMain from '../config/webpack.config.main'
+import webpackConfigRenderer from '../config/webpack.config.renderer'
 import buildCommon from './build-common'
 
 const env = process.env.BUILD_ENV as keyof typeof buildConfig.env

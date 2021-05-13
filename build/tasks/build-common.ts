@@ -1,6 +1,6 @@
 import webpack, { Configuration } from 'webpack'
 
-import buildConfig from '../config'
+import buildConfig from '../config/dev.config'
 
 const { env: envConfig } = buildConfig
 

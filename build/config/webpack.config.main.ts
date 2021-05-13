@@ -4,9 +4,9 @@ import { Configuration, WebpackPluginInstance } from 'webpack'
 import WebpackBar from 'webpackbar'
 
 import webpackConfigBase from './webpack.config.base'
-import buildConfig from './config'
+import devConfig from './dev.config'
 
-const { dist, mainSource: appPath } = buildConfig
+const { dist, mainSource: appPath } = devConfig
 
 const webpackConfig: Configuration = {
   ...webpackConfigBase,

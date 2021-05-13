@@ -5,7 +5,7 @@
 
 import path from 'path'
 import { Configuration, CliOptions } from 'electron-builder'
-import buildConfig from './config'
+import buildConfig from './dev.config'
 
 const ICON_ICO = path.resolve(__dirname, '../assets/app-icon/icon/icon.ico')
 const ICON_ICNS = path.resolve(__dirname, '../assets/app-icon/icon/icon.icns')

@@ -5,9 +5,9 @@ import WebpackDevServer, { Configuration } from 'webpack-dev-server'
 
 import { exConsole } from '../utils'
 import ElectronProcess from './electron-process'
-import buildConfig from '../config'
-import webpackConfigRenderer from '../webpack.config.renderer'
-import webpackConfigMain from '../webpack.config.main'
+import buildConfig from '../config/dev.config'
+import webpackConfigRenderer from '../config/webpack.config.renderer'
+import webpackConfigMain from '../config/webpack.config.main'
 
 process.env.NODE_ENV = 'development'
 /** 禁用 electron warning */

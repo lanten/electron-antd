@@ -8,9 +8,9 @@ import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin'
 // import tsImportPluginFactory from 'ts-import-plugin'
 
 import webpackConfigBase from './webpack.config.base'
-import buildConfig from './config'
+import devConfig from './dev.config'
 
-const { dist, template, rendererSource: appPath } = buildConfig
+const { dist, template, rendererSource: appPath } = devConfig
 const { NODE_ENV } = process.env
 
 const styleLoader = [{ loader: 'css-loader' }]

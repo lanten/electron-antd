@@ -3,11 +3,13 @@ import webpack, { Configuration } from 'webpack'
 
 import TerserPlugin from 'terser-webpack-plugin'
 
-import buildConfig from './config'
+import devConfig from './dev.config'
 
-const { env } = buildConfig
+const { env } = devConfig
 const { NODE_ENV, BUILD_ENV = 'dev' } = process.env
 const ENV_CONFIG = env[BUILD_ENV]
+
+const rootPath = process.cwd()
 
 const webpackConfig: Configuration = {
   mode: NODE_ENV as 'development' | 'production',
@@ -19,8 +21,8 @@ const webpackConfig: Configuration = {
 
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, '../app'),
-      '@root': path.resolve(__dirname, '../'),
+      '@': path.resolve(rootPath, 'app'),
+      '~': rootPath,
     },
     extensions: ['.ts', '.tsx', '.js', '.jsx'],
   },
@@ -48,7 +50,7 @@ if (NODE_ENV === 'development') {
 } else if (NODE_ENV === 'production') {
   webpackConfig.optimization?.minimizer?.push(
     // https://github.com/terser-js/terser
-    (new TerserPlugin({
+    new TerserPlugin({
       terserOptions: {
         compress: {
           // 生产环境移除 log
@@ -56,7 +58,7 @@ if (NODE_ENV === 'development') {
         },
       },
       extractComments: false, // 不提取任何注释
-    }) as unknown) as webpack.WebpackPluginInstance
+    }) as unknown as webpack.WebpackPluginInstance
   )
 }
 

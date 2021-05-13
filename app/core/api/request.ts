@@ -36,10 +36,11 @@ export async function request<T extends AnyObj = AnyObj>(
   optionsSource?: RequestOptions
 ): Promise<T> {
   const options: RequestOptions = Object.assign({}, DEFAULT_CONFIG, optionsSource)
-  const { method, protocol, host, baseUrl, headers, responseType, checkStatus, formData } = options
+  const { method, protocol, host, baseUrl, headers, responseType, checkStatus, formData, timeout } = options
   const sendData: AxiosRequestConfig = {
     url: `${protocol}${path.join(host || '', baseUrl || '', apiPath || '')}`,
     method,
+    timeout,
     headers,
     responseType,
   }
@@ -88,14 +89,14 @@ declare global {
   /**
    * 网络请求返回值
    */
-  interface RequestRes {
+  interface RequestRes<T = unknown> {
     // TODO 各种返回值格式层出不穷, 请根据实际内容重新定义类型
     /** 状态码,成功返回 200 */
     code: number
     /** 错误消息 */
     message: string
     /** 返回数据 */
-    data: any
+    data: T
   }
 
   /**

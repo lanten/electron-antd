@@ -2,6 +2,12 @@ interface AnyObj {
   [key: string]: any
 }
 
+/** 获取 Promise 返回值 */
+type Awaited<T> = T extends Promise<infer U> ? U : never
+
+/** 获取 Promise 返回值 (递归) */
+type AwaitedDeep<T> = T extends Promise<infer U> ? (U extends Promise<unknown> ? Awaited<U> : U) : never
+
 declare namespace NodeJS {
   interface ProcessEnv {
     NODE_ENV?: 'development' | 'production' | 'none'

@@ -25,3 +25,9 @@ export function queryTestInfoError(
 ): Promise<queryTestInfoUsingGET.Response> {
   return $api.request('/api-test/demo-test-error', params, options)
 }
+
+export function queryList(
+  options?: RequestOptions
+): Promise<RequestRes<{ id: number; col1: string; col2: string; col3: string }[]>> {
+  return $api.request('/api-test/test-list', void 0, options)
+}

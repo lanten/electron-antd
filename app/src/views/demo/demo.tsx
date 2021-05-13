@@ -36,7 +36,6 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
     { dataIndex: 'col3', title: 'col-3' },
   ]
 
-  // 构造函数
   constructor(props: DemoProps) {
     super(props)
   }
@@ -119,7 +118,18 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
           <Button type="primary" onClick={this.queryList}>
             Request Data
           </Button>
-          <Table rowKey="id" dataSource={listData} columns={this.LIST_COLUMNS} loading={listLoading} />
+          <Table
+            rowKey="id"
+            dataSource={listData}
+            columns={this.LIST_COLUMNS}
+            loading={listLoading}
+            pagination={{
+              position: ['topRight', 'bottomRight'],
+              showQuickJumper: true,
+              showSizeChanger: true,
+              onChange: this.queryList,
+            }}
+          />
         </Card>
       </div>
     )

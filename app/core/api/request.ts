@@ -35,10 +35,11 @@ export async function request<T extends AnyObj = AnyObj>(
   params?: RequestParams,
   optionsSource?: RequestOptions
 ): Promise<T> {
-  const options: RequestOptions = Object.assign({}, DEFAULT_CONFIG, optionsSource)
+  const options = Object.assign({}, DEFAULT_CONFIG, optionsSource)
   const { method, protocol, host, baseUrl, headers, responseType, checkStatus, formData, timeout } = options
   const sendData: AxiosRequestConfig = {
-    url: `${protocol}${path.join(host || '', baseUrl || '', apiPath || '')}`,
+    url: apiPath,
+    baseURL: `${protocol}${path.join(host, baseUrl)}`,
     method,
     timeout,
     headers,
@@ -72,7 +73,7 @@ export async function request<T extends AnyObj = AnyObj>(
     })
     .catch(async (err) => {
       await errorAction(err, sendData, options)
-      return Promise.reject({ ...err, path: apiPath, sendData, resData: err })
+      return Promise.reject({ path: apiPath, sendData, resData: err })
     })
 }
 

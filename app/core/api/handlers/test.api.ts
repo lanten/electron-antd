@@ -27,7 +27,8 @@ export function queryTestInfoError(
 }
 
 export function queryList(
+  params?: Record<string, any>,
   options?: RequestOptions
-): Promise<RequestRes<{ id: number; col1: string; col2: string; col3: string }[]>> {
-  return $api.request('/api-test/test-list', void 0, options)
+): Promise<{ id: number; col1: string; col2: string; col3: string }[]> {
+  return $api.request('/api-test/test-list', params, options).then((res) => res.data || [])
 }

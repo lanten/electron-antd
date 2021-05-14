@@ -1,8 +1,9 @@
 import * as React from 'react'
-import { Button, Input, Spin, Card, Table } from 'antd'
-import { ColumnType } from 'antd/es/table'
+import { Button, Input, Spin, Card } from 'antd'
 
 import { withStore } from '@/core/store'
+
+import { TableDemo } from './components'
 
 interface DemoProps extends PageProps, StoreProps {
   count: StoreStates['count']
@@ -14,8 +15,6 @@ declare interface DemoState {
   loading: boolean
   createWindowLoading: boolean
   asyncDispatchLoading: boolean
-  listData: Awaited<ReturnType<typeof $api.queryList>>['data']
-  listLoading: boolean
 }
 
 @withStore(['count', { countAlias: 'count' }])
@@ -26,15 +25,7 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
     loading: false,
     createWindowLoading: false,
     asyncDispatchLoading: false,
-    listData: [],
-    listLoading: false,
   }
-
-  readonly LIST_COLUMNS: ColumnType<DemoState['listData'][number]>[] = [
-    { dataIndex: 'col1', title: 'col-1' },
-    { dataIndex: 'col2', title: 'col-2' },
-    { dataIndex: 'col3', title: 'col-3' },
-  ]
 
   constructor(props: DemoProps) {
     super(props)
@@ -45,7 +36,7 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
   }
 
   render(): JSX.Element {
-    const { resData, loading, createWindowLoading, asyncDispatchLoading, listData, listLoading } = this.state
+    const { resData, loading, createWindowLoading, asyncDispatchLoading } = this.state
     const { count: reduxCount, countAlias } = this.props
     return (
       <div className="layout-padding">
@@ -114,23 +105,7 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
           </Spin>
         </Card>
 
-        <Card title="Table" className="mb-16">
-          <Button type="primary" onClick={this.queryList}>
-            Request Data
-          </Button>
-          <Table
-            rowKey="id"
-            dataSource={listData}
-            columns={this.LIST_COLUMNS}
-            loading={listLoading}
-            pagination={{
-              position: ['topRight', 'bottomRight'],
-              showQuickJumper: true,
-              showSizeChanger: true,
-              onChange: this.queryList,
-            }}
-          />
-        </Card>
+        <TableDemo />
       </div>
     )
   }
@@ -180,15 +155,5 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
         this.setState({ resData })
       })
       .finally(() => this.setState({ loading: false }))
-  }
-
-  queryList = (): void => {
-    this.setState({ listLoading: true })
-    $api
-      .queryList()
-      .then((res) => {
-        this.setState({ listData: res.data || [] })
-      })
-      .finally(() => this.setState({ listLoading: false }))
   }
 } // class Demo end

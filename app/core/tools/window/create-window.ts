@@ -79,8 +79,9 @@ export function createWindow(key: RouterKey, options: CreateWindowOptions = {}):
     win.loadURL(url)
 
     if (createConfig.saveWindowBounds) {
-      const lastBounds = $tools.settings.windowBounds.get(key)
-      if (lastBounds) win.setBounds(lastBounds)
+      const { rect } = $tools.settings.windowBounds.get(key) || {}
+      if (rect) win.setBounds(rect)
+      // if (maximized) win.maximize()
     }
 
     if (createConfig.hideMenus) win.setMenuBarVisibility(false)
@@ -113,7 +114,9 @@ export function createWindow(key: RouterKey, options: CreateWindowOptions = {}):
 
     win.on('close', () => {
       if (createConfig.saveWindowBounds && win) {
-        $tools.settings.windowBounds.set(key, win.getBounds())
+        const maximized = win.isMaximized()
+        const rect = maximized ? $tools.settings.windowBounds.get(key)?.rect : win.getBounds()
+        $tools.settings.windowBounds.set(key, { rect, maximized })
       }
       windowList.delete(key)
       log.info(`Window <${key}:${win.id}> closed.`)

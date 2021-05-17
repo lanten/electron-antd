@@ -2,7 +2,12 @@ import { Rectangle } from 'electron'
 import { CreateSettings } from './create-settings'
 
 type T = {
-  [K in RouterKey]?: Rectangle
+  [K in RouterKey]?: {
+    /** 窗口坐标 */
+    rect: Rectangle
+    /** 是否最大化 */
+    maximized?: boolean
+  }
 }
 
 /** 窗口位置尺寸 */

@@ -12,7 +12,7 @@ const LIST_COLUMNS: ColumnType<Awaited<ReturnType<typeof $api.queryList>>[number
   { dataIndex: 'col3', title: 'col-3' },
 ]
 
-export const TableDemo = React.memo((): JSX.Element => {
+export const TableDemo = React.memo(() => {
   const { loading, data: listData, reRequest, error } = useRequest('queryList', false, { type: 'init' })
 
   return (

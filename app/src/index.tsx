@@ -8,6 +8,18 @@ import '@/src/styles/index.less'
 
 initRenderer()
 
-ipcRenderer.on('dom-ready', (_, createConfig) => {
+let createConfig: CreateConfig
+
+function renderApp() {
   reactDom.render(<App createConfig={createConfig} />, document.getElementById('app'))
+}
+
+ipcRenderer.on('dom-ready', (event, data) => {
+  createConfig = data
+  renderApp()
 })
+
+// 组件热更新
+if (module.hot) {
+  module.hot.accept('./app', renderApp)
+}

@@ -30,7 +30,7 @@ export interface UseRequestReturnType<ApiName extends keyof ApiListType> {
  *
  * @param apiName [$api.handlers](../../core/api/handlers/index.ts) 中的API名称
  * @param requestNow 是否立即发起请求
- * @param params 对应 API 函数要求传入的参数
+ * @param ...params 对应 API 函数要求传入的参数
  */
 export function useRequest<ApiName extends keyof ApiListType>(
   apiName: ApiName,

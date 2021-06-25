@@ -59,24 +59,8 @@ function startRenderer(): Promise<webpack.Stats> {
     process.env.port = String(buildConfig.port)
     process.env.host = buildConfig.host
 
-    const hotClient = ['webpack-dev-server/client', 'webpack/hot/only-dev-server']
-    if (typeof webpackConfigRenderer.entry === 'object') {
-      Object.keys(webpackConfigRenderer.entry).forEach((name) => {
-        if (!webpackConfigRenderer.entry) throw new Error('webpackConfigRenderer.entry')
-        const value = webpackConfigRenderer.entry[name]
-        if (Array.isArray(value)) {
-          value.unshift(...hotClient)
-        } else {
-          webpackConfigRenderer.entry[name] = [...hotClient, value]
-        }
-      })
-    } else {
-      webpackConfigRenderer.entry = [...hotClient, webpackConfigRenderer.entry] as string[]
-    }
     WebpackDevServer.addDevServerEntrypoints(webpackConfigRenderer as Configuration, devServerOptions)
-
     webpackConfigRenderer.devtool = 'source-map'
-
     const rendererCompiler = webpack(webpackConfigRenderer)
     rendererCompiler.hooks.done.tap('done', (stats) => {
       exConsole.success(`Server renderer start at ${chalk.magenta.underline(`http://${host}:${port}`)}`)

@@ -3,7 +3,7 @@
 node_modules
 dist
 release
-build/build-dist
+build/.out
 
 # local env files
 .env.local

@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "target": "es6",
+    "outDir": ".out",
+    "baseUrl": ".",
+    "sourceMap": false,
+    "rootDir": ".",
+    "strict": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "isolatedModules": true,
+    "skipLibCheck": true,
+    "types": ["node"],
+    "paths": {
+      "@/*": ["*"]
+    },
+    "lib": ["esnext", "scripthost"]
+  },
+  "include": ["../app/typescript/global.d.ts", "./**/*.ts", "tasks"],
+  "exclude": ["node_modules", ".out"]
+}

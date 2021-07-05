@@ -59,6 +59,23 @@ function startRenderer(): Promise<webpack.Stats> {
     process.env.port = String(buildConfig.port)
     process.env.host = buildConfig.host
 
+    // start - 多入口加载热更新，酌情开启 -----------------------------------------------------
+    // const hotClient = ['webpack-dev-server/client', 'webpack/hot/only-dev-server']
+    // if (typeof webpackConfigRenderer.entry === 'object') {
+    //   Object.keys(webpackConfigRenderer.entry).forEach((name) => {
+    //     if (!webpackConfigRenderer.entry) throw new Error('webpackConfigRenderer.entry')
+    //     const value = webpackConfigRenderer.entry[name]
+    //     if (Array.isArray(value)) {
+    //       value.unshift(...hotClient)
+    //     } else {
+    //       webpackConfigRenderer.entry[name] = [...hotClient, value]
+    //     }
+    //   })
+    // } else {
+    //   webpackConfigRenderer.entry = [...hotClient, webpackConfigRenderer.entry] as string[]
+    // }
+    // end ------------------------------------------------------------------------------------
+
     WebpackDevServer.addDevServerEntrypoints(webpackConfigRenderer as Configuration, devServerOptions)
     webpackConfigRenderer.devtool = 'source-map'
     const rendererCompiler = webpack(webpackConfigRenderer)

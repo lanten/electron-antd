@@ -15,6 +15,7 @@ export default class About extends React.Component<PageProps> {
         <p className="fs-12 text-gray">
           Copyright © {new Date().getFullYear()}{' '}
           <a
+            className="click-item"
             onClick={() => {
               shell.openExternal('https://github.com/lanten')
             }}

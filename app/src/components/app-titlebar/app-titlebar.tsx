@@ -20,8 +20,6 @@ export class AppTitlebar extends React.Component<unknown, State> {
 
   componentDidMount(): void {
     window.addEventListener('router-update', this.onRouterUpdate)
-    this.currentWindow.on('maximize', this.onMaximize)
-    this.currentWindow.on('unmaximize', this.onUnmaximize)
   }
 
   onRouterUpdate = (e: CustomEventMap['router-update']): void => {
@@ -29,11 +27,13 @@ export class AppTitlebar extends React.Component<unknown, State> {
     this.setState({ routeProps })
   }
 
-  onMaximize = (): void => {
+  Maximize = (): void => {
+    this.currentWindow.maximize()
     this.setState({ maximized: true })
   }
 
-  onUnmaximize = (): void => {
+  Unmaximize = (): void => {
+    this.currentWindow.unmaximize()
     this.setState({ maximized: false })
   }
 
@@ -43,11 +43,11 @@ export class AppTitlebar extends React.Component<unknown, State> {
     // 最大化按钮
     const maxSizeBtn = this.currentWindow.isMaximizable() ? (
       maximized ? (
-        <div className="titlebar-btn" onClick={() => this.currentWindow.unmaximize()}>
+        <div className="titlebar-btn" onClick={() => this.Unmaximize()}>
           <i className="ri-checkbox-multiple-blank-line fs-14"></i>
         </div>
       ) : (
-        <div className="titlebar-btn" onClick={() => this.currentWindow.maximize()}>
+        <div className="titlebar-btn" onClick={() => this.Maximize()}>
           <i className="ri-checkbox-blank-line fs-14"></i>
         </div>
       )
@@ -95,7 +95,5 @@ export class AppTitlebar extends React.Component<unknown, State> {
   componentWillUnmount(): void {
     // 移除事件监听
     window.removeEventListener('router-update', this.onRouterUpdate)
-    this.currentWindow.removeListener('maximize', this.onMaximize)
-    this.currentWindow.removeListener('unmaximize', this.onUnmaximize)
   }
 } // class AppTitlebar end

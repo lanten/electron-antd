@@ -72,9 +72,9 @@ export class LogReader {
     if (detailStr) {
       detailStr
         .replace(this.oldLogDetail, '')
-        .split(/\n/)
+        .split(/(\n|\r|\r\n)/)
         .forEach((str) => {
-          if (!str) return
+          if (!str.trim()) return
           if (str[0] !== '[') {
             res.push({ date: '', type: '', env: '', message: str })
           } else {

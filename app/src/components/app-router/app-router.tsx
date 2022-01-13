@@ -55,8 +55,6 @@ export class AppRouter extends React.Component<AppRouterProps, AppRouterState> {
 
     const routesElement = this.createRoutes(routes)
 
-    console.log('AppRouter render', routesElement, routes)
-
     if (readyToClose) return null
     return (
       <Provider store={store}>
@@ -106,7 +104,7 @@ export class AppRouter extends React.Component<AppRouterProps, AppRouterState> {
       routeProps.element = <Navigate to={redirectTo} {...nextProps} />
     } else {
       const element = pageResource[name] as unknown as Promise<any> | undefined
-      console.log(name, element)
+
       if (!element) return
 
       routeProps.element = (
@@ -116,8 +114,6 @@ export class AppRouter extends React.Component<AppRouterProps, AppRouterState> {
           }}
         </RouteCtx>
       )
-
-      console.log('name', name)
 
       return <Route key={name} {...routeProps} />
 

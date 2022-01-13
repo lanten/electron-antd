@@ -3,6 +3,7 @@ import { Notification, BrowserWindow } from 'electron'
 /**
  * 网络请求发生错误时的处理
  * 注意这个函数运行在主进程中, 请不要使用 Document API
+ *
  * @param err
  * @param sendData
  * @param options

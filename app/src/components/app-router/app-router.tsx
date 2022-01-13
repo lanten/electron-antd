@@ -1,10 +1,21 @@
 import React from 'react'
-import { remote } from 'electron'
-import { HashRouter as Router, Route, Switch, Redirect, RouteComponentProps } from 'react-router-dom'
+import { getCurrentWindow } from '@electron/remote'
+import {
+  HashRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+  RouteProps,
+  useNavigate,
+  useLocation,
+  useParams,
+} from 'react-router-dom'
 import { Provider } from 'react-redux'
-import { asyncImport } from '../async-import'
-import { beforeRouter } from './router-hooks'
+
 import * as pageResource from '@/src/page-resource'
+import { RouteContext } from '@/src/context'
+import { AsyncImport } from '../async-import'
+import { beforeRouter } from './router-hooks'
 
 interface AppRouterProps {
   routes: Map<string, RouteConfig>
@@ -15,15 +26,15 @@ interface AppRouterState {
   readyToClose: boolean
 }
 
-const currentWindow = remote.getCurrentWindow()
+const currentWindow = getCurrentWindow()
 
 export class AppRouter extends React.Component<AppRouterProps, AppRouterState> {
   static defaultProps = {
     routes: [],
   }
 
-  noMatch?: JSX.Element
-  routeElements: JSX.Element[]
+  /** 路由容器 ref */
+  public readonly contentRef = React.createRef<HTMLDivElement>()
 
   readonly state: AppRouterState = {
     readyToClose: false,
@@ -31,7 +42,6 @@ export class AppRouter extends React.Component<AppRouterProps, AppRouterState> {
 
   constructor(props: AppRouterProps) {
     super(props)
-    this.routeElements = this.createRoutes()
 
     // 保证组件正常卸载,防止 Redux 内存泄露
     window.onbeforeunload = () => {
@@ -40,61 +50,88 @@ export class AppRouter extends React.Component<AppRouterProps, AppRouterState> {
   }
 
   render(): JSX.Element | null {
-    const { store } = this.props
+    const { store, routes } = this.props
     const { readyToClose } = this.state
+
+    const routesElement = this.createRoutes(routes)
+
+    console.log('AppRouter render', routesElement, routes)
+
     if (readyToClose) return null
     return (
       <Provider store={store}>
         <Router>
-          <Switch>
-            {this.routeElements}
-            {this.noMatch ?? null}
-          </Switch>
+          <Routes>{routesElement}</Routes>
         </Router>
       </Provider>
     )
   }
 
-  createRoutes(): JSX.Element[] {
-    const { routes } = this.props
+  createRoutes(routes: Map<string, RouteConfig> | RouteConfig[]): JSX.Element[] {
     const res: JSX.Element[] = []
+    let noMatch: JSX.Element | undefined = undefined
 
-    routes.forEach((conf, key) => {
-      const routeEl = this.creatRoute(conf, key)
+    routes.forEach((conf) => {
+      const routeEl = this.creatRouteItem(conf)
       if (!routeEl) return
-      if (conf.path) {
+
+      if (conf.path === '*') {
+        noMatch = routeEl
+      } else if (routeEl) {
         res.push(routeEl)
-      } else {
-        this.noMatch = routeEl
       }
     })
+
+    if (noMatch) res.push(noMatch)
 
     return res
   }
 
-  creatRoute = (routeConfig: RouteConfig, key: string): JSX.Element | void => {
-    const { path, exact = true, redirect, ...params } = routeConfig
-    const routeProps: any = { key, name: key, path, exact }
+  creatRouteItem = (routeConfig: RouteConfig) => {
+    const { path, redirectTo, name, ...params } = routeConfig
 
-    if (redirect) {
-      routeProps.render = (props: RouteComponentProps) => <Redirect {...redirect} {...props} />
+    const routeProps: RouteProps = {
+      path,
+    }
+
+    const nextProps = {
+      name,
+      contentRef: this.contentRef,
+      currentWindow,
+      closeWindow: this.closeWindow,
+      ...params,
+    }
+
+    if (redirectTo) {
+      routeProps.element = <Navigate to={redirectTo} {...nextProps} />
     } else {
-      const resource = pageResource[key]
-      if (!resource) return
+      const element = pageResource[name] as unknown as Promise<any> | undefined
+      console.log(name, element)
+      if (!element) return
 
-      const Comp = resource.constructor === Promise ? asyncImport(resource, beforeRouter) : resource
+      routeProps.element = (
+        <RouteCtx>
+          {(routeHooksParams) => {
+            return <AsyncImport {...routeHooksParams} element={element} hook={beforeRouter} {...nextProps} />
+          }}
+        </RouteCtx>
+      )
 
-      routeProps.render = (props: RouteComponentProps) => {
-        const nextProps = {
-          name: key,
-          currentWindow,
-          closeWindow: this.closeWindow,
-          query: $tools.getQuery(props.location.search),
-          ...props,
-          ...params,
-        }
-        return <Comp {...nextProps} />
-      }
+      console.log('name', name)
+
+      return <Route key={name} {...routeProps} />
+
+      // routeProps.render = (props: RouteComponentProps) => {
+      //   const nextProps = {
+      //     name: key,
+      //     currentWindow,
+      //     closeWindow: this.closeWindow,
+      //     query: $tools.getQuery(props.location.search),
+      //     ...props,
+      //     ...params,
+      //   }
+      //   return <Comp {...nextProps} />
+      // }
     }
 
     return <Route {...routeProps} />
@@ -105,4 +142,19 @@ export class AppRouter extends React.Component<AppRouterProps, AppRouterState> {
       currentWindow.close()
     })
   }
+}
+
+interface RouterContextProps {
+  children: (props: RouteContextType) => React.ReactNode
+}
+
+function RouteCtx({ children }: RouterContextProps) {
+  const location = useLocation()
+  const navigate = useNavigate()
+  const params = useParams()
+  const query = Object.assign($tools.getQuery(window.location.search), $tools.getQuery(location.search))
+
+  const ctxValue: RouteContextType = { location, navigate, query, params }
+
+  return <RouteContext.Provider value={ctxValue}>{children(ctxValue)}</RouteContext.Provider>
 }

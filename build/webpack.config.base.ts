@@ -6,13 +6,17 @@ import TerserPlugin from 'terser-webpack-plugin'
 import buildConfig from './config'
 
 const rootPath = process.cwd()
-const { env } = buildConfig
+const { env, COMMON_ENV } = buildConfig
 const { NODE_ENV, BUILD_ENV = 'dev' } = process.env
 const ENV_CONFIG = env[BUILD_ENV]
 
 const webpackConfig: Configuration = {
   mode: NODE_ENV as 'development' | 'production',
   stats: 'errors-warnings',
+  infrastructureLogging: {
+    level: 'warn',
+    appendOnly: true,
+  },
 
   node: {
     __dirname: false,
@@ -33,9 +37,9 @@ const webpackConfig: Configuration = {
     new webpack.DefinePlugin(
       ((): { [key: string]: any } => {
         const defines = {}
-        const variables = Object.assign({}, ENV_CONFIG.variables)
-        Object.keys(variables).forEach((key) => {
-          const val = variables[key]
+        const envs = Object.assign({}, COMMON_ENV, ENV_CONFIG)
+        Object.keys(envs).forEach((key) => {
+          const val = envs[key]
           defines[`process.env.${key}`] = typeof val === 'string' ? `"${val}"` : JSON.stringify(val)
         })
         defines['$api'] = 'global.__$api'

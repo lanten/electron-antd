@@ -12,10 +12,11 @@
     "build": "cross-env NODE_ENV=production BUILD_ENV=prod npm run ts:build",
     "ts:dev": "npm run ts:compile && node build/.out/tasks/dev-server.js",
     "ts:build": "npm run ts:compile && node build/.out/tasks/build.js",
-    "ts:compile": "rm -rf build/.out && tsc --project build/build.tsconfig.json",
+    "ts:compile": "tsc --project build/build.tsconfig.json",
     "lint": "eslint --ext .ts,.tsx src"
   },
   "devDependencies": {
+    "@electron/remote": "^2.0.1",
     "@types/css-minimizer-webpack-plugin": "^3.2.1",
     "@types/html-webpack-plugin": "^3.2.6",
     "@types/mini-css-extract-plugin": "^2.4.0",

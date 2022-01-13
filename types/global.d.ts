@@ -1,19 +1,27 @@
-interface AnyObj {
-  [key: string]: any
-}
+import type { CommonEnvVariables, EnvVariables } from '../build/config/env.config'
 
-declare namespace NodeJS {
-  interface ProcessEnv {
-    NODE_ENV?: 'development' | 'production' | 'none'
-    BUILD_ENV?: 'mock' | 'dev' | 'prod'
+declare global {
+  const nodeRequire: NodeRequire
 
-    /** API 协议 */
-    API_PROTOCOL: string
-    /** API 域名 */
-    API_HOST: string
-    /** API 根路径 */
-    API_BASE_PATH: string
+  type ReactDivProps = React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>
+
+  /** 获取 Promise 返回值 */
+  type PromiseReturnType<T> = T extends Promise<infer U> ? U : never
+
+  /** 获取 Promise 返回值 (递归) */
+  type PromiseReturnTypeDeep<T> = T extends Promise<infer U>
+    ? U extends Promise<unknown>
+      ? PromiseReturnType<U>
+      : U
+    : never
+
+  /** 使用此类型替代 any object */
+  interface AnyObj {
+    [key: string]: any
+  }
+
+  namespace NodeJS {
+    /** 环境变量 */
+    interface ProcessEnv extends CommonEnvVariables, EnvVariables {}
   }
 }
-
-declare const nodeRequire: NodeRequire

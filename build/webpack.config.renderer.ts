@@ -44,7 +44,7 @@ const webpackConfig: Configuration = {
 
   output: {
     path: path.join(dist, 'renderer'),
-    publicPath: './',
+    publicPath: NODE_ENV === 'development' ? '' : './',
     filename: '[name].js',
     chunkFilename: '[name].js',
   },

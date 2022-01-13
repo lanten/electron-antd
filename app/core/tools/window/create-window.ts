@@ -18,13 +18,13 @@ export interface CreateWindowOptions {
 }
 
 /** 已创建的窗口列表 */
-export const windowList: Map<RouterKey, BrowserWindow> = new Map()
+export const windowList: Map<RouteName, BrowserWindow> = new Map()
 
 /**
  * 通过 routes 中的 key(name) 得到 url
  * @param key
  */
-export function getWindowUrl(key: RouterKey, options: CreateWindowOptions = {}): string {
+export function getWindowUrl(key: RouteName, options: CreateWindowOptions = {}): string {
   let routePath = routes.get(key)?.path
 
   if (typeof routePath === 'string' && options.params) {
@@ -47,7 +47,7 @@ export function getWindowUrl(key: RouterKey, options: CreateWindowOptions = {}):
  * @param key
  * @param options
  */
-export function createWindow(key: RouterKey, options: CreateWindowOptions = {}): Promise<BrowserWindow> {
+export function createWindow(key: RouteName, options: CreateWindowOptions = {}): Promise<BrowserWindow> {
   return new Promise((resolve) => {
     const routeConfig: RouteConfig | AnyObj = routes.get(key) || {}
 
@@ -86,6 +86,8 @@ export function createWindow(key: RouterKey, options: CreateWindowOptions = {}):
 
     if (createConfig.hideMenus) win.setMenuBarVisibility(false)
     if (createConfig.created) createConfig.created(win)
+
+    require('@electron/remote/main').enable(win.webContents)
 
     win.webContents.on('dom-ready', () => {
       win.webContents.send('dom-ready', createConfig)
@@ -128,7 +130,7 @@ export function createWindow(key: RouterKey, options: CreateWindowOptions = {}):
  * 激活一个已存在的窗口, 成功返回 BrowserWindow 失败返回 false
  * @param key
  */
-export function activeWindow(key: RouterKey): BrowserWindow | false {
+export function activeWindow(key: RouteName): BrowserWindow | false {
   const win: BrowserWindow | undefined = windowList.get(key)
 
   if (win) {

@@ -1,30 +1,39 @@
-const env = {
-  // mock 环境变量
-  mock: {
-    variables: {
-      API_PROTOCOL: 'http://',
-      API_HOST: 'yapi.baidu.com',
-      API_BASE_PATH: '/mock/17714',
-    },
-  },
+export const envNames = <const>['dev', 'prod']
 
-  // dev 环境变量 (npm run dev 将使用此配置)
-  dev: {
-    variables: {
-      API_PROTOCOL: 'http://',
-      API_HOST: 'yapi.baidu.com',
-      API_BASE_PATH: '/mock/17714',
-    },
-  },
+export type EnvNames = typeof envNames[number]
 
-  // prod 环境变量 (npm run build 将使用此配置)
-  prod: {
-    variables: {
-      API_PROTOCOL: 'http://',
-      API_HOST: 'yapi.baidu.com',
-      API_BASE_PATH: '/mock/17714',
-    },
-  },
+export interface EnvVariables {
+  /** API 地址 */
+  API_GATEWAY?: string
 }
 
-export default env
+export interface CommonEnvVariables {
+  /** Node 启动参数 */
+  NODE_ENV: 'development' | 'production'
+  /** 构建参数 */
+  BUILD_ENV: EnvNames
+  /** 项目名称 */
+  PROJECT_NAME?: string
+  /** 项目标题 */
+  PROJECT_TITLE?: string
+}
+
+/** 公共环境变量 */
+export const COMMON_ENV: CommonEnvVariables = {
+  BUILD_ENV: process.env.BUILD_ENV as EnvNames,
+  NODE_ENV: process.env.NODE_ENV as CommonEnvVariables['NODE_ENV'],
+  PROJECT_NAME: process.env.npm_package_name,
+  PROJECT_TITLE: process.env.npm_package_name,
+}
+
+export const env: { [key in EnvNames]: EnvVariables } = {
+  // dev 环境变量 (npm run dev 将使用此配置)
+  dev: {
+    API_GATEWAY: 'http://yapi.baidu.com/mock/17714',
+  },
+
+  // prod 环境变量 (npm run build 将使用此配置)
+  prod: {
+    API_GATEWAY: 'http://yapi.baidu.com/mock/17714',
+  },
+}

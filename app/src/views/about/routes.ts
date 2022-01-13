@@ -1,6 +1,6 @@
 const routes: RouteConfig[] = [
   {
-    key: 'About',
+    name: 'About',
     path: '/about',
     windowOptions: {
       title: 'About',

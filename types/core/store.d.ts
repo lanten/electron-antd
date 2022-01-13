@@ -33,10 +33,4 @@ declare global {
    * @define build/webpack.config.base.ts#L39
    */
   const $store: AppStore
-
-  namespace NodeJS {
-    interface Global {
-      __$store: AppStore
-    }
-  }
 }

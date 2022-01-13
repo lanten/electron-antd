@@ -1,7 +1,7 @@
 const routes: RouteConfig[] = [
   {
+    name: 'AlertModal',
     path: '/alert-modal',
-    key: 'AlertModal',
     windowOptions: {
       title: 'Alert',
       width: 460,

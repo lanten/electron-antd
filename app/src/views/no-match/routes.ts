@@ -1,6 +1,6 @@
 const routes: RouteConfig[] = [
   {
-    key: 'NoMatch',
+    name: 'NoMatch',
     windowOptions: {
       title: 'Page Error',
     },

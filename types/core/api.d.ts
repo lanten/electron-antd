@@ -7,9 +7,4 @@ declare global {
    * @define build/webpack.config.base.ts#L37
    */
   const $api: typeof api
-  namespace NodeJS {
-    interface Global {
-      __$api: typeof $api
-    }
-  }
 }

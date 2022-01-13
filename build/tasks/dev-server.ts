@@ -16,11 +16,13 @@ process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = 'true'
 const { port, host, proxy } = buildConfig
 const devServerOptions: WebpackDevServer.Configuration = {
   host,
+  port,
   hot: true,
   proxy: proxy,
   historyApiFallback: true,
   compress: true,
   allowedHosts: 'all',
+  static: buildConfig.static,
   client: {
     logging: 'warn',
     overlay: true,
@@ -65,19 +67,17 @@ function startRenderer(): Promise<webpack.Stats> {
     process.env.port = String(buildConfig.port)
     process.env.host = buildConfig.host
 
-    // WebpackDevServer.addDevServerEntrypoints(webpackConfigRenderer, devServerOptions)
-
     const rendererCompiler = webpack(webpackConfigRenderer)
     rendererCompiler.hooks.done.tap('done', (stats) => {
       exConsole.success(`Server renderer start at ${pc.underline(pc.magenta(`http://${host}:${port}`))}`)
       resolve(stats)
     })
 
-    const server = new WebpackDevServer(rendererCompiler, devServerOptions)
+    const server = new WebpackDevServer(devServerOptions, rendererCompiler)
 
-    server.listen(port, host, (err: any) => {
+    server.start().catch((err) => {
       if (err) {
-        exConsole.error(err)
+        exConsole.error('Dev Server failed to activate.', err)
       }
     })
   })

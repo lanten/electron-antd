@@ -11,6 +11,4 @@ export const LogViewer = import('./views/log-viewer/log-viewer')
 export const About = import('./views/about/about')
 
 export const NoMatch = import('./views/no-match/no-match')
-
-// 同步引用，注意这不会触发 beforeRouter
-export { default as AlertModal } from './views/modals/alert-modal'
+export const AlertModal = import('./views/modals/alert-modal')

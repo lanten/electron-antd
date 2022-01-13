@@ -1,7 +1,10 @@
-import { remote } from 'electron'
+import { getGlobal } from '@electron/remote'
 
 export function initRenderer(): void {
-  global.__$tools = remote.getGlobal('__$tools')
-  global.__$api = remote.getGlobal('__$api')
-  global.__$store = remote.getGlobal('__$store')
+  // @ts-ignore
+  global.__$tools = getGlobal('__$tools')
+  // @ts-ignore
+  global.__$api = getGlobal('__$api')
+  // @ts-ignore
+  global.__$store = getGlobal('__$store')
 }

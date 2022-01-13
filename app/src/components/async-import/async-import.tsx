@@ -1,42 +1,35 @@
-import * as React from 'react'
+import React from 'react'
 
-interface RouterHook {
-  (props: PageProps, next: () => void): boolean | void | Promise<boolean | void>
-}
-
-interface State {
-  comp: React.ComponentClass | null
-}
-
-export function asyncImport(
-  importComponent: Promise<any>,
+interface AsyncImportProps extends PageProps {
+  element: Promise<any>
   hook?: RouterHook
-): React.ComponentClass<PageProps, State> {
-  class AsyncComponent extends React.Component<PageProps, State> {
-    constructor(props: PageProps) {
-      super(props)
-      this.state = { comp: null }
-    }
+}
 
-    componentDidMount(): void {
-      importComponent.then(({ default: comp }: any) => {
-        const next = () => this.setState({ comp })
-        if (hook) {
-          const hookRes = hook(this.props, next)
-          if (typeof hookRes === 'boolean' && hookRes) {
-            next()
-          }
-        } else {
-          this.setState({ comp })
+/**
+ * 异步导入组件
+ * @param importComponent
+ * @param hook // 这里的 hook 指的是路由钩子
+ */
+export const AsyncImport: React.FC<AsyncImportProps> = ({ element, hook, ...props }) => {
+  const [lazyElement, setLazyElement] = React.useState<React.ReactElement | null>(null)
+
+  React.useEffect(() => {
+    /// 非静态路由重置组件
+    /// WARN: 存在性能隐患
+    if (!props.isStatic) setLazyElement(null)
+
+    element?.then(({ default: Page }) => {
+      const next = () => setLazyElement(<Page {...props} />)
+      if (hook) {
+        const hookRes = hook(props || {}, next)
+        if (typeof hookRes === 'boolean' && hookRes) {
+          next()
         }
-      })
-    }
+      } else {
+        next()
+      }
+    })
+  }, [element, props.isStatic ? void 0 : props.location.key])
 
-    render() {
-      const { comp: Comp }: any = this.state
-      return Comp ? <Comp {...this.props} /> : null
-    }
-  }
-
-  return AsyncComponent
+  return lazyElement
 }

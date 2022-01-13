@@ -2,11 +2,11 @@ import { app, Tray } from 'electron'
 
 import { creatAppTray } from './tray'
 
+require('@electron/remote/main').initialize()
+
 $tools.log.info(`Application <${$tools.APP_NAME}> launched.`)
 
 let tray: Tray
-
-app.allowRendererProcessReuse = true
 
 const appLock = app.requestSingleInstanceLock()
 

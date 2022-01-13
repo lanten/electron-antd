@@ -1,6 +1,6 @@
 const routes: RouteConfig[] = [
   {
-    key: 'LogViewer',
+    name: 'LogViewer',
     path: '/log-viewer',
     windowOptions: {
       title: 'LogViewer',

@@ -1,8 +1,8 @@
 const routes: RouteConfig[] = [
   {
-    key: 'Home',
+    name: 'Home',
     path: '/',
-    redirect: { to: '/demo?form=home' },
+    redirectTo: '/demo?form=home',
     windowOptions: {
       title: 'App Home (redirect to demo)',
       width: 1200,

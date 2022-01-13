@@ -20,6 +20,6 @@ ipcRenderer.on('dom-ready', (event, data) => {
 })
 
 // 组件热更新
-if (module.hot) {
-  module.hot.accept('./app', renderApp)
-}
+// if (module.hot) {
+//   module.hot.accept('./app', renderApp)
+// }

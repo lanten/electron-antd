@@ -1,19 +1,36 @@
-import { RouteProps, RouteComponentProps, RedirectProps } from 'react-router-dom'
+import { RouteProps, Location, NavigateFunction } from 'react-router-dom'
 import { BrowserWindow, BrowserWindowConstructorOptions } from 'electron'
 import * as pageResource from '@/src/page-resource'
 
 declare global {
   /** 路由的 key, 与组件 class 名称对应 */
-  type RouterKey = keyof typeof pageResource
+  type RouteName = keyof typeof pageResource
 
-  /** 自定义路由参数 */
-  interface RouteParams {
-    /** 自定义参数, 视情况而定 */
-    type?: string
-    /** 以 createWindow 打开时, 加载的 BrowserWindow 选项 */
-    windowOptions?: BrowserWindowConstructorOptions
-    /** 新窗口启动参数 */
-    createConfig?: CreateConfig
+  /** 页面默认 props */
+  interface PageProps<P = Record<string, unknown>, Q = Record<string, unknown>, LocationState = unknown>
+    extends RouteContextType<Q, P, LocationState>,
+      RouteConfig {
+    /** 关闭当前窗口 */
+    closeWindow: () => void
+    /** 当前窗口 BrowserWindow 实例 */
+    currentWindow: BrowserWindow
+    /** 当前路由 key */
+    name: RouteName
+  }
+
+  interface RouteLocation<S = unknown> extends Location {
+    state: S
+  }
+
+  interface RouteContextType<Q = Record<string, unknown>, P = Record<string, unknown>, S = unknown> {
+    /** 由 location.search 转换来的对象 */
+    query: Q
+    /** react-router location 对象 */
+    location: RouteLocation<S>
+    /** react-router 路由跳转方法 */
+    navigate: NavigateFunction
+    /** 路由参数 */
+    params: P
   }
 
   /** 新窗口启动参数 */
@@ -38,30 +55,22 @@ declare global {
     created?: (win: BrowserWindow) => void
   }
 
-  interface RouteQuery<Q = Record<string, unknown>> {
-    query: Q
-  }
-
   /** 路由配置规范 */
-  interface RouteConfig extends RouteProps, RouteParams {
-    /** 页面资源 key */
-    key: RouterKey
+  interface RouteConfig extends Omit<RouteProps, 'children' | 'element'>, CreateConfig {
+    element?: Promise<any>
+    /** 是否静态 */
+    isStatic?: boolean
+    /** 页面资源 name, 对应 page-resource 中的变量名 */
+    name: RouteName
     /** 重定向 */
-    redirect?: RedirectProps
-    /** 默认为 true */
-    exact?: boolean
+    redirectTo?: string
+    /** 自定义参数, 视情况而定 */
+    type?: string
+    /** 以 createWindow 打开时, 加载的 BrowserWindow 选项 */
+    windowOptions?: BrowserWindowConstructorOptions
+    /** 新窗口启动参数 */
+    createConfig?: CreateConfig
   }
 
-  /** 页面默认 props */
-  interface PageProps<P = Record<string, unknown>, Q = Record<string, unknown>>
-    extends RouteComponentProps<P>,
-      RouteQuery<Q>,
-      RouteParams {
-    /** 关闭当前窗口 */
-    closeWindow: () => void
-    /** 当前窗口 BrowserWindow 实例 */
-    currentWindow: BrowserWindow
-    /** 当前路由 key */
-    name: RouterKey
-  }
+  type RouterHook = (props: PageProps, next: () => void) => boolean | void | Promise<boolean | void>
 }

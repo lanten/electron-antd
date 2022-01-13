@@ -1,5 +1,5 @@
 import React from 'react'
-import { remote } from 'electron'
+import { getCurrentWindow } from '@electron/remote'
 
 import './app-titlebar.less'
 
@@ -11,7 +11,7 @@ interface State {
 }
 
 export class AppTitlebar extends React.Component<unknown, State> {
-  currentWindow = remote.getCurrentWindow()
+  currentWindow = getCurrentWindow()
 
   state: State = {
     routeProps: {},

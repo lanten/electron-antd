@@ -2,7 +2,7 @@ import React from 'react'
 
 export default class PageParams extends React.Component<PageProps> {
   get pageParams(): string {
-    return JSON.stringify(this.props.match.params)
+    return JSON.stringify(this.props.params)
   }
 
   get pageQuery(): string {

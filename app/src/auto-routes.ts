@@ -1,6 +1,7 @@
 /** 自动导入 views 文件夹下所有的 routes.ts 以生成路由 */
 const views = require.context('./views', true, /routes\.ts$/)
-const routes: Map<string, RouteConfig> = new Map()
+
+const routes: Map<RouteName, RouteConfig> = new Map()
 
 views.keys().forEach((path) => {
   const conf: RouteConfig | RouteConfig[] = views(path).default
@@ -10,8 +11,9 @@ views.keys().forEach((path) => {
     addRouteConfig(conf)
   }
 })
+
 function addRouteConfig(conf: RouteConfig) {
-  routes.set(conf.key, conf)
+  routes.set(conf.name, conf)
 }
 
 export default routes

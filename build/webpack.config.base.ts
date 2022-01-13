@@ -1,6 +1,6 @@
 import path from 'path'
 import webpack, { Configuration } from 'webpack'
-
+import ESLintPlugin from 'eslint-webpack-plugin'
 import TerserPlugin from 'terser-webpack-plugin'
 
 import buildConfig from './config'
@@ -12,6 +12,7 @@ const ENV_CONFIG = env[BUILD_ENV]
 
 const webpackConfig: Configuration = {
   mode: NODE_ENV as 'development' | 'production',
+  stats: 'errors-warnings',
 
   node: {
     __dirname: false,
@@ -27,6 +28,8 @@ const webpackConfig: Configuration = {
   },
 
   plugins: [
+    new ESLintPlugin(),
+
     new webpack.DefinePlugin(
       ((): { [key: string]: any } => {
         const defines = {}
@@ -57,7 +60,7 @@ if (NODE_ENV === 'development') {
         },
       },
       extractComments: false, // 不提取任何注释
-    }) as unknown as webpack.WebpackPluginInstance
+    })
   )
 }
 

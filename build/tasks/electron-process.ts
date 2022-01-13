@@ -1,4 +1,4 @@
-import chalk from 'chalk'
+import pc from 'picocolors'
 import electron from 'electron'
 import { spawn, ChildProcessWithoutNullStreams } from 'child_process'
 import { exConsole } from '../utils'
@@ -50,7 +50,7 @@ export default class ElectronProcess {
       this.process.stdout.on('data', (data) => {
         let message: string = data.toString()
 
-        if (message.length < 10 && (!message || !message.replace(/\s/g, ''))) message = chalk.gray('null')
+        if (message.length < 10 && (!message || !message.replace(/\s/g, ''))) message = pc.gray('null')
         exConsole.info(message)
       })
       this.process.stderr.on('data', (data) => {

@@ -1,7 +1,7 @@
-import chalk from 'chalk'
+import pc from 'picocolors'
 import webpack from 'webpack'
 
-import WebpackDevServer, { Configuration } from 'webpack-dev-server'
+import WebpackDevServer from 'webpack-dev-server'
 
 import { exConsole } from '../utils'
 import ElectronProcess from './electron-process'
@@ -16,13 +16,19 @@ process.env.ELECTRON_DISABLE_SECURITY_WARNINGS = 'true'
 const { port, host, proxy } = buildConfig
 const devServerOptions: WebpackDevServer.Configuration = {
   host,
-  disableHostCheck: true,
   hot: true,
-  noInfo: true,
   proxy: proxy,
-  clientLogLevel: 'warn',
   historyApiFallback: true,
   compress: true,
+  allowedHosts: 'all',
+  client: {
+    logging: 'warn',
+    overlay: true,
+    progress: true,
+  },
+  devMiddleware: {
+    publicPath: '',
+  },
 }
 
 const electronProcess = new ElectronProcess()
@@ -59,32 +65,14 @@ function startRenderer(): Promise<webpack.Stats> {
     process.env.port = String(buildConfig.port)
     process.env.host = buildConfig.host
 
-    // start - 多入口加载热更新，酌情开启 -----------------------------------------------------
-    // const hotClient = ['webpack-dev-server/client', 'webpack/hot/only-dev-server']
-    // if (typeof webpackConfigRenderer.entry === 'object') {
-    //   Object.keys(webpackConfigRenderer.entry).forEach((name) => {
-    //     if (!webpackConfigRenderer.entry) throw new Error('webpackConfigRenderer.entry')
-    //     const value = webpackConfigRenderer.entry[name]
-    //     if (Array.isArray(value)) {
-    //       value.unshift(...hotClient)
-    //     } else {
-    //       webpackConfigRenderer.entry[name] = [...hotClient, value]
-    //     }
-    //   })
-    // } else {
-    //   webpackConfigRenderer.entry = [...hotClient, webpackConfigRenderer.entry] as string[]
-    // }
-    // end ------------------------------------------------------------------------------------
+    // WebpackDevServer.addDevServerEntrypoints(webpackConfigRenderer, devServerOptions)
 
-    WebpackDevServer.addDevServerEntrypoints(webpackConfigRenderer as Configuration, devServerOptions)
-    webpackConfigRenderer.devtool = 'source-map'
     const rendererCompiler = webpack(webpackConfigRenderer)
     rendererCompiler.hooks.done.tap('done', (stats) => {
-      exConsole.success(`Server renderer start at ${chalk.magenta.underline(`http://${host}:${port}`)}`)
+      exConsole.success(`Server renderer start at ${pc.underline(pc.magenta(`http://${host}:${port}`))}`)
       resolve(stats)
     })
 
-    // @ts-ignore
     const server = new WebpackDevServer(rendererCompiler, devServerOptions)
 
     server.listen(port, host, (err: any) => {

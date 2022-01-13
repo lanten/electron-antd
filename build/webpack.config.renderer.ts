@@ -1,10 +1,10 @@
 import path from 'path'
-import webpack, { Configuration, WebpackPluginInstance } from 'webpack'
+import webpack, { Configuration } from 'webpack'
 
 import WebpackBar from 'webpackbar'
 import htmlWebpackPlugin from 'html-webpack-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
-import OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin'
+import CssMinimizerPlugin from 'css-minimizer-webpack-plugin'
 import tsImportPluginFactory from 'ts-import-plugin'
 
 import webpackConfigBase from './webpack.config.base'
@@ -53,11 +53,11 @@ const webpackConfig: Configuration = {
     rules: [
       {
         test: /(?<!\.d)\.tsx?$/,
-        use: [tsLoader, { loader: 'eslint-loader' }],
+        use: [tsLoader],
       },
       {
         test: /\.jsx?$/,
-        use: [tsLoader, { loader: 'eslint-loader' }],
+        use: [tsLoader],
         exclude: /node_modules/,
       },
       {
@@ -84,26 +84,27 @@ const webpackConfig: Configuration = {
         ],
       },
       {
+        test: /\.(scss|sass)$/,
+        use: [
+          ...styleLoader,
+          {
+            loader: 'sass-loader',
+          },
+        ],
+      },
+      {
         test: /\.css$/,
         use: styleLoader,
       },
       {
         test: /\.(png|jpe?g|gif|svg|swf|woff2?|eot|ttf|otf)(\?.*)?$/,
-        loader: 'file-loader',
-        options: {
-          name: '[name].[ext]',
+        type: 'asset/resource',
+        generator: {
+          filename: '[name].[ext]',
         },
       },
     ],
   },
-
-  // optimization: {
-  //   splitChunks: {
-  //     chunks: 'all',
-  //     name: 'bundle',
-  //   },
-  //   minimizer: [],
-  // },
 
   plugins: [
     ...(webpackConfigBase?.plugins ?? []),
@@ -115,15 +116,20 @@ const webpackConfig: Configuration = {
       filename: '[name].css',
       chunkFilename: '[name].css',
     }),
+
     new WebpackBar({ name: 'Renderer' }),
-  ] as WebpackPluginInstance[],
+  ],
 }
 
 if (NODE_ENV === 'development') {
-  webpackConfig.plugins?.push(new webpack.HotModuleReplacementPlugin(), new webpack.NoEmitOnErrorsPlugin())
+  webpackConfig.devtool = 'eval-source-map' // 高质量 source map
 } else if (NODE_ENV === 'production') {
-  // @ts-ignore
-  webpackConfig.plugins?.push(new OptimizeCSSAssetsPlugin())
+  webpackConfig.optimization = {
+    minimizer: [
+      // https://github.com/webpack-contrib/css-minimizer-webpack-plugin
+      new CssMinimizerPlugin(),
+    ],
+  }
 }
 
 export default webpackConfig

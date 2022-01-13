@@ -1,4 +1,4 @@
-import chalk from 'chalk'
+import pc from 'picocolors'
 import path from 'path'
 import { build as electronBuilder } from 'electron-builder'
 import { clearDir, exConsole } from '../utils'
@@ -13,21 +13,21 @@ const env = process.env.BUILD_ENV as keyof typeof buildConfig.env
 
 async function buildMain() {
   return buildCommon({ env, webpackConfig: webpackConfigMain, type: 'main' }).then(() => {
-    exConsole.success(`[Main Complete] : ${chalk.magenta.underline(path.resolve(buildConfig.dist, 'main'))}`)
+    exConsole.success(`[Main Complete] : ${pc.underline(pc.magenta(path.resolve(buildConfig.dist, 'main')))}`)
   })
 }
 
 async function buildRenderer() {
   return buildCommon({ env, webpackConfig: webpackConfigRenderer, type: 'renderer' }).then(() => {
     exConsole.success(
-      `[Renderer Complete] : ${chalk.magenta.underline(path.resolve(buildConfig.dist, 'renderer'))}`
+      `[Renderer Complete] : ${pc.underline(pc.magenta(path.resolve(buildConfig.dist, 'renderer')))}`
     )
   })
 }
 
 function build() {
   const { dist } = buildConfig
-  exConsole.info(chalk.cyanBright(`[Clear Dir...] : ${chalk.magenta.underline(buildConfig.dist)}`))
+  exConsole.info(pc.bgCyan(`[Clear Dir...] : ${pc.underline(pc.magenta(buildConfig.dist))}`))
 
   try {
     clearDir(dist, false, true)

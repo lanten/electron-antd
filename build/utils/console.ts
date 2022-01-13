@@ -1,4 +1,4 @@
-import chalk from 'chalk'
+import pc from 'picocolors'
 
 const config = {
   INFO: { color: 'bgCyan' },
@@ -14,25 +14,25 @@ export class Console {
     this.log('INFO', message)
   }
   warn(message: string) {
-    this.log('WARN', chalk.yellow(message))
+    this.log('WARN', pc.yellow(message))
   }
   error(message: string | Error, showDetail = false) {
     let messageH: string
     if (message instanceof Error) {
-      messageH = `${chalk.bold(message.name)}: ${message.message}`
+      messageH = `${pc.bold(message.name)}: ${message.message}`
       if (showDetail) messageH = `Detail: ${messageH}\n${message.stack}`
     } else {
       messageH = message
     }
-    this.log('ERROR', chalk.red(messageH))
+    this.log('ERROR', pc.red(messageH))
   }
   success(message: string) {
-    this.log('SUCCESS', chalk.green(message))
+    this.log('SUCCESS', pc.green(message))
   }
 
   log(type: LogTypes, message: string | Error) {
     const conf = config[type]
-    const str = `[${this.getDateStr()}] ${chalk.white[conf.color].bold(this.center(type))} ${message}`
+    const str = `[${this.getDateStr()}] ${pc.bold(pc[conf.color](pc.white(this.center(type))))} ${message}`
 
     console.log(str)
     return str
@@ -67,7 +67,7 @@ export class Console {
       MS: date.getMilliseconds().toString().padStart(3, '0'),
     }
 
-    return `${chalk.hex('#f78c6c')(`${obj.H}:${obj.I}:${obj.S}`)}.${chalk.hex('#b2ccd6')(obj.MS)}`
+    return `${pc.yellow(`${obj.H}:${obj.I}:${obj.S}`)}.${pc.gray(obj.MS)}`
   }
 }
 

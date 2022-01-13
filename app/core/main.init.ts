@@ -8,6 +8,8 @@ export async function initMain(): Promise<void> {
     global.__$api = api
     global.__$store = store
 
+    global.__dirname
+
     resolve()
   })
 }

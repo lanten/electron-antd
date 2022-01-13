@@ -43,7 +43,7 @@ declare global {
     openDevTools?: boolean
     /** 记住窗口关闭时的位置和尺寸, 窗口打开时自动加载 */
     saveWindowBounds?: boolean
-    /** 延迟执行 win.show() 单位：ms 默认：10 (适当的延迟避免 DOM 渲染完成前白屏或闪烁) */
+    /** 延迟执行 win.show() 单位：ms 默认：0 (适当的延迟避免 DOM 渲染完成前白屏或闪烁) */
     delayToShow?: number
     /** 创建完成后自动显示 默认：true */
     autoShow?: boolean

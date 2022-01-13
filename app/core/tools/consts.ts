@@ -47,6 +47,6 @@ export const DEFAULT_CREATE_CONFIG: CreateConfig = {
   showSidebar: false,
   showTitlebar: true,
   autoShow: true,
-  delayToShow: 10,
+  delayToShow: 0,
   single: true,
 }

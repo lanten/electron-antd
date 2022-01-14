@@ -37,9 +37,10 @@ a {
   }
 }
 
-img {
-  // 禁止图片拖动
-  pointer-events: none;
+img,
+[class^='ri-'],
+[class*=' ri-'] {
+  user-select: none;
 }
 
 input,

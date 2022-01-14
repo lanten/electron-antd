@@ -8,7 +8,7 @@ export const APP_NAME = app.name
 export const APP_VERSION = app.getVersion()
 
 /** 应用标题 */
-export const APP_TITLE = 'Electron Antd'
+export const APP_TITLE = process.env.PROJECT_TITLE
 
 /** 应用主图标 (桌面) */
 export const APP_ICON = asAssetsPath('app-icon/app-icon@256.png')

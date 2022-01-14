@@ -8,9 +8,9 @@ const { NODE_ENV, port, host } = process.env
 /** 创建新窗口相关选项 */
 export interface CreateWindowOptions {
   /** 路由启动参数 */
-  params?: any
+  params?: Record<string, any>
   /** URL 启动参数 */
-  query?: any
+  query?: Record<string, any>
   /** BrowserWindow 选项 */
   windowOptions?: BrowserWindowConstructorOptions
   /** 窗口启动参数 */
@@ -29,7 +29,7 @@ export function getWindowUrl(key: RouteName, options: CreateWindowOptions = {}):
 
   if (typeof routePath === 'string' && options.params) {
     routePath = routePath.replace(/\:([^\/]+)/g, (_, $1) => {
-      return options.params[$1]
+      return options.params?.[$1]
     })
   }
 

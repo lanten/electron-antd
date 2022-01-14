@@ -23,7 +23,7 @@ export const COMMON_ENV: CommonEnvVariables = {
   BUILD_ENV: process.env.BUILD_ENV as EnvNames,
   NODE_ENV: process.env.NODE_ENV as CommonEnvVariables['NODE_ENV'],
   PROJECT_NAME: process.env.npm_package_name,
-  PROJECT_TITLE: process.env.npm_package_name,
+  PROJECT_TITLE: 'Electron Antd Template',
 }
 
 export const env: { [key in EnvNames]: EnvVariables } = {

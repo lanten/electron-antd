@@ -87,11 +87,8 @@ export class AppRouter extends React.Component<AppRouterProps, AppRouterState> {
 
   creatRouteItem = (routeConfig: RouteConfig) => {
     const { path, redirectTo, name, ...params } = routeConfig
-
-    const routeProps: RouteProps = {
-      path,
-    }
-
+    const element = pageResource[name] as unknown as Promise<any> | undefined
+    const routeProps: RouteProps = { path }
     const nextProps = {
       name,
       contentRef: this.contentRef,
@@ -102,11 +99,7 @@ export class AppRouter extends React.Component<AppRouterProps, AppRouterState> {
 
     if (redirectTo) {
       routeProps.element = <Navigate to={redirectTo} {...nextProps} />
-    } else {
-      const element = pageResource[name] as unknown as Promise<any> | undefined
-
-      if (!element) return
-
+    } else if (element instanceof Promise) {
       routeProps.element = (
         <RouteCtx>
           {(routeHooksParams) => {
@@ -114,23 +107,11 @@ export class AppRouter extends React.Component<AppRouterProps, AppRouterState> {
           }}
         </RouteCtx>
       )
-
-      return <Route key={name} {...routeProps} />
-
-      // routeProps.render = (props: RouteComponentProps) => {
-      //   const nextProps = {
-      //     name: key,
-      //     currentWindow,
-      //     closeWindow: this.closeWindow,
-      //     query: $tools.getQuery(props.location.search),
-      //     ...props,
-      //     ...params,
-      //   }
-      //   return <Comp {...nextProps} />
-      // }
+    } else {
+      throw new Error(`Route config error! \n ${JSON.stringify(routeConfig, undefined, 2)}`)
     }
 
-    return <Route {...routeProps} />
+    return <Route key={name} {...routeProps} />
   }
 
   closeWindow = (): void => {

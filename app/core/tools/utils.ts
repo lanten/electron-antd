@@ -23,10 +23,13 @@ export function formatDate(date: Date = new Date(), format = 'YYYY-MM-DD H:I:S.M
  * 获取 url 参数
  * @param search
  */
-export function getQuery(search = window.location.search): AnyObj {
-  const query: AnyObj = {}
-  search
-    .substr(1)
+export function getQuery(search: string) {
+  const query: Record<string, any> = {}
+
+  const searchH = search[0] === '?' ? search.substring(1) : search
+
+  searchH
+    .trim()
     .split('&')
     .forEach((str) => {
       const strArr = str.split('=')
@@ -35,14 +38,14 @@ export function getQuery(search = window.location.search): AnyObj {
       if (!key) return
 
       let val = decodeURIComponent(strArr[1])
+
       try {
-        val = JSON.parse(val)
-      } catch (err) {}
-
-      if (typeof val === 'number') {
-        if (!Number.isSafeInteger(val)) val = decodeURIComponent(strArr[1])
+        if ((val.startsWith('{') || val.startsWith('[')) && (val.endsWith('}') || val.endsWith(']'))) {
+          val = JSON.parse(val)
+        }
+      } catch (err) {
+        $tools.log.error(err)
       }
-
       query[key] = val
     })
   return query
@@ -52,7 +55,9 @@ export function getQuery(search = window.location.search): AnyObj {
  * 转换成 url search
  * @param obj
  */
-export function toSearch(obj: AnyObj): string {
+export function toSearch(obj: Record<string, any>): string {
+  if (typeof obj === 'string') return obj
+
   const arr = Object.keys(obj).map((key) => {
     let val = obj[key]
 

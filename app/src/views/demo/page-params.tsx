@@ -1,20 +1,18 @@
 import React from 'react'
 
-export default class PageParams extends React.Component<PageProps> {
-  get pageParams(): string {
-    return JSON.stringify(this.props.params)
-  }
+const PageParams: React.FC<PageProps> = (props) => {
+  const pageParams = JSON.stringify(props.params)
+  const pageQuery = JSON.stringify(props.query)
 
-  get pageQuery(): string {
-    return JSON.stringify(this.props.query)
-  }
+  console.log('PageParams', props.params)
+  console.log('PageQuery', props.query)
 
-  render(): JSX.Element {
-    return (
-      <div className="page-params layout-padding">
-        <p>Params: {this.pageParams}</p>
-        <p>Query: {this.pageQuery}</p>
-      </div>
-    )
-  }
+  return (
+    <div className="page-params layout-padding">
+      <p>Params: {pageParams}</p>
+      <p>Query: {pageQuery}</p>
+    </div>
+  )
 } // class PageParams end
+
+export default PageParams

@@ -13,7 +13,7 @@ export const trayMenus: MenuItemConstructorOptions[] = [
     click: (): void => {
       $tools.createWindow('PageParams', {
         params: { test: 'test-params' },
-        query: { testObj: { aa: ['bb', 'cc'] } },
+        query: { testObj: JSON.stringify({ aa: ['bb', 'cc'] }) },
       })
     },
   },

@@ -20,16 +20,16 @@ export class AppSidebar extends React.Component<unknown, State> {
     activeMenuKey: AppSideMenus[0]?.key,
   }
 
-  componentDidMount(): void {
+  componentDidMount() {
     window.addEventListener('router-update', this.onRouterUpdate)
   }
 
-  onRouterUpdate = (e: CustomEventMap['router-update']): void => {
+  onRouterUpdate = (e: CustomEventMap['router-update']) => {
     const routeProps: PageProps = e.detail
     this.setState({ activeMenuKey: routeProps.name })
   }
 
-  render(): JSX.Element {
+  render() {
     return (
       <div className="app-sidebar">
         <div className="flex center app-sidebar-header">
@@ -41,7 +41,7 @@ export class AppSidebar extends React.Component<unknown, State> {
     )
   }
 
-  renderMenuItem = ({ key, icon, title, href }: SideMenuItem): JSX.Element => {
+  renderMenuItem = ({ key, icon, title, href }: SideMenuItem) => {
     const { activeMenuKey } = this.state
     const isActive = activeMenuKey === key
 
@@ -56,7 +56,7 @@ export class AppSidebar extends React.Component<unknown, State> {
     )
   }
 
-  componentWillUnmount(): void {
+  componentWillUnmount() {
     window.removeEventListener('router-update', this.onRouterUpdate)
   }
 } // class AppSidebar end

@@ -13,7 +13,7 @@
   },
   {
     "key": "PageParams",
-    "href": "#/page-params/ok?obj={ss:['1',2,3]}",
+    "href": "#/page-params/ok?obj={\"ss\":[\"1\",2,3]}",
     "title": "Page Params",
     "icon": "flask"
   },

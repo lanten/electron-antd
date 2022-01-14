@@ -55,21 +55,54 @@ declare global {
     created?: (win: BrowserWindow) => void
   }
 
+  interface RouteMenuConfig {
+    /** 菜单文字说明 */
+    tooltip?: string
+    /** 菜单图标 https://remixicon.com/ */
+    icon?: string
+    /** 排序控制 */
+    index?: number
+  }
+
   /** 路由配置规范 */
   interface RouteConfig extends Omit<RouteProps, 'children' | 'element'>, CreateConfig {
-    element?: Promise<any>
-    /** 是否静态 */
-    isStatic?: boolean
     /** 页面资源 name, 对应 page-resource 中的变量名 */
     name: RouteName
+    /** 是否静态 */
+    isStatic?: boolean
     /** 重定向 */
     redirectTo?: string
     /** 自定义参数, 视情况而定 */
     type?: string
+
     /** 以 createWindow 打开时, 加载的 BrowserWindow 选项 */
     windowOptions?: BrowserWindowConstructorOptions
     /** 新窗口启动参数 */
     createConfig?: CreateConfig
+
+    /**
+     * 侧边菜单相关配置
+     * 设为 false 不显示
+     * 默认：void
+     */
+    sideMenu?: RouteMenuConfig | boolean
+    /**
+     * 子路由
+     * 子路由 path 与父级不存在嵌套关系
+     */
+    routes?: RouteConfig[]
+    /**
+     * 父级路由
+     * 用于控制菜单层级
+     * auto-routes 会根据 RouteConfig 层级自动注入，无需手动声明
+     */
+    parent?: RouteConfig
+    /**
+     * 嵌套层级路径，路由 name 的数组
+     * 用明确路由嵌套层级
+     * auto-routes 会根据 RouteConfig 层级自动注入，无需手动声明
+     */
+    parentNamePath?: string[]
   }
 
   type RouterHook = (props: PageProps, next: () => void) => boolean | void | Promise<boolean | void>

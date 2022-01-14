@@ -1,5 +1,12 @@
 const routes: RouteConfig[] = [
   {
+    name: 'NoMatch',
+    path: '*',
+    windowOptions: {
+      title: 'Page Error',
+    },
+  },
+  {
     name: 'AlertModal',
     path: '/alert-modal',
     windowOptions: {

@@ -1,5 +1,5 @@
 import React from 'react'
-import $c from 'classnames'
+import clsx from 'clsx'
 import { LogFile, LogReader, LogDetailLine } from './log-reader'
 
 import './log-viewer.less'
@@ -46,7 +46,7 @@ export default class LogViewer extends React.Component<Props, State> {
           {logFiles.map((v) => (
             <li
               key={v.name}
-              className={$c({ active: v.name === activeFile.name })}
+              className={clsx({ active: v.name === activeFile.name })}
               onClick={() => activeFile.name !== v.name && this.openLogFile(v)}
             >
               {v.name}

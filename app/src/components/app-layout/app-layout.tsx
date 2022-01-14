@@ -1,5 +1,5 @@
 import React from 'react'
-import $c from 'classnames'
+import clsx from 'clsx'
 
 import { AppTitlebar, AppSidebar } from '../'
 
@@ -15,7 +15,7 @@ export class AppLayout extends React.Component<AppLayoutProps> {
     const { createConfig } = this.props
     return (
       <div
-        className={$c(
+        className={clsx(
           'flex app-layout',
           { 'has-titlebar': createConfig.showTitlebar, 'has-sidebar': createConfig.showSidebar },
           process.platform

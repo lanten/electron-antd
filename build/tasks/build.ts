@@ -27,7 +27,7 @@ async function buildRenderer() {
 
 function build() {
   const { dist } = buildConfig
-  exConsole.info(pc.bgCyan(`[Clear Dir...] : ${pc.underline(pc.magenta(buildConfig.dist))}`))
+  exConsole.info(`[Clear Dir...] : ${buildConfig.dist}`)
 
   try {
     clearDir(dist, false, true)

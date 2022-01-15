@@ -44,12 +44,11 @@ export class LogReader {
   }
 
   /** 打开并监听日志文件 */
-  openLogFile(file: LogFile, listener: (detail: LogDetailLine[]) => void): void {
+  watchingLogFile(file: LogFile, listener: (detail: LogDetailLine[]) => void): void {
     listener(this.getLogDetail(file))
 
     if (this.watcher) {
-      this.watcher.close()
-      this.watcher = undefined
+      this.closeWatcher()
     }
 
     this.watcher = fs.watch(file.absolutePath, (event, filename) => {
@@ -89,9 +88,18 @@ export class LogReader {
         })
       this.oldLogDetail = detailStr
     } else {
-      this.oldLogDetail = ''
+      this.resetDetailHistory()
     }
 
     return res
+  }
+
+  closeWatcher() {
+    this.watcher?.close()
+    this.watcher = undefined
+  }
+
+  resetDetailHistory() {
+    this.oldLogDetail = ''
   }
 }

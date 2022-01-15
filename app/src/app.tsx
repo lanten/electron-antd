@@ -1,14 +1,16 @@
 import * as React from 'react'
-import { ConfigProvider } from 'antd'
+import { ConfigProvider, Spin } from 'antd'
 import zhCN from 'antd/es/locale/zh_CN'
 
-import { AppRouter, AppLayout } from '@/src/components'
+import { AppRouter, AppLayout, Loader } from '@/src/components'
 
 import routes from './auto-routes'
 
 interface AppProps {
   createConfig: CreateConfig
 }
+
+Spin.setDefaultIndicator(<Loader />)
 
 export default class App extends React.Component<AppProps> {
   render(): JSX.Element {

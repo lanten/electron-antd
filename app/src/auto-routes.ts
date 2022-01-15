@@ -39,8 +39,6 @@ function flatRoutes(routes: RouteConfig | RouteConfig[], parent?: RouteConfig) {
   })
 }
 
-console.log(routes)
-
 /**
  * 添加一个路由
  * @param conf

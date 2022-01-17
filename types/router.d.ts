@@ -36,7 +36,7 @@ declare global {
   /** 新窗口启动参数 */
   interface CreateConfig {
     /** 显示标题栏 默认 true */
-    showTitlebar?: boolean
+    showCustomTitlebar?: boolean
     /** 显示侧边栏 默认 false */
     showSidebar?: boolean
     /** 以新窗口打开时是否启动 DevTools */

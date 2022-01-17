@@ -1,5 +1,7 @@
 import path from 'path'
 import { BrowserWindow, BrowserWindowConstructorOptions } from 'electron'
+import { enable as enableRemote } from '@electron/remote/main'
+
 import { log } from '../log'
 import routes from '@/src/auto-routes'
 
@@ -63,6 +65,10 @@ export function createWindow(key: RouteName, options: CreateWindowOptions = {}):
       ...options.createConfig,
     }
 
+    if (createConfig.showCustomTitlebar) {
+      windowOptions.frame = false
+    }
+
     let activeWin: BrowserWindow | boolean
     if (createConfig.single) {
       activeWin = activeWindow(key)
@@ -87,7 +93,7 @@ export function createWindow(key: RouteName, options: CreateWindowOptions = {}):
     if (createConfig.hideMenus) win.setMenuBarVisibility(false)
     if (createConfig.created) createConfig.created(win)
 
-    require('@electron/remote/main').enable(win.webContents)
+    enableRemote(win.webContents)
 
     win.webContents.on('dom-ready', () => {
       win.webContents.send('dom-ready', createConfig)

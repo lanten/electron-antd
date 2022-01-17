@@ -19,7 +19,7 @@ export const trayMenus: MenuItemConstructorOptions[] = [
   },
 
   {
-    label: 'Demo',
+    label: 'Demo - Custom Titlebar',
     click: (): void => {
       $tools.createWindow('Demo')
     },

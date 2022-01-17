@@ -4,6 +4,7 @@ const routes: RouteConfig[] = [
     path: '/demo',
     createConfig: {
       single: false,
+      showCustomTitlebar: true,
     },
   },
   {

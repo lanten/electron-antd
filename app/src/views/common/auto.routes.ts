@@ -16,7 +16,6 @@ const routes: RouteConfig[] = [
       resizable: false,
     },
     createConfig: {
-      showTitlebar: false,
       hideMenus: true,
     },
   },

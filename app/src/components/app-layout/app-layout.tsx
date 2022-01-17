@@ -17,13 +17,13 @@ export class AppLayout extends React.Component<AppLayoutProps> {
       <div
         className={clsx(
           'flex app-layout',
-          { 'has-titlebar': createConfig.showTitlebar, 'has-sidebar': createConfig.showSidebar },
+          { 'has-titlebar': createConfig.showCustomTitlebar, 'has-sidebar': createConfig.showSidebar },
           process.platform
         )}
       >
         {createConfig.showSidebar ? <AppSidebar /> : null}
         <div className="flex-1 app-content-wrap">
-          {createConfig.showTitlebar ? <AppTitlebar /> : null}
+          {createConfig.showCustomTitlebar ? <AppTitlebar /> : null}
           <div className="app-content">{this.props.children}</div>
         </div>
       </div>

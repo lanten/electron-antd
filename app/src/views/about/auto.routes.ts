@@ -12,7 +12,6 @@ const routes: RouteConfig[] = [
       height: 240,
     },
     createConfig: {
-      showTitlebar: true,
       hideMenus: true,
     },
   },

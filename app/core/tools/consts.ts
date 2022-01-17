@@ -35,17 +35,17 @@ export const DEFAULT_WINDOW_OPTIONS: BrowserWindowConstructorOptions = {
   },
   titleBarStyle: 'hidden', // 隐藏标题栏, 但显示窗口控制按钮
   // frame: process.platform === 'darwin' ? true : false, // 无边框窗口
-  frame: false, // 无边框窗口
+  // frame: false, // 无边框窗口
   // skipTaskbar: false, // 是否在任务栏中隐藏窗口
   // backgroundColor: '#fff',
   // transparent: true, // 窗口是否透明
   // titleBarStyle: 'hidden',
-  // vibrancy: 'fullscreen-ui', // 毛玻璃效果
+  // vibrancy: 'fullscreen-ui', // OSX 毛玻璃效果
 }
 
 export const DEFAULT_CREATE_CONFIG: CreateConfig = {
   showSidebar: false,
-  showTitlebar: true,
+  showCustomTitlebar: false,
   autoShow: true,
   delayToShow: 0,
   single: true,

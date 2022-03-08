@@ -1,10 +1,10 @@
 import { getGlobal } from '@electron/remote'
 
 export function initRenderer(): void {
-  // @ts-ignore
   global.__$tools = getGlobal('__$tools')
-  // @ts-ignore
-  global.__$api = getGlobal('__$api')
-  // @ts-ignore
+
+  // global.__$api = require('./api') // 渲染进程独立加载API函数
+  global.__$api = getGlobal('__$api') // 共享主进程函数，这将导致devtools无法调试
+
   global.__$store = getGlobal('__$store')
 }

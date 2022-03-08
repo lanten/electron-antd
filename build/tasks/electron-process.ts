@@ -16,15 +16,13 @@ export default class ElectronProcess {
   start(): void {
     if (this.isRestart) {
       exConsole.info('Electron main process is restarting...')
-      if (this.process && this.process.pid) {
+      if (this.process) {
         try {
-          process.kill(this.process.pid)
+          this.process.kill()
           this.process = undefined
         } catch (error) {
           exConsole.warn(error)
         }
-      } else {
-        exConsole.warn('Failed to restart: Main process does not exist.')
       }
     }
 

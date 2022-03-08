@@ -7,7 +7,3 @@ export const store = createStore<StoreStates, StoreAction<StoreDatasKeys>, unkno
   initialState,
   applyMiddleware(thunk)
 )
-
-declare global {
-  type AppStore = typeof store
-}

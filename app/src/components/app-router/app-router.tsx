@@ -19,7 +19,7 @@ import { beforeRouter } from './router-hooks'
 
 interface AppRouterProps {
   routes: Map<string, RouteConfig>
-  store: AppStore
+  store: StoreType
 }
 
 interface AppRouterState {

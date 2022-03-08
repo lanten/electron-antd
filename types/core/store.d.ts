@@ -1,6 +1,8 @@
 import { AnyAction } from 'redux'
+import { store } from '@/core/store'
 
 declare global {
+  type StoreType = typeof store
   type StoreDatasKeys = keyof StoreDatas
   type StoreStateKeys = keyof StoreStates
 
@@ -32,5 +34,8 @@ declare global {
    * @source app/core/store
    * @define build/webpack.config.base.ts#L39
    */
-  const $store: AppStore
+  const $store: StoreType
+
+  // eslint-disable-next-line no-var
+  var __$store: StoreType
 }

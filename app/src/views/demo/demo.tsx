@@ -3,8 +3,7 @@ import { Button, Input, Spin, Card } from 'antd'
 
 import { withStore } from '@/core/store'
 
-interface DemoProps extends PageProps, StoreProps {
-  count: StoreStates['count']
+interface DemoProps extends PageProps, StoreProps, Pick<StoreStates, 'count'> {
   countAlias: StoreStates['count']
 }
 
@@ -17,7 +16,6 @@ declare interface DemoState {
 
 @withStore(['count', { countAlias: 'count' }])
 export default class Demo extends React.Component<DemoProps, DemoState> {
-  // state 初始化
   state: DemoState = {
     resData: {},
     loading: false,
@@ -25,7 +23,6 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
     asyncDispatchLoading: false,
   }
 
-  // 构造函数
   constructor(props: DemoProps) {
     super(props)
   }
@@ -34,7 +31,7 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
     console.log(this)
   }
 
-  render(): JSX.Element {
+  render() {
     const { resData, loading, createWindowLoading, asyncDispatchLoading } = this.state
     const { count: reduxCount, countAlias } = this.props
     return (
@@ -153,4 +150,4 @@ export default class Demo extends React.Component<DemoProps, DemoState> {
       })
       .finally(() => this.setState({ loading: false }))
   }
-} // class Demo end
+}

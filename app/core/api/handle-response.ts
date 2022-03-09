@@ -8,21 +8,25 @@ import { Notification, BrowserWindow } from 'electron'
  * @param sendData
  * @param options
  */
-export async function errorAction(err: AnyObj, sendData: AnyObj, options: RequestOptions): Promise<void> {
-  const { code, message } = err
+export async function errorActionHandler<T extends RequestRes>(
+  err: T,
+  sendData: RequestOptions,
+  options: RequestOptions
+): Promise<void> {
+  const { code, message, isAxiosError } = err
   const { errorType } = options
 
-  $tools.log.error(`[request:${code}] [${errorType}]`, err)
+  $tools.log.error(`[request:${code}] [${errorType}]`, { sendData, response: isAxiosError ? message : err })
 
   switch (code) {
     // 跳转到未登录页
     case 30000:
-      // ...
+      // TODO do something or delete ...
       break
 
     // 无权限跳转
     case 30002:
-      // ...
+      // TODO do something or delete ...
       break
 
     default:

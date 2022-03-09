@@ -22,42 +22,33 @@ export function formatDate(date: Date = new Date(), format = 'YYYY-MM-DD H:I:S.M
 /**
  * 获取 url 参数
  * @param search
+ * @returns
  */
-export function getQuery(search: string) {
-  const query: Record<string, any> = {}
+export function getQuery(search = window.location.search) {
+  const query: AnyObj = {}
 
-  const searchH = search[0] === '?' ? search.substring(1) : search
+  const searchH = search[0] === '?' ? search.substr(1) : search
 
-  searchH
-    .trim()
-    .split('&')
-    .forEach((str) => {
-      const strArr = str.split('=')
-      const key = strArr[0]
+  searchH.split('&').forEach((str) => {
+    const strArr = str.split('=')
+    const key = strArr[0]
 
-      if (!key) return
+    if (!key) return
 
-      let val = decodeURIComponent(strArr[1])
+    const val = decodeURIComponent(strArr[1])
 
-      try {
-        if ((val.startsWith('{') || val.startsWith('[')) && (val.endsWith('}') || val.endsWith(']'))) {
-          val = JSON.parse(val)
-        }
-      } catch (err) {
-        $tools.log.error(err)
-      }
-      query[key] = val
-    })
+    query[key] = val
+  })
   return query
 }
 
 /**
  * 转换成 url search
  * @param obj
+ * @param hasQuestionMark
+ * @returns
  */
-export function toSearch(obj: Record<string, any>): string {
-  if (typeof obj === 'string') return obj
-
+export function toSearch<T = AnyObj>(obj: T, hasQuestionMark = true) {
   const arr = Object.keys(obj).map((key) => {
     let val = obj[key]
 
@@ -71,5 +62,5 @@ export function toSearch(obj: Record<string, any>): string {
 
     return `${key}=${encodeURIComponent(val)}`
   })
-  return '?' + arr.join('&')
+  return (hasQuestionMark ? '?' : '') + arr.join('&')
 }

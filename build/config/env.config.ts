@@ -4,7 +4,7 @@ export type EnvNames = typeof envNames[number]
 
 export interface EnvVariables {
   /** API 地址 */
-  API_GATEWAY?: string
+  API_BASE?: string
 }
 
 export interface CommonEnvVariables {
@@ -29,11 +29,11 @@ export const COMMON_ENV: CommonEnvVariables = {
 export const env: { [key in EnvNames]: EnvVariables } = {
   // dev 环境变量 (npm run dev 将使用此配置)
   dev: {
-    API_GATEWAY: 'http://yapi.baidu.com/mock/17714',
+    API_BASE: 'http://yapi.baidu.com/mock/17714',
   },
 
   // prod 环境变量 (npm run build 将使用此配置)
   prod: {
-    API_GATEWAY: 'http://yapi.baidu.com/mock/17714',
+    API_BASE: 'http://yapi.baidu.com/mock/17714',
   },
 }

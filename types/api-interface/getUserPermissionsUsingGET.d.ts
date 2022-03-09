@@ -3,7 +3,7 @@ declare namespace queryTestInfoUsingGET {
 
   interface Response {
     code: number
-    status: boolean
+    message: string
     data: {
       info: string
     }

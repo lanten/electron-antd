@@ -1,3 +1,5 @@
+> ⚠ No longer maintained, it is recommended to use [electron-vite-react](https://github.com/electron-vite/electron-vite-react)
+> 
 ## Quick start
 install
 ```bash
